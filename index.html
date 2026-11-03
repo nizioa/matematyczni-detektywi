@@ -165,13 +165,94 @@ $("questionText").textContent=regionData[grade][region][1]==="numbers"?"Wpisz 1,
 $("question").textContent=qs[qi].op===">"?`${qs[qi].a} ? ${qs[qi].b}`:`${qs[qi].a} ${qs[qi].op} ${qs[qi].b} = ?`;
 $("answer").value="";$("feedback").textContent="";$("hintText").textContent="";$("nextBtn").classList.add("hidden");$("checkBtn").disabled=false;$("gameSpeech").textContent="Uważnie zbadaj trop. Wierzę w Ciebie!";$("answer").focus()
 }
-function checkAnswer(){
-if(answered)return;let q=qs[qi],v=$("answer").value.trim();
-if(v!==""&&Number(v)===q.ans){answered=true;$("feedback").textContent="Brawo! Poprawny trop! +10 XP ⭐";$("feedback").className="feedback good";$("gameSpeech").textContent="Świetna robota!";earned+=10;correct++;$("checkBtn").disabled=true;$("nextBtn").classList.remove("hidden")}
-else{$("feedback").textContent="Jeszcze nie! Sprawdź trop i spróbuj ponownie.";$("feedback").className="feedback bad";$("gameSpeech").textContent="Pomyłka to kolejny trop. Spróbuj spokojnie."}
+// ===== KOMUNIKATY MIKIEGO =====
+
+const komunikatyMikiego = {
+  sukces: [
+    "Świetnie rozpracowany trop!",
+    "Brawo, detektywie!",
+    "Trop trafiony!",
+    "Ale masz oko do liczb!",
+    "Miki jest pod wrażeniem!",
+    "Kolejna zagadka rozwiązana!",
+    "Perfekcyjna robota!",
+    "Wiedziałem, że sobie poradzisz!",
+    "Ale błyskotliwy umysł!",
+    "Detektywistyczne mistrzostwo!",
+    "Znakomicie! Ruszamy dalej!",
+    "Nasza misja posuwa się naprzód!",
+    "Trop odkryty!",
+    "Twoja matematyczna moc rośnie!",
+    "Takiego detektywa potrzebowałem!"
+  ],
+
+  blad: [
+    "Hmm… sprawdźmy ten trop jeszcze raz.",
+    "Prawie! Spróbuj ponownie.",
+    "Detektywie, przyjrzyj się jeszcze raz.",
+    "Coś tu nie pasuje…",
+    "Nie poddawaj się!",
+    "Każdy detektyw czasem sprawdza trop ponownie.",
+    "Jeszcze jedna próba!",
+    "Spokojnie, zagadka jeszcze nie ucieknie!",
+    "Może warto spojrzeć na to inaczej?",
+    "Nie trać czujności!",
+    "Ten trop wymaga jeszcze chwili!",
+    "Spróbuj ponownie, wierzę w Ciebie!",
+    "Czasem trzeba zbadać trop dwa razy!",
+    "Nie wszystko odkrywamy za pierwszym razem!",
+    "Głowa do góry! Działamy dalej!"
+  ],
+
+  podpowiedz: [
+    "Mała wskazówka:",
+    "Oto drobny trop:",
+    "Miki podrzuca wskazówkę:",
+    "Może ten trop Ci pomoże:",
+    "Czas na małą podpowiedź:",
+    "Podpowiedź detektywa:"
+  ]
+};
+
+const poprzednieKomunikatyMikiego = {};
+
+function losujKomunikatMikiego(typ) {
+  const lista = komunikatyMikiego[typ];
+  if (!lista) return "";
+
+  let indeks;
+  do {
+    indeks = Math.floor(Math.random() * lista.length);
+  } while (
+    lista.length > 1 &&
+    indeks === poprzednieKomunikatyMikiego[typ]
+  );
+
+  poprzednieKomunikatyMikiego[typ] = indeks;
+  return lista[indeks];
 }
+
+// ===== SPRAWDZANIE ODPOWIEDZI =====
+
+function checkAnswer(){
+  if(answered) return;
+
+  let v=$("answer").value.trim();
+
+  if(v!=="" && Number(v)===q.ans){
+    answered=true;
+    $("feedback").textContent=losujKomunikatMikiego("sukces");
+  }else{
+    $("feedback").textContent=losujKomunikatMikiego("blad");
+  }
+}
+
+// ===== PODPOWIEDŹ MIKIEGO =====
+
 function hint(){
-let q=qs[qi];$("hintText").textContent=q.op==="−"?`Odejmowanie to zabieranie. Policz, ile zostaje po zabraniu ${q.b} z ${q.a}.`:q.op==="+"?`Zacznij od ${q.a} i dolicz ${q.b}.`:q.op===">"?`Porównaj ${q.a} i ${q.b}.`:`Miki: ${q.op} oznacza ${q.op==="×"?"jednakowe grupy":"dzielenie na równe części"}.`
+  let q=qs[qi];
+  $("hintText").textContent=
+    losujKomunikatMikiego("podpowiedz")+" "+q.hint;
 }
 $("answer").addEventListener("keydown",e=>{if(e.key==="Enter")checkAnswer()});
 function nextQ(){if(!answered)return;qi++;if(qi<5)renderQ();else finish()}
