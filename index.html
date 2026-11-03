@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matematyczni Detektywi</title>
+
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#10152f,#24104b);
+color:white;
+text-align:center;
+}
+header{
+padding:25px 15px;
+background:#151b3d;
+border-bottom:3px solid #00eaff;
+}
+h1{color:#ffd43b;font-size:clamp(26px,5vw,42px)}
+h2{color:#00eaff}
+.container{max-width:850px;margin:auto;padding:20px}
+.card{
+background:#202653;
+border:2px solid #704cff;
+border-radius:22px;
+padding:25px;
+margin:20px 0;
+box-shadow:0 0 20px #4d2aff55;
+}
+button{
+border:0;
+border-radius:14px;
+padding:15px 22px;
+margin:8px;
+font-size:18px;
+font-weight:bold;
+cursor:pointer;
+background:#00d9ff;
+color:#10152f;
+}
+button:hover{transform:scale(1.03)}
+input{
+padding:14px;
+font-size:22px;
+width:160px;
+border-radius:12px;
+text-align:center;
+}
+.hidden{display:none}
+.badge{color:#ffd43b;font-size:22px}
+#feedback{font-size:20px;min-height:60px;margin:20px}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🕵️ MATEMATYCZNI DETEKTYWI</h1>
+<p>Rozwiąż zagadkę. Zdobądź XP. Zostań mistrzem!</p>
+</header>
+
+<div class="container">
+
+<div class="card" id="start">
+<h2>🤖 Witaj w Akademii Detektywów!</h2>
+<p>Wybierz swoją klasę:</p>
+<button onclick="startGame(1)">Klasa 1</button>
+<button onclick="startGame(2)">Klasa 2</button>
+<button onclick="startGame(3)">Klasa 3</button>
+</div>
+
+<div class="card hidden" id="game">
+<h2 id="mission">🔎 Misja 1</h2>
+<p id="level">Poziom 1</p>
+<p class="badge">⭐ XP: <span id="xp">0</span></p>
+<p id="question" style="font-size:35px"></p>
+<input id="answer" type="number" placeholder="Odpowiedź">
+<br>
+<button onclick="checkAnswer()">Sprawdź!</button>
+<div id="feedback"></div>
+<p id="progress"></p>
+</div>
+
+<div class="card hidden" id="finish">
+<h2>🏆 MISJA UKOŃCZONA!</h2>
+<p>Gratulacje, detektywie!</p>
+<p class="badge">Zdobywasz odznakę: Detektyw Liczb!</p>
+<button onclick="location.reload()">Zagraj ponownie</button>
+</div>
+
+</div>
+
+<script>
+let klasa=1;
+let poziom=1;
+let zadanie=0;
+let poprawne=0;
+let bledy=0;
+let xp=0;
+let questions=[];
+
+function startGame(k){
+klasa=k;
+document.getElementById("start").classList.add("hidden");
+document.getElementById("game").classList.remove("hidden");
+document.getElementById("mission").innerText="🔎 Misja: Zaginiony kod";
+loadLevel();
+}
+
+function loadLevel(){
+zadanie=0;
+poprawne=0;
+bledy=0;
+
+let max=klasa===1?20:klasa===2?100:1000;
+questions=[];
+
+for(let i=0;i<10;i++){
+let a=Math.floor(Math.random()*(max/2));
+let b=Math.floor(Math.random()*(max/2));
+questions.push({a:a,b:b,result:a+b});
+}
+
+showQuestion();
+}
+
+function showQuestion(){
+document.getElementById("level").innerText="Poziom "+poziom+" • Zadanie "+(zadanie+1)+"/10";
+document.getElementById("question").innerText=questions[zadanie].a+" + "+questions[zadanie].b+" = ?";
+document.getElementById("answer").value="";
+document.getElementById("feedback").innerText="";
+document.getElementById("progress").innerText="Poprawne: "+poprawne+" • Błędy: "+bledy;
+}
+
+function checkAnswer(){
+let val=Number(document.getElementById("answer").value);
+let q=questions[zadanie];
+
+if(document.getElementById("answer").value===""){
+document.getElementById("feedback").innerText="Wpisz odpowiedź, detektywie!";
+return;
+}
+
+if(val===q.result){
+poprawne++;
+xp+=10;
+document.getElementById("xp").innerText=xp;
+document.getElementById("feedback").innerText="🎉 BRAWO! +10 XP";
+}else{
+bledy++;
+document.getElementById("feedback").innerText="🔍 Sprawdź jeszcze raz! "+q.a+" + "+q.b;
+}
+
+if(bledy>=3){
+document.getElementById("feedback").innerText="🕵️ 3 błędy! Trening detektywa przed kolejną próbą.";
+document.getElementById("answer").disabled=true;
+document.querySelector("#game button").disabled=true;
+return;
+}
+
+if(poprawne>=8){
+poziom++;
+document.getElementById("feedback").innerText="🏆 Poziom zaliczony! Odblokowujesz kolejny!";
+setTimeout(loadLevel,1800);
+return;
+}
+
+zadanie++;
+if(zadanie>=10){
+document.getElementById("feedback").innerText="Koniec zadań. Spróbuj ponownie!";
+return;
+}
+
+setTimeout(showQuestion,1200);
+}
+</script>
+
+</body>
+</html>
