@@ -5,140 +5,67 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Matematyczni Detektywi</title>
 <style>
-:root{
---navy:#07152e;
---panel:#10254a;
---panel2:#18365f;
---cyan:#5be7f5;
---gold:#ffd166;
---purple:#b49aff;
---white:#f4f7ff;
---muted:#bdcbe5;
---green:#7ee6a8;
---red:#ff9aa9;
-}
+:root{--navy:#07152e;--panel:#10254a;--cyan:#5be7f5;--gold:#ffd166;--white:#f4f7ff;--muted:#bdcbe5;--green:#7ee6a8;--red:#ff9aa9}
 *{box-sizing:border-box}
-body{
-margin:0;color:var(--white);
-font:16px/1.5 system-ui,Segoe UI,Arial;
-background:radial-gradient(ellipse at top,#214c82,var(--navy) 65%);
-min-height:100vh
-}
+body{margin:0;color:var(--white);font:16px/1.5 system-ui,Arial;background:radial-gradient(ellipse at top,#214c82,var(--navy) 65%);min-height:100vh}
 header{text-align:center;padding:25px 12px 8px}
-h1{color:var(--cyan);font-size:clamp(1.8rem,5vw,3rem);margin:0;text-shadow:0 0 18px #5be7f544}
-header p{color:var(--muted);margin:8px}
+h1{color:var(--cyan);font-size:clamp(1.8rem,5vw,3rem);margin:0}
+header p{color:var(--muted)}
 main{max-width:1000px;margin:auto;padding:12px}
-.panel{
-background:linear-gradient(145deg,#10254af2,#0b1b38f5);
-border:1px solid #5be7f544;border-radius:22px;
-padding:20px;margin:14px 0;box-shadow:0 12px 35px #0003
-}
-h2{color:var(--cyan);margin:0 0 12px}
+.panel{background:linear-gradient(145deg,#10254af2,#0b1b38f5);border:1px solid #5be7f544;border-radius:22px;padding:20px;margin:14px 0;box-shadow:0 12px 35px #0003}
+h2{color:var(--cyan);margin-top:0}
 h3{color:var(--gold)}
-button{
-cursor:pointer;border:0;border-radius:13px;padding:12px 17px;
-font-weight:750;font-size:1rem;
-background:linear-gradient(135deg,var(--cyan),#85baff);
-color:#07152e;box-shadow:0 4px 0 #24638c;margin:4px
-}
-button.secondary{background:#284574;color:white;box-shadow:0 4px 0 #142747;border:1px solid #5576a8}
-button.gold{background:linear-gradient(135deg,#ffe39b,var(--gold));box-shadow:0 4px 0 #9a6b16}
+button{cursor:pointer;border:0;border-radius:13px;padding:12px 17px;font-weight:750;font-size:1rem;background:linear-gradient(135deg,var(--cyan),#85baff);color:#07152e;margin:4px}
+button.secondary{background:#284574;color:white;border:1px solid #5576a8}
+button.gold{background:linear-gradient(135deg,#ffe39b,var(--gold))}
+button:disabled{opacity:.45;cursor:not-allowed}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-.tile{background:#10264b;border:1px solid #45669b;border-radius:17px;padding:16px}
-.tile p{color:var(--muted)}
-.muted{color:var(--muted)}
+.tile,.lessonbox{background:#0a1b38;border:1px solid #45669b;border-radius:15px;padding:15px;margin:10px 0}
+.tile p,.muted{color:var(--muted)}
 .hidden{display:none!important}
 .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-.row>*{flex:1}
 .mikirow{display:flex;gap:14px;align-items:flex-start}
 .robot{font-size:3.2rem;min-width:75px;text-align:center;background:#07152e;border:2px solid var(--cyan);border-radius:18px;padding:7px}
 .speech{background:#19365f;border-radius:17px;padding:15px;flex:1}
-.lessonbox{background:#0a1b38;border:1px solid #45669b;border-radius:15px;padding:15px;margin:12px 0}
 .math{font-size:clamp(1.5rem,5vw,2.3rem);text-align:center;color:var(--gold);padding:12px}
 input{background:#07152e;border:1px solid #5d7eae;color:white;border-radius:12px;padding:13px;font-size:1.2rem;width:100%;max-width:280px;text-align:center}
 .feedback{text-align:center;min-height:30px;font-weight:bold;margin:10px}
-.good{color:var(--green)}
-.bad{color:var(--red)}
+.good{color:var(--green)}.bad{color:var(--red)}
 .badge{display:inline-block;background:#253f70;color:var(--gold);border-radius:999px;padding:6px 12px;margin:3px}
 footer{text-align:center;color:var(--muted);padding:20px}
-@media(max-width:560px){
-.panel{padding:15px}
-.mikirow{flex-direction:column}
-.robot{align-self:center}
-.row>*{min-width:100%}
-}
+@media(max-width:560px){.panel{padding:15px}.mikirow{flex-direction:column}.robot{align-self:center}.row>*{min-width:100%}}
 </style>
 </head>
 <body>
-
-<header>
-<h1>🕵️ Matematyczni Detektywi</h1>
-<p>Akademia Mikiego • Każdy trop prowadzi do wiedzy!</p>
-</header>
-
+<header><h1>🕵️ Matematyczni Detektywi</h1><p>Akademia Mikiego • Każdy trop prowadzi do wiedzy!</p></header>
 <main>
 
 <section id="home" class="panel">
 <h2>Witaj w Centrali Detektywów!</h2>
-
-<div class="mikirow">
-<div class="robot">🤖</div>
-<div class="speech">
-Cześć, detektywie! Jestem Miki.
-Wybierz klasę, odkryj krainy matematyczne i rozwiązuj zagadki.
-Najpierw pokażę Ci, jak rozwiązać zadanie, a potem spróbujesz samodzielnie!
-</div>
-</div>
-
+<div class="mikirow"><div class="robot">🤖</div><div class="speech">Cześć, detektywie! Jestem Miki. Wybierz klasę, odkryj krainy matematyczne i rozwiązuj zagadki. Najpierw pokażę Ci, jak rozwiązać zadanie, a potem spróbujesz samodzielnie!</div></div>
 <h3>Wybierz klasę</h3>
-
-<div class="row">
-<button onclick="chooseClass(1)">Klasa 1</button>
-<button onclick="chooseClass(2)">Klasa 2</button>
-<button onclick="chooseClass(3)">Klasa 3</button>
-</div>
-
+<div class="row"><button onclick="chooseClass(1)">Klasa 1</button><button onclick="chooseClass(2)">Klasa 2</button><button onclick="chooseClass(3)">Klasa 3</button></div>
 <div class="badge">⭐ XP: <span id="xpHome">0</span></div>
 <div class="badge">🏅 Odznaki: <span id="badgesHome">0</span></div>
 </section>
 
 <section id="map" class="panel hidden">
 <button class="secondary" onclick="goHome()">⬅ Centrala</button>
-<h2 id="mapTitle">Mapa krain</h2>
-<p class="muted">Wybierz krainę. Poziomy odblokowują się po ukończeniu poprzednich.</p>
-<div id="regions" class="grid"></div>
+<h2 id="mapTitle">Mapa krain</h2><p class="muted">Wybierz krainę.</p><div id="regions" class="grid"></div>
 </section>
 
 <section id="levels" class="panel hidden">
 <button class="secondary" onclick="showMap()">⬅ Mapa krain</button>
-<h2 id="regionTitle"></h2>
-<div id="levelGrid" class="grid"></div>
+<h2 id="regionTitle"></h2><div id="levelGrid" class="grid"></div>
 </section>
 
 <section id="lesson" class="panel hidden">
 <button class="secondary" onclick="showLevels()">⬅ Poziomy</button>
 <h2 id="lessonTitle">Akademia Mikiego</h2>
-
-<div class="mikirow">
-<div class="robot">🤖</div>
-<div class="speech" id="lessonIntro"></div>
-</div>
-
-<div class="lessonbox">
-<h3>📖 Poznaj sposób</h3>
-<div id="lessonExplanation"></div>
-</div>
-
-<div class="lessonbox">
-<h3>🧠 Miki pokazuje przykład</h3>
-<div id="lessonExample"></div>
-</div>
-
-<div class="lessonbox">
-<h3>🔍 Zapamiętaj!</h3>
-<p id="lessonSummary"></p>
-</div>
-
+<div class="mikirow"><div class="robot">🤖</div><div class="speech" id="lessonIntro"></div></div>
+<div class="lessonbox"><h3>📖 Poznaj sposób</h3><div id="lessonExplanation"></div></div>
+<div class="lessonbox"><h3>🧠 Miki pokazuje przykład</h3><div id="lessonExample"></div></div>
+<div class="lessonbox"><h3>🔍 Zapamiętaj!</h3><p id="lessonSummary"></p></div>
 <button class="gold" onclick="startMission()">Rozumiem! Rozpoczynam ćwiczenia ➡</button>
 </section>
 
@@ -146,419 +73,114 @@ Najpierw pokażę Ci, jak rozwiązać zadanie, a potem spróbujesz samodzielnie!
 <button class="secondary" onclick="showLevels()">⬅ Przerwij misję</button>
 <h2 id="gameTitle"></h2>
 <div class="badge">Zadanie <span id="qNum">1</span>/5</div>
-
-<div class="mikirow">
-<div class="robot">🤖</div>
-<div class="speech" id="gameSpeech">Uważnie zbadaj trop!</div>
-</div>
-
+<div class="mikirow"><div class="robot">🤖</div><div class="speech" id="gameSpeech">Uważnie zbadaj trop!</div></div>
 <div class="lessonbox">
-<p id="questionText"></p>
-<div class="math" id="question"></div>
-
-<div class="row" style="justify-content:center">
-<input id="answer" placeholder="Twoja odpowiedź" aria-label="Twoja odpowiedź">
-<button onclick="checkAnswer()">Sprawdź</button>
-</div>
-
+<p id="questionText"></p><div class="math" id="question"></div>
+<div class="row" style="justify-content:center"><input id="answer" placeholder="Twoja odpowiedź" aria-label="Twoja odpowiedź"><button id="checkBtn" onclick="checkAnswer()">Sprawdź</button></div>
 <div class="feedback" id="feedback" aria-live="polite"></div>
 <button class="secondary" onclick="hint()">💡 Podpowiedź Mikiego</button>
 <div id="hintText" class="muted"></div>
+<button id="nextBtn" class="gold hidden" onclick="nextQ()">Następne zadanie ➜</button>
 </div>
 </section>
 
 <section id="result" class="panel hidden">
 <h2>🎉 Misja zakończona!</h2>
-<div class="mikirow">
-<div class="robot">🤖</div>
-<div class="speech" id="resultText"></div>
-</div>
+<div class="mikirow"><div class="robot">🤖</div><div class="speech" id="resultText"></div></div>
 <h3 id="reward"></h3>
-<button class="gold" onclick="showLevels()">Wróć do poziomów</button>
-<button onclick="showMap()">Mapa krain</button>
+<button class="gold" onclick="showLevels()">Wróć do poziomów</button><button onclick="showMap()">Mapa krain</button>
 </section>
 
-<section class="panel">
-<h2>🎒 Twoje postępy</h2>
+<section class="panel"><h2>🎒 Twoje postępy</h2>
 <span class="badge">⭐ XP: <span id="xp">0</span></span>
 <span class="badge">🏅 Odznaki: <span id="badges">0</span></span>
-<span class="badge">✅ Misje: <span id="done">0</span></span>
-</section>
-
+<span class="badge">✅ Misje: <span id="done">0</span></span></section>
 </main>
-
 <footer>Matematyczni Detektywi • Uczymy się przez przygodę</footer>
 
 <script>
 const regionData={
-const regionData = {
-  1: [
-    ["🔢 Kraina Liczb", "numbers"],
-    ["➕ Dolina Dodawania", "addition"],
-    ["➖ Jaskinia Odejmowania", "subtraction"],
-    ["🧠 Wyspa Logiki", "logic"],
-    ["📐 Geometryczne Miasteczko", "geometry"],
-    ["📏 Las Miar", "measures"],
-    ["🕒 Kraina Czasu", "time"],
-    ["💰 Miasteczko Skarbów", "money"],
-    ["📝 Wielkie Śledztwa", "mixed"]
-  ],
-
-  2: [
-    ["🔢 Wyspa Liczb do 100", "numbers"],
-    ["➕ Zamek Dodawania", "addition"],
-    ["➖ Twierdza Odejmowania", "subtraction"],
-    ["✖️ Fabryka Mnożenia", "multiplication"],
-    ["➗ Kopalnia Dzielenia", "division"],
-    ["📐 Kraina Figur", "geometry"],
-    ["📏 Dolina Miar", "measures"],
-    ["🕒 Zegar i Kalendarz", "time"],
-    ["💰 Targ Skarbów", "money"],
-    ["📝 Biuro Wielkich Spraw", "mixed"]
-  ],
-
-  3: [
-    ["🔢 Miasto Liczb do 1000", "numbers"],
-    ["➕ Akademia Dodawania", "addition"],
-    ["➖ Akademia Odejmowania", "subtraction"],
-    ["✖️ Wieża Mnożenia", "multiplication"],
-    ["➗ Labirynt Dzielenia", "division"],
-    ["📐 Królestwo Geometrii", "geometry"],
-    ["📏 Laboratorium Miar", "measures"],
-    ["🕒 Kraina Czasu", "time"],
-    ["💰 Miasto Pieniędzy", "money"],
-    ["📝 Wielkie Śledztwa", "mixed"]
-  ]
+1:[["🔢 Kraina Liczb","numbers"],["➕ Dolina Dodawania","add"],["➖ Jaskinia Odejmowania","sub"],["🧠 Wyspa Logiki","logic"],["📐 Geometryczne Miasteczko","geometry"],["📏 Las Miar","measure"],["🕒 Kraina Czasu","time"],["💰 Miasteczko Skarbów","money"],["📝 Wielkie Śledztwa","mixed"]],
+2:[["🔢 Wyspa Liczb do 100","numbers"],["➕ Zamek Dodawania","add"],["➖ Twierdza Odejmowania","sub"],["✖️ Fabryka Mnożenia","mul"],["➗ Kopalnia Dzielenia","div"],["📐 Kraina Figur","geometry"],["📏 Dolina Miar","measure"],["🕒 Zegar i Kalendarz","time"],["💰 Targ Skarbów","money"],["📝 Biuro Wielkich Spraw","mixed"]],
+3:[["🔢 Miasto Liczb do 1000","numbers"],["➕ Akademia Dodawania","add"],["➖ Akademia Odejmowania","sub"],["✖️ Wieża Mnożenia","mul"],["➗ Labirynt Dzielenia","div"],["📐 Królestwo Geometrii","geometry"],["📏 Laboratorium Miar","measure"],["🕒 Kraina Czasu","time"],["💰 Miasto Pieniędzy","money"],["📝 Wielkie Śledztwa","mixed"]]
 };
-
-const names={
-numbers:"Liczby",add:"Dodawanie",sub:"Odejmowanie",
-mul:"Mnożenie",div:"Dzielenie",logic:"Logika",
-geometry:"Geometria",measure:"Miary",time:"Czas",
-money:"Pieniądze",mixed:"Zagadki mieszane"
-};
-
-let grade=1,region=0,level=0,qs=[],qi=0,earned=0,correct=0;
-
-let data=JSON.parse(localStorage.getItem("md_full_progress")||
-'{"xp":0,"done":[],"badges":[]}');
-
+const names={numbers:"Liczby",add:"Dodawanie",sub:"Odejmowanie",mul:"Mnożenie",div:"Dzielenie",logic:"Logika",geometry:"Geometria",measure:"Miary",time:"Czas",money:"Pieniądze",mixed:"Zagadki mieszane"};
+let grade=1,region=0,level=0,qs=[],qi=0,earned=0,correct=0,answered=false;
+let data;
+try{data=JSON.parse(localStorage.getItem("md_full_progress"))||{xp:0,done:[],badges:[]}}catch(e){data={xp:0,done:[],badges:[]}}
 const $=id=>document.getElementById(id);
 
-function save(){
-localStorage.setItem("md_full_progress",JSON.stringify(data));
-stats();
-}
-
+function save(){localStorage.setItem("md_full_progress",JSON.stringify(data));stats()}
 function stats(){
-["xp","xpHome"].forEach(x=>$(x).textContent=data.xp);
-["badges","badgesHome"].forEach(x=>$(x).textContent=data.badges.length);
-$("done").textContent=data.done.length;
+$("xp").textContent=$("xpHome").textContent=data.xp;
+$("badges").textContent=$("badgesHome").textContent=data.badges.length;
+$("done").textContent=data.done.length
 }
-
-function hideAll(){
-["home","map","levels","lesson","game","result"]
-.forEach(x=>$(x).classList.add("hidden"));
-}
-
-function goHome(){
-hideAll();
-$("home").classList.remove("hidden");
-stats();
-}
-
-function chooseClass(c){
-grade=c;
-showMap();
-}
-
+function hideAll(){["home","map","levels","lesson","game","result"].forEach(x=>$(x).classList.add("hidden"))}
+function goHome(){hideAll();$("home").classList.remove("hidden");stats()}
+function chooseClass(c){grade=c;showMap()}
 function showMap(){
-hideAll();
-$("map").classList.remove("hidden");
-$("mapTitle").textContent="🗺️ Mapa klasy "+grade;
-$("regions").innerHTML="";
-
-regionData[grade].forEach((r,i)=>{
-let d=document.createElement("div");
-d.className="tile";
-d.innerHTML=`
-<h3>🗺️ ${r[0]}</h3>
-<p>10 poziomów • ${names[r[1]]}</p>
-<button onclick="openRegion(${i})">Odkryj krainę ➜</button>`;
-$("regions").appendChild(d);
-});
+hideAll();$("map").classList.remove("hidden");$("mapTitle").textContent="🗺️ Mapa klasy "+grade;$("regions").innerHTML="";
+regionData[grade].forEach((r,i)=>{let d=document.createElement("div");d.className="tile";d.innerHTML=`<h3>${r[0]}</h3><p>10 poziomów • ${names[r[1]]}</p><button onclick="openRegion(${i})">Odkryj krainę ➜</button>`;$("regions").appendChild(d)})
 }
-
-function openRegion(i){
-region=i;
-showLevels();
-}
-
+function openRegion(i){region=i;showLevels()}
 function showLevels(){
-hideAll();
-$("levels").classList.remove("hidden");
-$("regionTitle").textContent=regionData[grade][region][0];
-$("levelGrid").innerHTML="";
-
-for(let l=0;l<10;l++){
-let done=data.done.includes(`${grade}-${region}-${l}`);
-let unlocked=l===0||data.done.includes(`${grade}-${region}-${l-1}`);
-let d=document.createElement("div");
-d.className="tile";
-d.innerHTML=`
-<h3>${done?"🏅":"🔎"} Poziom ${l+1}</h3>
-<p>${done?"Ukończono":unlocked?"Gotowy do misji":"🔒 Najpierw ukończ poprzedni poziom"}</p>
-<button ${unlocked?"":"disabled"} onclick="openLesson(${l})">${done?"Powtórz":"Rozpocznij"} ➜</button>`;
-$("levelGrid").appendChild(d);
+hideAll();$("levels").classList.remove("hidden");$("regionTitle").textContent=regionData[grade][region][0];$("levelGrid").innerHTML="";
+for(let l=0;l<10;l++){let key=`${grade}-${region}-${l}`,done=data.done.includes(key),unlocked=l===0||data.done.includes(`${grade}-${region}-${l-1}`);let d=document.createElement("div");d.className="tile";d.innerHTML=`<h3>${done?"🏅":"🔎"} Poziom ${l+1}</h3><p>${done?"Ukończono":unlocked?"Gotowy do misji":"🔒 Najpierw ukończ poprzedni poziom"}</p><button ${unlocked?"":"disabled"} onclick="openLesson(${l})">${done?"Powtórz":"Rozpocznij"} ➜</button>`;$("levelGrid").appendChild(d)}
 }
+function openLesson(l){
+level=l;let type=regionData[grade][region][1];
+let lessons={
+numbers:["Kraina Liczb","Poznamy liczby i nauczymy się je porównywać.","Liczby ustawiamy od najmniejszej do największej. Znak < oznacza mniej, a > więcej.","3 < 5, bo trzy jest mniejsze od pięciu. 8 > 4, bo osiem jest większe od czterech.","Porównuj liczby i szukaj ich kolejności."],
+add:["Dodawanie","Miki znalazł skarb! Policzmy wszystkie monety.","Dodawanie oznacza łączenie ilości. Możemy doliczać kolejne elementy.","3 + 2 = 5. Mamy trzy monety, dokładamy dwie i otrzymujemy pięć.","Dodawanie łączy ilości."],
+sub:["Odejmowanie","Część skarbu zniknęła! Ile zostało?","Odejmowanie oznacza zabieranie lub sprawdzanie, ile zostało.","7 − 3 = 4. Mamy siedem monet, zabieramy trzy i zostają cztery.","Odejmowanie pomaga ustalić, ile zostało."],
+mul:["Mnożenie","W fabryce Mikiego powstają równe grupy!","Mnożenie to szybkie dodawanie takich samych liczb.","3 × 4 oznacza trzy grupy po cztery: 4 + 4 + 4 = 12.","Mnożenie liczy równe grupy."],
+div:["Dzielenie","Miki musi sprawiedliwie podzielić skarb!","Dzielenie polega na rozdzielaniu na równe części.","12 : 3 = 4. Dwanaście monet dla trzech osób daje po cztery.","Dzielenie rozdziela na równe części."],
+logic:["Wyspa Logiki","Na wyspie ukryto tajemniczy kod!","Szukamy reguły powtarzającej się w kolejnych elementach.","2, 4, 6, 8… Każda liczba jest większa o 2.","Szukaj reguły i sprawdzaj ją."],
+geometry:["Geometria","Miki odkrył tajemnicze figury!","Figury mają różne kształty. Trójkąt ma trzy boki, kwadrat cztery równe boki.","Kwadrat ma cztery równe boki. Prostokąt ma przeciwległe boki równej długości.","Rozpoznawaj figury po kształcie i bokach."],
+measure:["Kraina Miar","Musimy zmierzyć tajemniczy skarb!","Długość mierzymy np. w cm i m, masę w g i kg, pojemność w litrach.","1 metr = 100 centymetrów.","Dobieraj jednostkę do tego, co mierzysz."],
+time:["Kraina Czasu","Miki musi dotrzeć na miejsce przed upływem czasu!","Zegar pomaga odczytać godzinę. Krótsza wskazówka pokazuje godziny.","Gdy minutowa wskazówka jest na 12, mamy pełną godzinę.","Odczytuj godziny i planuj czas."],
+money:["Miasteczko Skarbów","Miki otworzył sklep z gadżetami!","W Polsce płacimy złotymi i groszami.","1 zł = 100 gr. Dwie monety po 2 zł to 4 zł.","Obliczaj ceny i sprawdzaj resztę."],
+mixed:["Wielkie Śledztwa","Czeka Cię wielka matematyczna zagadka!","Czytamy treść, szukamy informacji i wybieramy działanie.","Miki miał 5 monet i znalazł 3. 5 + 3 = 8.","Czytaj uważnie i wybierz działanie."]
+};
+let t=lessons[type]||lessons.mixed;
+$("lessonTitle").textContent=t[0];$("lessonIntro").textContent="🤖 "+t[1];$("lessonExplanation").textContent=t[2];$("lessonExample").textContent=t[3];$("lessonSummary").textContent=t[4];
+hideAll();$("lesson").classList.remove("hidden")
 }
-
-function openLesson(l) {
-  level = l;
-
-  const lessons = {
-    numbers: {
-      title: "Kraina Liczb",
-      intro: "Detektywie! Poznamy liczby i nauczymy się je porównywać.",
-      explanation: "Liczby możemy ustawiać od najmniejszej do największej. Znak < oznacza mniej, a znak > oznacza więcej.",
-      example: "3 < 5, ponieważ trzy jest mniejsze od pięciu. 8 > 4, ponieważ osiem jest większe od czterech.",
-      summary: "Pamiętaj: liczby możemy porównywać i porządkować."
-    },
-    addition: {
-      title: "Dodawanie",
-      intro: "Miki znalazł skarb! Pomóż mu policzyć wszystkie monety.",
-      explanation: "Dodawanie oznacza łączenie ilości. Możemy policzyć pierwszą grupę, a potem doliczyć kolejne elementy.",
-      example: "3 + 2 = 5. Mamy trzy monety, dokładamy dwie i otrzymujemy pięć monet.",
-      summary: "Dodawanie pomaga nam połączyć dwie lub więcej ilości."
-    },
-    subtraction: {
-      title: "Odejmowanie",
-      intro: "Część skarbu zniknęła! Miki musi ustalić, ile zostało.",
-      explanation: "Odejmowanie oznacza zabieranie lub sprawdzanie, ile zostało. Możemy liczyć wstecz albo znaleźć różnicę.",
-      example: "7 − 3 = 4. Mamy siedem monet, zabieramy trzy i zostają cztery.",
-      summary: "Odejmowanie pomaga ustalić, ile zostało."
-    },
-    multiplication: {
-      title: "Mnożenie",
-      intro: "W fabryce Mikiego powstają równe grupy!",
-      explanation: "Mnożenie to szybkie dodawanie takich samych liczb.",
-      example: "3 × 4 oznacza trzy grupy po cztery. 4 + 4 + 4 = 12.",
-      summary: "Mnożenie pomaga szybko policzyć równe grupy."
-    },
-    division: {
-      title: "Dzielenie",
-      intro: "Miki musi sprawiedliwie podzielić skarb!",
-      explanation: "Dzielenie polega na rozdzielaniu na równe części.",
-      example: "12 : 3 = 4. Dwanaście monet rozdzielamy między trzy osoby. Każda otrzymuje cztery.",
-      summary: "Dzielenie pomaga rozdzielać rzeczy na równe części."
-    },
-    logic: {
-      title: "Wyspa Logiki",
-      intro: "Na wyspie ukryto tajemniczy kod!",
-      explanation: "W zagadkach logicznych szukamy reguły, która powtarza się w kolejnych elementach.",
-      example: "2, 4, 6, 8... Każda kolejna liczba jest większa o 2.",
-      summary: "Szukaj reguły i sprawdzaj, czy pasuje do wszystkich elementów."
-    },
-    geometry: {
-      title: "Geometria",
-      intro: "Miki odkrył tajemnicze figury!",
-      explanation: "Figury mają różne kształty. Trójkąt ma trzy boki, a kwadrat cztery równe boki i cztery kąty proste.",
-      example: "Kwadrat ma cztery równe boki. Prostokąt ma przeciwległe boki równej długości.",
-      summary: "Rozpoznawaj figury po ich bokach i kształcie."
-    },
-    measures: {
-      title: "Kraina Miar",
-      intro: "Musimy zmierzyć tajemniczy skarb!",
-      explanation: "Długość możemy mierzyć w centymetrach i metrach. Masę w gramach i kilogramach. Pojemność w litrach.",
-      example: "1 metr = 100 centymetrów. 1 kilogram = 1000 gramów.",
-      summary: "Wybieraj odpowiednią jednostkę do mierzonej rzeczy."
-    },
-    time: {
-      title: "Kraina Czasu",
-      intro: "Miki musi dotrzeć na miejsce przed upływem czasu!",
-      explanation: "Zegar pomaga nam odczytać godzinę. Wskazówka godzinowa jest krótsza, a minutowa dłuższa.",
-      example: "Gdy wskazówka minutowa jest na 12, mamy pełną godzinę.",
-      summary: "Odczytuj godziny i planuj czas."
-    },
-    money: {
-      title: "Miasteczko Skarbów",
-      intro: "Miki otworzył sklep z detektywistycznymi gadżetami!",
-      explanation: "Pieniądze pozwalają nam płacić za zakupy. W Polsce używamy złotych i groszy.",
-      example: "1 zł = 100 gr. Dwie monety po 2 zł dają razem 4 zł.",
-      summary: "Przy zakupach obliczaj cenę i sprawdzaj resztę."
-    },
-    mixed: {
-      title: "Wielkie Śledztwa",
-      intro: "Czeka Cię wielka matematyczna zagadka!",
-      explanation: "W zadaniach tekstowych najpierw czytamy treść, potem szukamy informacji i wybieramy działanie.",
-      example: "Miki miał 5 monet i znalazł 3 kolejne. Ile ma teraz? 5 + 3 = 8.",
-      summary: "Czytaj uważnie i zastanów się, jakie działanie pomoże rozwiązać zagadkę."
-    }
-  };
-
-  const type = regionData[grade][region][1];
-  const lesson = lessons[type] || lessons.mixed;
-
-  document.getElementById("lessonTitle").textContent = lesson.title;
-  document.getElementById("lessonIntro").textContent = lesson.intro;
-  document.getElementById("lessonExplanation").textContent = lesson.explanation;
-  document.getElementById("lessonExample").textContent = lesson.example;
-  document.getElementById("lessonSummary").textContent = lesson.summary;
-
-  hideAll();
-  document.getElementById("lesson").classList.remove("hidden");
-
-
-let type=regionData[grade][region][1];
-let topic=names[type];
-
-let intro=`Cześć, detektywie! Dzisiaj poznajemy temat: ${topic.toLowerCase()}. Najpierw pokażę Ci sposób, potem wspólnie przećwiczymy, a na końcu rozwiążesz pięć zagadek. Pomyłka to kolejny trop!`;
-let explanation="",example="",summary="";
-
-if(type==="sub"){
-explanation="<p>Odejmowanie oznacza zabieranie lub sprawdzanie różnicy. Jeśli masz 8 kryształów i oddasz 3, zostanie 5.</p><div class='math'>8 − 3 = 5</div><p>Możesz policzyć od początku albo cofnąć się o 3 od liczby 8.</p>";
-
-example=grade===1?
-"<p><b>Krok 1:</b> Zaczynamy od 9.</p><p><b>Krok 2:</b> Cofamy się o 4: 8, 7, 6, 5.</p><p><b>Krok 3:</b> Zostało 5!</p><div class='math'>9 − 4 = 5</div>":
-"<p><b>Przykład: 42 − 17</b></p><p>1. 42 to 4 dziesiątki i 2 jedności.</p><p>2. Zamieniamy dziesiątkę na 10 jedności: 3 dziesiątki i 12 jedności.</p><p>3. 12 − 7 = 5.</p><p>4. 3 − 1 = 2 dziesiątki.</p><div class='math'>42 − 17 = 25</div>";
-
-summary="Odejmowanie to zabieranie. Gdy brakuje jedności, w odpowiednim przykładzie możemy zamienić dziesiątkę na 10 jedności.";
-
-}else if(type==="add"){
-
-explanation="<p>Dodawanie to łączenie ilości. Masz 4 kryształy i dostajesz 3 kolejne.</p><div class='math'>4 + 3 = 7</div>";
-
-example="<p>1. Zaczynamy od 4.</p><p>2. Doliczamy 3: 5, 6, 7.</p><p>3. Razem mamy 7.</p><div class='math'>5 + 3 = 8</div>";
-
-summary="Dodawanie to łączenie. Możesz doliczać kolejne liczby.";
-
-}else if(type==="mul"){
-
-explanation="<p>Mnożenie to szybki sposób dodawania jednakowych grup. 3 × 4 oznacza 3 grupy po 4.</p><div class='math'>4 + 4 + 4 = 12</div>";
-
-example="<p>1. Tworzymy 3 grupy.</p><p>2. W każdej są 4 elementy.</p><p>3. Liczymy razem: 4, 8, 12.</p><div class='math'>3 × 4 = 12</div>";
-
-summary="Mnożenie to dodawanie jednakowych grup.";
-
-}else if(type==="div"){
-
-explanation="<p>Dzielenie pomaga rozdzielić rzeczy po równo. 6 kryształów dzielimy między 2 detektywów.</p>";
-
-example="<p>1. Przygotuj 6 kryształów.</p><p>2. Rozdzielaj po jednym dla każdego.</p><p>3. Każdy otrzyma 3.</p><div class='math'>6 ÷ 2 = 3</div>";
-
-summary="Dzielenie oznacza rozdzielanie na równe części.";
-
-}else{
-
-explanation="<p>Przeczytaj uważnie wskazówki, znajdź liczby i zastanów się, jakie działanie pomoże rozwiązać zagadkę.</p>";
-
-example="<p>1. Przeczytaj treść.</p><p>2. Znajdź potrzebne informacje.</p><p>3. Wybierz działanie i sprawdź wynik.</p>";
-
-summary="Czytaj uważnie i szukaj matematycznych wskazówek.";
-}
-
-$("lessonIntro").textContent=intro;
-$("lessonExplanation").innerHTML=explanation;
-$("lessonExample").innerHTML=example;
-$("lessonSummary").textContent=summary;
-}
-
-function startMission(){
-hideAll();
-$("game").classList.remove("hidden");
-qs=[];qi=0;earned=0;correct=0;
-for(let i=0;i<5;i++)qs.push(makeQ());
-renderQ();
-}
-
-function makeQ(){
-let type=regionData[grade][region][1];
-let max=grade===1?20:grade===2?100:1000;
-let a,b,op,ans;
-
-if(type==="sub"){
-a=rand(max+1);b=rand(a+1);op="−";ans=a-b;
-}else if(type==="add"){
-a=rand(Math.floor(max/2)+1);b=rand(max-a+1);op="+";ans=a+b;
-}else if(type==="mul"&&grade>=2){
-a=rand(10)+1;b=rand(10)+1;op="×";ans=a*b;
-}else if(type==="div"&&grade>=2){
-b=rand(9)+1;ans=rand(10)+1;a=b*ans;op="÷";ans=a/b;
-}else{
-a=rand(max+1);b=rand(max+1);op="+";ans=a+b;
-}
-return{a,b,op,ans};
-}
-
 function rand(n){return Math.floor(Math.random()*n)}
-
+function makeQ(){
+let type=regionData[grade][region][1],max=grade===1?20:grade===2?100:1000,a,b,op,ans;
+if(type==="sub"){a=rand(max+1);b=rand(a+1);op="−";ans=a-b}
+else if(type==="add"){a=rand(Math.floor(max/2)+1);b=rand(max-a+1);op="+";ans=a+b}
+else if(type==="mul"&&grade>=2){a=rand(10)+1;b=rand(10)+1;op="×";ans=a*b}
+else if(type==="div"&&grade>=2){b=rand(9)+1;ans=rand(10)+1;a=b*ans;op="÷";ans=a/b}
+else if(type==="numbers"){a=rand(max+1);b=rand(max+1);op=">";ans=a>b?1:a<b?-1:0}
+else{a=rand(max+1);b=rand(max+1);op="+";ans=a+b}
+return{a,b,op,ans}
+}
+function startMission(){hideAll();$("game").classList.remove("hidden");qs=[];qi=0;earned=0;correct=0;for(let i=0;i<5;i++)qs.push(makeQ());renderQ()}
 function renderQ(){
-$("qNum").textContent=qi+1;
-$("questionText").textContent="Rozwiąż działanie i wpisz wynik.";
-let q=qs[qi];
-$("question").textContent=`${q.a} ${q.op} ${q.b} = ?`;
-$("answer").value="";
-$("feedback").textContent="";
-$("hintText").textContent="";
-$("gameSpeech").textContent="Uważnie zbadaj trop. Wierzę w Ciebie!";
-$("answer").focus();
+answered=false;$("qNum").textContent=qi+1;
+$("questionText").textContent=regionData[grade][region][1]==="numbers"?"Wpisz 1, jeśli pierwsza liczba jest większa, -1 jeśli mniejs, 0 jeśli równa.":"Rozwiąż działanie i wpisz wynik.";
+$("question").textContent=qs[qi].op===">"?`${qs[qi].a} ? ${qs[qi].b}`:`${qs[qi].a} ${qs[qi].op} ${qs[qi].b} = ?`;
+$("answer").value="";$("feedback").textContent="";$("hintText").textContent="";$("nextBtn").classList.add("hidden");$("checkBtn").disabled=false;$("gameSpeech").textContent="Uważnie zbadaj trop. Wierzę w Ciebie!";$("answer").focus()
 }
-
 function checkAnswer(){
-let q=qs[qi],v=$("answer").value.trim();
-
-if(v!==""&&Number(v)===q.ans){
-$("feedback").textContent="Brawo! To poprawny trop! +10 XP ⭐";
-$("feedback").className="feedback good";
-$("gameSpeech").textContent="Świetna robota! Każdy poprawny trop przybliża nas do rozwiązania.";
-earned+=10;
-correct++;
-}else{
-$("feedback").textContent="Jeszcze nie! Sprawdźmy trop. Spróbuj ponownie.";
-$("feedback").className="feedback bad";
-$("gameSpeech").textContent=`Podpowiedź: ${q.a} ${q.op} ${q.b}. Spróbuj wykonać działanie powoli.`;
+if(answered)return;let q=qs[qi],v=$("answer").value.trim();
+if(v!==""&&Number(v)===q.ans){answered=true;$("feedback").textContent="Brawo! Poprawny trop! +10 XP ⭐";$("feedback").className="feedback good";$("gameSpeech").textContent="Świetna robota!";earned+=10;correct++;$("checkBtn").disabled=true;$("nextBtn").classList.remove("hidden")}
+else{$("feedback").textContent="Jeszcze nie! Sprawdź trop i spróbuj ponownie.";$("feedback").className="feedback bad";$("gameSpeech").textContent="Pomyłka to kolejny trop. Spróbuj spokojnie."}
 }
-}
-
 function hint(){
-let q=qs[qi];
-$("hintText").textContent=q.op==="−"?
-`Miki: odejmowanie to zabieranie. Policz, ile zostaje po zabraniu ${q.b} z ${q.a}.`:
-q.op==="+"?
-`Miki: zacznij od ${q.a} i dolicz ${q.b}.`:
-`Miki: ${q.op} oznacza ${q.op==="×"?"jednakowe grupy":"rozdzielanie na równe części"}.`;
+let q=qs[qi];$("hintText").textContent=q.op==="−"?`Odejmowanie to zabieranie. Policz, ile zostaje po zabraniu ${q.b} z ${q.a}.`:q.op==="+"?`Zacznij od ${q.a} i dolicz ${q.b}.`:q.op===">"?`Porównaj ${q.a} i ${q.b}.`:`Miki: ${q.op} oznacza ${q.op==="×"?"jednakowe grupy":"dzielenie na równe części"}.`
 }
-
-$("answer").addEventListener("keydown",e=>{
-if(e.key==="Enter")checkAnswer();
-});
-
-function nextQ(){
-qi++;
-if(qi<5)renderQ();
-else finish();
-}
-
+$("answer").addEventListener("keydown",e=>{if(e.key==="Enter")checkAnswer()});
+function nextQ(){if(!answered)return;qi++;if(qi<5)renderQ();else finish()}
 function finish(){
-let key=`${grade}-${region}-${level}`;
-if(!data.done.includes(key))data.done.push(key);
-data.xp+=earned+20;
-if(correct===5&&!data.badges.includes(key))data.badges.push(key);
-save();
-hideAll();
-$("result").classList.remove("hidden");
-$("resultText").textContent=`Ukończyłeś misję! Miki jest dumny z Twojej pracy. Poprawne odpowiedzi: ${correct}/5.`;
-$("reward").textContent=`Zdobywasz ${earned+20} XP${correct===5?" i odznakę za perfekcyjną misję!":" za wytrwałość!"}`;
+let key=`${grade}-${region}-${level}`,first=!data.done.includes(key);if(first)data.done.push(key);
+data.xp+=earned+(first?20:0);if(correct===5&&!data.badges.includes(key))data.badges.push(key);save();
+hideAll();$("result").classList.remove("hidden");$("resultText").textContent=`Ukończyłeś misję! Miki jest dumny. Poprawne odpowiedzi: ${correct}/5.`;$("reward").textContent=`Zdobywasz ${earned+(first?20:0)} XP${correct===5?" i odznakę za perfekcyjną misję!":" za wytrwałość!"}`
 }
-
-const nextBtn=document.createElement("button");
-nextBtn.className="gold";
-nextBtn.textContent="Następne zadanie ➜";
-nextBtn.onclick=nextQ;
-$("game").appendChild(nextBtn);
-
-stats();
-goHome();
+stats();goHome();
 </script>
 </body>
 </html>
