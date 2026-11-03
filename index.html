@@ -2,1430 +2,278 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matematyczni Detektywi</title>
 
 <style>
-/* =========================
-   PODSTAWOWY WYGLĄD
-========================= */
-
 :root {
   --purple:#7457e8;
-  --purple-light:#a58aff;
+  --violet:#a58aff;
   --blue:#59baff;
   --green:#45d6a2;
   --yellow:#ffdc68;
   --pink:#ff91bd;
   --ink:#27345e;
   --muted:#7983a6;
-  --background:#f2f4ff;
-  --white:#ffffff;
+  --bg:#f2f4ff;
+  --white:#fff;
 }
-
-* {
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
+*{box-sizing:border-box}
+body{
   margin:0;
-  min-height:100vh;
-  font-family:"Trebuchet MS",Arial,sans-serif;
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
   color:var(--ink);
   background:
-    radial-gradient(circle at 10% 10%,#e4ddff 0,transparent 30%),
-    radial-gradient(circle at 90% 30%,#d8f5ff 0,transparent 30%),
-    var(--background);
-}
-
-button,input {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-  border:0;
-}
-
-button:disabled {
-  cursor:not-allowed;
-}
-
-/* =========================
-   GÓRNY PASEK
-========================= */
-
-.topbar {
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding:15px 5%;
-  background:#ffffffed;
-  backdrop-filter:blur(12px);
-  box-shadow:0 5px 20px #27345e12;
-}
-
-.logo {
-  font-size:clamp(16px,3vw,23px);
-  font-weight:900;
-  color:var(--purple);
-}
-
-.xpbox {
-  background:#fff1b9;
-  padding:10px 18px;
-  border-radius:30px;
-  font-weight:900;
-  white-space:nowrap;
-}
-
-/* =========================
-   UKŁAD
-========================= */
-
-.container {
-  max-width:1150px;
-  margin:auto;
-  padding:25px 18px 60px;
-}
-
-.screen {
-  display:none;
-}
-
-.screen.active {
-  display:block;
-}
-
-.section-title {
-  font-size:28px;
-  margin:35px 0 20px;
-}
-
-/* =========================
-   STRONA GŁÓWNA
-========================= */
-
-.hero {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:25px;
-  padding:40px;
-  border-radius:32px;
-  color:white;
-  background:linear-gradient(135deg,#654be1,#a17cff);
-  box-shadow:0 15px 35px #795be833;
-  position:relative;
-  overflow:hidden;
-}
-
-.hero:before {
-  content:"✦  ✧  ✦  ✧";
-  position:absolute;
-  right:15%;
-  top:10%;
-  font-size:45px;
-  opacity:.25;
-}
-
-.hero h1 {
-  font-size:clamp(32px,6vw,58px);
-  line-height:1.05;
-  margin:0 0 18px;
-}
-
-.hero p {
-  max-width:550px;
-  font-size:19px;
-  line-height:1.6;
-}
-
-.miki {
-  font-size:clamp(85px,15vw,145px);
-  animation:mikiBounce 2s infinite ease-in-out;
-  filter:drop-shadow(0 12px 8px #0002);
-  position:relative;
-  z-index:1;
-}
-
-@keyframes mikiBounce {
-  0%,100% {
-    transform:translateY(0) rotate(-5deg);
-  }
-  50% {
-    transform:translateY(-14px) rotate(5deg);
-  }
-}
-
-/* =========================
-   PRZYCISKI
-========================= */
-
-.primary {
-  background:var(--yellow);
-  color:#604500;
-  padding:15px 24px;
-  border-radius:16px;
-  font-weight:900;
-  box-shadow:0 5px 0 #d4a82c;
-  transition:.2s;
-}
-
-.primary:hover {
-  filter:brightness(1.04);
-  transform:translateY(-2px);
-}
-
-.primary:active {
-  transform:translateY(3px);
-  box-shadow:0 2px 0 #d4a82c;
-}
-
-.back {
-  background:#e4e8ff;
-  color:#535d9d;
-  padding:12px 18px;
-  border-radius:14px;
-  font-weight:bold;
-  margin-bottom:20px;
-}
-
-/* =========================
-   KARTY KLAS
-========================= */
-
-.grid3 {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:17px;
-}
-
-.card {
-  background:white;
-  border:3px solid #e8eaff;
-  border-radius:25px;
-  padding:25px;
-  box-shadow:0 8px 25px #27345e0b;
-  transition:.2s;
-}
-
-button.card {
-  color:var(--ink);
-  text-align:center;
-  width:100%;
-}
-
-.card:hover:not(:disabled) {
-  transform:translateY(-5px);
-  border-color:#b8aaff;
-}
-
-.card-icon {
-  font-size:55px;
-}
-
-.card h3 {
-  font-size:22px;
-  margin:12px 0;
-}
-
-.card p {
-  color:var(--muted);
-  line-height:1.5;
-}
-
-/* =========================
-   MAPA KRAIN
-========================= */
-
-.map {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:18px;
-}
-
-.region {
-  text-align:left;
-  width:100%;
-  padding:22px;
-  background:white;
-  border:3px solid #e6eaff;
-  border-radius:25px;
-  color:var(--ink);
-  box-shadow:0 8px 25px #27345e0b;
-  transition:.2s;
-}
-
-.region:hover:not(:disabled) {
-  transform:translateY(-5px);
-  border-color:#b8aaff;
-}
-
-.region.locked {
-  opacity:.5;
-  filter:grayscale(.6);
-}
-
-.region-icon {
-  font-size:48px;
-}
-
-.region h3 {
-  font-size:20px;
-  margin:10px 0;
-}
-
-.region small {
-  color:var(--muted);
-}
-
-.progress {
-  height:10px;
-  background:#e8eaff;
-  border-radius:20px;
-  overflow:hidden;
-  margin:15px 0 8px;
-}
-
-.progress div {
-  height:100%;
-  background:linear-gradient(90deg,#45d6a2,#59baff);
-  transition:.3s;
-}
-
-/* =========================
-   POZIOMY
-========================= */
-
-.levels {
-  display:grid;
-  grid-template-columns:repeat(5,1fr);
-  gap:14px;
-  margin-top:25px;
-}
-
-.level {
-  aspect-ratio:1;
-  border-radius:22px;
-  background:white;
-  border:3px solid #e2e7ff;
-  box-shadow:0 5px 0 #dce2ff;
-  color:#68729b;
-  font-size:25px;
-  font-weight:900;
-  transition:.2s;
-}
-
-.level.open {
-  background:#fff2bc;
-  border-color:#ffd24e;
-  color:#946700;
-}
-
-.level.done {
-  background:#d8fff0;
-  border-color:#43d5a0;
-  color:#16835f;
-}
-
-.level.locked {
-  opacity:.4;
-}
-
-.level:hover:not(:disabled) {
-  transform:scale(1.05);
-}
-
-/* =========================
-   PANEL ZADANIA
-========================= */
-
-.panel {
-  background:white;
-  border-radius:30px;
-  padding:28px;
-  box-shadow:0 10px 35px #27345e0d;
-}
-
-.taskhead {
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
-  color:var(--muted);
-  font-weight:bold;
-}
-
-.taskbar {
-  height:12px;
-  background:#e8eaff;
-  border-radius:20px;
-  overflow:hidden;
-  margin:20px 0 30px;
-}
-
-.taskbar div {
-  height:100%;
-  background:linear-gradient(90deg,#45d6a2,#59baff);
-  transition:.3s;
-}
-
-.tasktitle {
-  font-size:clamp(24px,4vw,36px);
-  line-height:1.4;
-}
-
-.story {
-  background:#f3f5ff;
-  padding:20px;
-  border-radius:20px;
-  line-height:1.7;
-  font-size:19px;
-  margin:20px 0;
-}
-
-/* =========================
-   ODPOWIEDZI
-========================= */
-
-.answers {
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:14px;
-  margin:25px 0;
-}
-
-.answer {
-  background:#eff2ff;
-  border:3px solid #dfe5ff;
-  border-radius:18px;
-  padding:20px;
-  font-size:24px;
-  font-weight:bold;
-  color:#505b91;
-  transition:.15s;
-}
-
-.answer:hover {
-  background:#e5eaff;
-}
-
-.answer.good {
-  background:#d8fff0;
-  border-color:#43d5a0;
-}
-
-.answer.bad {
-  background:#ffe2eb;
-  border-color:#ff8db9;
-}
-
-/* =========================
-   WPISYWANIE
-========================= */
-
-.inputrow {
-  display:flex;
-  gap:12px;
-  margin:25px 0;
-}
-
-.inputrow input {
-  flex:1;
-  min-width:0;
-  padding:16px;
-  border:3px solid #dfe5ff;
-  border-radius:17px;
-  font-size:24px;
-}
-
-/* =========================
-   ZADANIA DETEKTYWA
-========================= */
-
-.task-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin: 24px 0;
-}
-
-.task-option {
-  background: linear-gradient(135deg, #a58aff, #7457e8);
-  color: white;
-  border: 0;
-  border-radius: 18px;
-  padding: 18px;
-  font-size: 20px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: transform .2s, box-shadow .2s;
-}
-
-.task-option:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px #7457e844;
-}
-
-.task-option:active {
-  transform: scale(.97);
-}
-
-@media (max-width: 500px) {
-  .task-options {
-    grid-template-columns: 1fr;
-  }
-}
-/* =========================
-   INFORMACJE ZWROTNE
-========================= */
-
-.feedback {
-  display:none;
-  padding:18px;
-  border-radius:18px;
-  line-height:1.6;
-  font-weight:bold;
-  margin:20px 0;
-}
-
-.feedback.good {
-  display:block;
-  background:#d8fff0;
-  color:#147a59;
-}
-
-.feedback.bad {
-  display:block;
-  background:#fff2c9;
-  color:#805c00;
-}
-
-.hidden {
-  display:none!important;
-}
-
-/* =========================
-   NAGRODY
-========================= */
-
-.reward {
-  text-align:center;
-  padding:40px;
-}
-
-.reward .big {
-  font-size:110px;
-}
-
-.reward h2 {
-  font-size:36px;
-}
-
-.badges {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-.badge {
-  background:#fff1b9;
-  padding:13px 18px;
-  border-radius:16px;
-  font-weight:bold;
-}
-
-/* =========================
-   TELEFONY
-========================= */
-
-@media(max-width:700px) {
-  .grid3,.map {
-    grid-template-columns:1fr;
-  }
-
-  .hero {
-    padding:25px;
-  }
-
-  .hero p {
-    font-size:16px;
-  }
-
-  .levels {
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .answers {
-    grid-template-columns:1fr;
-  }
-
-  .panel {
-    padding:18px;
-  }
-
-  .inputrow {
-    flex-direction:column;
-  }
-
-  .inputrow input {
-    width:100%;
-  }
+    radial-gradient(circle at 10% 5%,#e6ddff,transparent 28%),
+    radial-gradient(circle at 90% 20%,#d7f5ff,transparent 25%),
+    var(--bg);
+  min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+button:disabled{cursor:not-allowed;opacity:.5}
+
+.topbar{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:15px 5%;background:#ffffffdd;backdrop-filter:blur(12px);
+  position:sticky;top:0;z-index:5;border-bottom:1px solid #e6e8ff;
+}
+.logo{font-weight:950;font-size:20px;color:var(--purple)}
+.xp-pill{background:#fff4c9;padding:10px 18px;border-radius:30px;font-weight:900}
+main{width:min(1100px,94%);margin:auto;padding:28px 0 60px}
+.hidden{display:none!important}
+
+.hero{
+  display:grid;grid-template-columns:1.3fr .7fr;align-items:center;gap:20px;
+  color:white;padding:38px;border-radius:32px;
+  background:linear-gradient(135deg,#7959ed,#a58aff 60%,#75caff);
+  box-shadow:0 18px 40px #7457e833;overflow:hidden;
+}
+.hero h1{font-size:clamp(32px,5vw,58px);line-height:1.08;margin:0 0 18px}
+.hero p{font-size:18px;line-height:1.6}
+.miki{font-size:clamp(100px,18vw,180px);text-align:center;animation:bob 3s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-13px) rotate(5deg)}}
+.section-title{font-size:27px;margin:35px 0 18px}
+.card,.grade,.region{
+  background:white;border:2px solid #e9eaff;border-radius:25px;
+  padding:24px;box-shadow:0 10px 30px #5665a310;
+}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grade{text-align:center;cursor:pointer;transition:.2s}
+.grade:hover,.region:hover{transform:translateY(-4px)}
+.grade .icon{font-size:48px}
+.grade h3{font-size:23px}
+.grade p{color:var(--muted)}
+.btn{border:0;border-radius:16px;padding:14px 22px;font-weight:850;transition:.2s}
+.btn:hover{transform:translateY(-2px)}
+.primary{background:var(--yellow);color:#574000}
+.purple{background:var(--purple);color:white}
+.light{background:#eef0ff;color:var(--purple)}
+.green{background:var(--green);color:#07543a}
+.region-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.region{background:linear-gradient(145deg,#fff,#f5f3ff);min-height:190px}
+.region-icon{font-size:44px}
+.region h3{margin:10px 0}
+.muted{color:var(--muted)}
+.progress{height:12px;background:#e8eaff;border-radius:20px;overflow:hidden;margin:15px 0}
+.progress div{height:100%;background:linear-gradient(90deg,#45d6a2,#59baff);transition:.3s}
+.level-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:20px}
+.level{border:2px solid #e7eaff;background:white;border-radius:18px;padding:18px 8px;text-align:center;font-weight:900;font-size:20px}
+.level.open{background:linear-gradient(135deg,#a58aff,#7457e8);color:white;border-color:transparent}
+.level.done{background:#d8fff0;color:#08734d;border-color:#8be6c5}
+.task-card{max-width:760px;margin:25px auto}
+.task-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.task-number{background:#eeeaff;color:var(--purple);border-radius:30px;padding:9px 15px;font-weight:900}
+.task-title{font-size:clamp(23px,4vw,34px);line-height:1.35;margin:25px 0}
+.task-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:25px 0}
+.task-option{background:linear-gradient(135deg,#a58aff,#7457e8);color:white;border:0;border-radius:18px;padding:20px;font-size:21px;font-weight:900}
+.task-option:hover{transform:translateY(-3px)}
+.answer-input{width:100%;border:3px solid #dcdcff;border-radius:18px;padding:18px;font-size:25px;text-align:center;outline:none}
+.answer-input:focus{border-color:var(--purple)}
+.feedback{padding:16px;border-radius:18px;margin:18px 0;font-weight:850}
+.good{background:#d9fff0;color:#08734d}
+.bad{background:#ffe5ed;color:#a32352}
+.badges{display:flex;flex-wrap:wrap;gap:12px}
+.badge{background:#fff4c9;border:2px solid #ffe18a;border-radius:18px;padding:14px;font-weight:800}
+.footer{text-align:center;color:var(--muted);padding:25px}
+.back{margin-bottom:15px}
+@media(max-width:700px){
+ .hero{grid-template-columns:1fr;padding:25px}
+ .miki{font-size:100px}
+ .grid,.region-grid{grid-template-columns:1fr}
+ .level-grid{grid-template-columns:repeat(3,1fr)}
+ .task-options{grid-template-columns:1fr}
 }
 </style>
 </head>
 
 <body>
-
 <header class="topbar">
-  <div class="logo">🕵️ Matematyczni Detektywi</div>
-  <div class="xpbox">⭐ <span id="xp">0</span> XP</div>
+ <div class="logo">🕵️ Matematyczni Detektywi</div>
+ <div class="xp-pill">⭐ <span id="xp">0</span> XP</div>
 </header>
 
-<main class="container">
-
-<!-- STRONA GŁÓWNA -->
-<section id="home" class="screen active">
-
-  <div class="hero">
-    <div>
-      <h1>Witaj w świecie<br>Matematycznych Detektywów!</h1>
-      <p>
-        Pomóż Mikiemu rozwiązywać zagadki,
-        odkrywać tajemnicze krainy i zdobywać
-        skarby matematyki!
-      </p>
-      <button class="primary" onclick="showScreen('classes')">
-        🚀 Rozpocznij przygodę
-      </button>
-    </div>
-
-    <div class="miki">🦊</div>
+<main>
+<section id="home">
+ <div class="hero">
+  <div>
+   <h1>Matematyczna<br>przygoda czeka!</h1>
+   <p>Pomóż Mikiemu odkrywać magiczne krainy, rozwiązywać zagadki i zdobywać skarby matematyki!</p>
+   <button class="btn primary" onclick="document.getElementById('grades').scrollIntoView({behavior:'smooth'})">🚀 Rozpocznij przygodę</button>
   </div>
+  <div class="miki">🦊</div>
+ </div>
 
-  <h2 class="section-title">🏅 Twoje odznaki</h2>
-  <div id="badges" class="badges"></div>
-
-  <h2 class="section-title">📚 Twoje postępy</h2>
-  <div class="card">
-    <p id="homeProgress">Wybierz klasę i rozpocznij przygodę!</p>
-  </div>
-
+ <h2 class="section-title" id="grades">🎒 Wybierz swoją klasę</h2>
+ <div class="grid">
+  <div class="grade" onclick="selectGrade(1)"><div class="icon">🌱</div><h3>Klasa 1</h3><p>Mały odkrywca</p><button class="btn purple">Wybierz</button></div>
+  <div class="grade" onclick="selectGrade(2)"><div class="icon">🔎</div><h3>Klasa 2</h3><p>Sprytny detektyw</p><button class="btn purple">Wybierz</button></div>
+  <div class="grade" onclick="selectGrade(3)"><div class="icon">🏆</div><h3>Klasa 3</h3><p>Mistrz zagadek</p><button class="btn purple">Wybierz</button></div>
+ </div>
+ <h2 class="section-title">🏅 Twoje odznaki</h2><div class="card badges" id="badges"></div>
+ <h2 class="section-title">📊 Twoje postępy</h2>
+ <div class="card"><p id="homeProgress"></p><div class="progress"><div id="homeBar"></div></div></div>
 </section>
 
-<!-- WYBÓR KLASY -->
-<section id="classes" class="screen">
-
-  <button class="back" onclick="showScreen('home')">← Powrót</button>
-
-  <h1>🎒 Wybierz swoją klasę</h1>
-
-  <div class="grid3">
-
-    <button class="card" onclick="selectGrade(1)">
-      <div class="card-icon">🌱</div>
-      <h3>Klasa 1</h3>
-      <p>Mały odkrywca</p>
-    </button>
-
-    <button class="card" onclick="selectGrade(2)">
-      <div class="card-icon">🧭</div>
-      <h3>Klasa 2</h3>
-      <p>Sprytny detektyw</p>
-    </button>
-
-    <button class="card" onclick="selectGrade(3)">
-      <div class="card-icon">🏆</div>
-      <h3>Klasa 3</h3>
-      <p>Mistrz zagadek</p>
-    </button>
-
-  </div>
+<section id="regionsScreen" class="hidden">
+ <button class="btn light back" onclick="showHome()">⬅ Strona główna</button>
+ <h1 id="gradeTitle"></h1><p>Odkrywaj krainy i zdobywaj matematyczne skarby!</p>
+ <div class="region-grid" id="regions"></div>
 </section>
 
-<!-- MAPA -->
-<section id="world" class="screen">
-
-  <button class="back" onclick="showScreen('classes')">← Klasy</button>
-
-  <h1 id="worldTitle">🌎 Mapa przygody</h1>
-
-  <p>Odkrywaj krainy po kolei!</p>
-
-  <div id="map" class="map"></div>
-
+<section id="levelsScreen" class="hidden">
+ <button class="btn light back" onclick="showRegions()">⬅ Krainy</button>
+ <h1 id="regionTitle"></h1><p>Ukończ poziomy po kolei!</p>
+ <div class="progress"><div id="regionBar"></div></div>
+ <div class="level-grid" id="levels"></div>
 </section>
 
-<!-- POZIOMY -->
-<section id="levelScreen" class="screen">
-
-  <button class="back" onclick="showScreen('world')">← Mapa krain</button>
-
-  <h1 id="regionTitle"></h1>
-  <p id="regionDescription"></p>
-
-  <div id="levels" class="levels"></div>
-
+<section id="gameScreen" class="hidden">
+ <button class="btn light back" onclick="showLevels()">⬅ Poziomy</button>
+ <div class="card task-card">
+  <div class="task-top"><span class="task-number" id="taskNumber"></span><span>⭐ <span id="gameXP"></span> XP</span></div>
+  <div class="progress"><div id="taskBar"></div></div>
+  <div class="miki-small">🦊 Miki</div>
+  <div class="task-title" id="question"></div>
+  <div id="options" class="task-options"></div>
+  <div id="inputArea" class="hidden"><input id="answerInput" class="answer-input" type="number" inputmode="numeric" placeholder="Wpisz wynik"><button class="btn purple" style="width:100%;margin-top:12px" onclick="checkInput()">Sprawdź odpowiedź</button></div>
+  <div id="feedback" class="hidden"></div>
+  <button id="nextBtn" class="btn green hidden" style="width:100%" onclick="nextTask()">Dalej ➜</button>
+ </div>
 </section>
 
-<!-- GRA -->
-<section id="game" class="screen">
-
-  <button class="back" onclick="showScreen('levelScreen')">← Poziomy</button>
-
-  <div class="panel">
-
-    <div class="taskhead">
-      <span id="taskRegion"></span>
-      <span id="taskNumber"></span>
-    </div>
-
-    <div class="taskbar">
-      <div id="taskBar"></div>
-    </div>
-
-    <div id="taskContent"></div>
-
-    <div id="feedback" class="feedback"></div>
-
-    <button id="nextButton" class="primary hidden" onclick="nextTask()">
-      ➡ Dalej
-    </button>
-
-  </div>
-
+<section id="finishScreen" class="hidden">
+ <div class="card task-card" style="text-align:center">
+  <div style="font-size:90px">🏆</div><h1>Poziom ukończony!</h1><p id="finishText"></p>
+  <button class="btn purple" onclick="showLevels()">Poziomy</button>
+  <button class="btn light" onclick="showHome()">Strona główna</button>
+ </div>
 </section>
-
-<!-- KONIEC POZIOMU -->
-<section id="finish" class="screen">
-
-  <div class="panel reward">
-
-    <div class="big">🏆</div>
-
-    <h2>Poziom ukończony!</h2>
-
-    <p id="finishText"></p>
-
-    <div class="badge">⭐ +100 XP</div>
-
-    <br><br>
-
-    <button class="primary" onclick="showScreen('levelScreen')">
-      Wróć do poziomów
-    </button>
-
-    <br><br>
-
-    <button class="back" onclick="showScreen('world')">
-      Mapa krain
-    </button>
-
-  </div>
-
-</section>
-
 </main>
+<div class="footer">✨ Matematyczni Detektywi ✨</div>
 
 <script>
+"use strict";
 
-/* =========================================
-   KRAINY
-========================================= */
-
-const regions = {
-
-1:[
-["👑","Królestwo Liczb","Liczby i porównywanie"],
-["🌲","Leśne Liczenie","Dodawanie i odejmowanie"],
-["🌉","Most Brakujących Liczb","Odkrywanie niewiadomych"],
-["🔷","Geometryczna Polana","Figury i kształty"],
-["📏","Wieża Miar","Mierzenie i długość"],
-["🕰️","Zegarowy Zamek","Czas i kalendarz"],
-["💰","Skarbiec Monet","Pieniądze"],
-["🏘️","Wioska Zadań","Zadania tekstowe"],
-["🦉","Sowa Logiczna","Logiczne zagadki"]
-],
-
-2:[
-["🏙️","Miasto do 100","Liczby do 100"],
-["🛠️","Warsztat Obliczeń","Dodawanie i odejmowanie"],
-["⚙️","Fabryka Mnożenia","Tabliczka mnożenia"],
-["🌉","Most Dzielenia","Dzielenie"],
-["🔐","Szyfr Niewiadomych","Nieznane liczby"],
-["⛰️","Góra Figur","Geometria"],
-["🧪","Laboratorium Miar","Jednostki"],
-["📅","Wieża Kalendarza","Czas"],
-["🏦","Bank Detektywów","Pieniądze"],
-["🎓","Akademia Zagadek","Logiczne zadania"]
-],
-
-3:[
-["🌍","Kraina Tysiąca","Liczby do 1000"],
-["⛏️","Kopalnia Obliczeń","Działania pisemne"],
-["🏰","Mnożnikowa Twierdza","Mnożenie"],
-["🐉","Dzielenie Smoków","Dzielenie"],
-["🔎","Komnata Niewiadomych","Nieznane liczby"],
-["🏝️","Archipelag Geometrii","Figury"],
-["🔬","Pracownia Jednostek","Miary"],
-["⌛","Pałac Czasu","Zegar i kalendarz"],
-["🛒","Targ Finansowy","Pieniądze"],
-["🐲","Smocze Śledztwa","Zagadki"]
-]
-
+const worlds={
+1:[["Królestwo Liczb","🔢"],["Leśne Liczenie","🌳"],["Most Brakujących Liczb","🌉"],["Geometryczna Polana","🔺"],["Wieża Miar","📏"],["Zegarowy Zamek","⏰"],["Skarbiec Monet","💰"],["Wioska Zadań","🏡"],["Sowa Logiczna","🦉"]],
+2:[["Miasto do 100","🏙️"],["Warsztat Obliczeń","🧮"],["Fabryka Mnożenia","✖️"],["Most Dzielenia","➗"],["Szyfr Niewiadomych","🔐"],["Góra Figur","⛰️"],["Laboratorium Miar","🧪"],["Wieża Kalendarza","📅"],["Bank Detektywów","🏦"],["Akademia Zagadek","🎓"]],
+3:[["Kraina Tysiąca","🌄"],["Kopalnia Obliczeń","⛏️"],["Mnożnikowa Twierdza","🏰"],["Dzielenie Smoków","🐉"],["Komnata Niewiadomych","🔮"],["Archipelag Geometrii","🏝️"],["Pracownia Jednostek","⚗️"],["Pałac Czasu","⌛"],["Targ Finansowy","🛒"],["Smocze Śledztwa","🐲"]]
 };
 
-/* =========================================
-   ZAPIS
-========================================= */
+let save;
+try{save=JSON.parse(localStorage.getItem("md-save"))||{};}catch(e){save={};}
+save.xp=Number(save.xp)||0;save.done=save.done||{};save.badges=save.badges||[];
+let grade=1,region=0,level=1,index=0,tasks=[],answered=false;
 
-function loadSave(){
- try{
-  const s=JSON.parse(localStorage.getItem("md-save")||"{}");
-  return {
-   xp:Number(s.xp)||0,
-   done:s.done&&typeof s.done==="object"?s.done:{},
-   badges:Array.isArray(s.badges)?s.badges:[]
-  };
- }catch(e){
-  return {xp:0,done:{},badges:[]};
- }
-}
+const $=id=>document.getElementById(id);
+const key=(g=grade,r=region,l=level)=>`${g}-${r}-${l}`;
+const isDone=(g,r,l)=>!!save.done[key(g,r,l)];
 
-let save=loadSave();
-
-let grade=1;
-let regionIndex=0;
-let level=1;
-let taskIndex=0;
-let tasks=[];
-let answered=false;
-let dragOrder=[];
-
-/* =========================================
-   ZAPIS POSTĘPÓW
-========================================= */
-
-function persist(){
-
- try{
-  localStorage.setItem("md-save",JSON.stringify(save));
- }catch(e){
-  console.warn("Nie udało się zapisać postępów.");
- }
-
- document.getElementById("xp").textContent=save.xp;
-
- renderBadges();
- renderHomeProgress();
-}
-
-function taskKey(g,r,l){
- return g+"-"+r+"-"+l;
-}
-
-function isDone(g,r,l){
- return !!save.done[taskKey(g,r,l)];
-}
-
-function regionDone(g,r){
- for(let l=1;l<=10;l++){
-  if(!isDone(g,r,l))return false;
- }
- return true;
-}
-
-function regionUnlocked(r){
- return r===0||regionDone(grade,r-1);
-}
-
-function levelUnlocked(l){
- return l===1||isDone(grade,regionIndex,l-1);
-}
-
-/* =========================================
-   NAWIGACJA
-========================================= */
-
-function showScreen(id){
-
- document.querySelectorAll(".screen").forEach(s=>{
-  s.classList.remove("active");
- });
-
- document.getElementById(id).classList.add("active");
-
- window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function selectGrade(g){
-
- grade=g;
-
- document.getElementById("worldTitle").textContent=
-  "🌎 Świat klasy "+g;
-
- renderMap();
-
- showScreen("world");
-}
-
-/* =========================================
-   MAPA
-========================================= */
-
-function renderMap(){
-
- const map=document.getElementById("map");
- map.innerHTML="";
-
- regions[grade].forEach((r,i)=>{
-
-  const unlocked=regionUnlocked(i);
-
-  const count=Array.from({length:10},(_,n)=>
-   isDone(grade,i,n+1)
-  ).filter(Boolean).length;
-
-  const button=document.createElement("button");
-
-  button.className="region"+(!unlocked?" locked":"");
-  button.disabled=!unlocked;
-
-  button.innerHTML=`
-   <div class="region-icon">${r[0]}</div>
-   <h3>${r[1]}</h3>
-   <small>${r[2]}</small>
-   <div class="progress">
-    <div style="width:${count*10}%"></div>
-   </div>
-   <small>${count}/10 poziomów ${unlocked?"":"🔒"}</small>
-  `;
-
-  button.onclick=()=>{
-
-   regionIndex=i;
-
-   renderLevels();
-
-   showScreen("levelScreen");
-  };
-
-  map.appendChild(button);
-
+function persist(){localStorage.setItem("md-save",JSON.stringify(save));homeStats();}
+function hide(){["home","regionsScreen","levelsScreen","gameScreen","finishScreen"].forEach(id=>$(id).classList.add("hidden"));}
+function showHome(){hide();$("home").classList.remove("hidden");homeStats();badges();}
+function selectGrade(g){grade=g;showRegions();}
+function showRegions(){
+ hide();$("regionsScreen").classList.remove("hidden");$("gradeTitle").textContent=`🎒 Klasa ${grade}`;
+ $("regions").innerHTML="";
+ worlds[grade].forEach((w,i)=>{
+  const open=i===0||isDone(grade,i-1,10);
+  const count=Array.from({length:10},(_,n)=>isDone(grade,i,n+1)).filter(Boolean).length;
+  $("regions").innerHTML+=`<div class="region"><div class="region-icon">${w[1]}</div><h3>${w[0]}</h3><p class="muted">${count}/10 poziomów</p><div class="progress"><div style="width:${count*10}%"></div></div><button class="btn ${open?"purple":"light"}" ${open?"":"disabled"} onclick="selectRegion(${i})">${open?"Odkryj krainę":"🔒 Zablokowana"}</button></div>`;
  });
 }
-
-/* =========================================
-   POZIOMY
-========================================= */
-
-function renderLevels(){
-
- const r=regions[grade][regionIndex];
-
- document.getElementById("regionTitle").textContent=
-  r[0]+" "+r[1];
-
- document.getElementById("regionDescription").textContent=
-  r[2]+" • 10 poziomów";
-
- const el=document.getElementById("levels");
-
- el.innerHTML="";
-
- for(let l=1;l<=10;l++){
-
-  const done=isDone(grade,regionIndex,l);
-  const unlocked=levelUnlocked(l);
-
-  const b=document.createElement("button");
-
-  b.className="level "+(done?"done":unlocked?"open":"locked");
-
-  b.textContent=done?"✓":unlocked?l:"🔒";
-
-  b.disabled=!unlocked;
-
-  b.onclick=()=>startLevel(l);
-
-  el.appendChild(b);
+function selectRegion(i){region=i;showLevels();}
+function showLevels(){
+ hide();$("levelsScreen").classList.remove("hidden");$("regionTitle").textContent=worlds[grade][region][1]+" "+worlds[grade][region][0];$("levels").innerHTML="";
+ let count=0;
+ for(let n=1;n<=10;n++){
+  let done=isDone(grade,region,n),open=n===1||isDone(grade,region,n-1);
+  if(done)count++;
+  $("levels").innerHTML+=`<button class="level ${done?"done":open?"open":""}" ${open?"":"disabled"} onclick="startLevel(${n})">${done?"⭐":open?"🔎":"🔒"}<br>${n}</button>`;
  }
+ $("regionBar").style.width=count*10+"%";
 }
+function startLevel(n){level=n;index=0;tasks=makeTasks();hide();$("gameScreen").classList.remove("hidden");renderTask();}
 
-/* =========================================
-   GENERATOR ZADAŃ
-========================================= */
-
-function rand(n){
- return Math.floor(Math.random()*n);
-}
-
-function shuffle(arr){
-
- const a=[...arr];
-
- for(let i=a.length-1;i>0;i--){
-
-  const j=rand(i+1);
-
-  [a[i],a[j]]=[a[j],a[i]];
- }
-
- return a;
-}
-
-function createTask(type,q,correct,story="",hint=""){
- return {type,q,correct,story,hint};
-}
-
-function numberLimit(){
- return grade===1?20:grade===2?100:1000;
-}
-
-function buildTasks(){
-
- const max=numberLimit();
-
- const a=rand(max)+1;
- const b=rand(max)+1;
-
- const sum=a+b;
- const diff=Math.abs(a-b);
-
- const x=rand(grade===1?5:grade===2?10:20)+1;
- const y=rand(grade===1?5:grade===2?10:20)+1;
-
- const mul=x*y;
-
- const tasks7=[
-
- createTask(
-  "choice",
-  "Ile to "+a+" + "+b+"?",
-  sum,
-  "",
-  "Dodaj obie liczby."
- ),
-
- createTask(
-  "input",
-  "Oblicz: "+Math.max(a,b)+" − "+Math.min(a,b),
-  diff,
-  "",
-  "Odejmij mniejszą liczbę."
- ),
-
- createTask(
-  "input",
-  "Uzupełnij: "+a+" + □ = "+sum,
-  sum,
-  "",
-  "Jakiej liczby brakuje?"
- ),
-
- createTask(
-  "compare",
-  "Wybierz znak: "+a+" □ "+b,
-  a<b?"<":a>b?">":"=",
-  "",
-  "Porównaj liczby."
- ),
-
- createTask(
-  "choice",
-  "Ile to "+x+" × "+y+"?",
-  mul,
-  "",
-  "Policz grupy."
- ),
-
- createTask(
-  "choice",
-  "Ile to "+mul+" ÷ "+x+"?",
-  y,
-  "",
-  "Podziel na równe grupy."
- ),
-
- createTask(
-  "drag",
-  "Ułóż liczby od najmniejszej do największej",
-  [a,b,sum].sort((u,v)=>u-v),
-  "",
-  "Przeciągnij liczby do odpowiednich miejsc."
- )
-
+function makeTasks(){
+ const max=grade===1?20:grade===2?100:1000;
+ const rand=()=>Math.floor(Math.random()*(grade===1?8:grade===2?35:250))+1;
+ const a=rand(),b=rand(),c=rand();
+ const add=a+b,sub=Math.abs(a-b);
+ let arr=[
+ {q:`Oblicz: ${a} + ${b}`,ans:add,type:"input"},
+ {q:`Oblicz: ${Math.max(a,b)} − ${Math.min(a,b)}`,ans:sub,type:"input"},
+ {q:`Która liczba jest większa: ${a} czy ${b}?`,ans:Math.max(a,b),type:"choice",opts:[a,b,a+b]},
+ {q:`Uzupełnij: ${a} + ___ = ${add}`,ans:b,type:"input"},
+ {q:`Miki ma ${a} jagód i znajduje ${b} kolejnych. Ile ma razem?`,ans:add,type:"input"},
+ {q:`Który wynik jest poprawny dla ${a}+${b}?`,ans:add,type:"choice",opts:[add,add+1,Math.max(0,add-2)]},
+ {q:`Zagadka: ${c}, ${c+2}, ${c+4}, ___`,ans:c+6,type:"input"},
+ {q:`🏆 FINAŁ! ${a} skrzyń po ${b} monet. Ile monet razem?`,ans:a*b,type:"input",final:true}
  ];
-
- const finale=createTask(
-  "input",
-  "🐉 FINAŁ: Oblicz "+mul+" + "+sum,
-  mul+sum,
-  "Miki znalazł magiczną skrzynię. Otwórz ją!",
-  "Najpierw mnożenie, potem dodawanie."
- );
-
- tasks=[...tasks7,finale];
+ if(grade>=2){
+  arr[0]={q:`Oblicz: ${a} × ${b}`,ans:a*b,type:"input"};
+  arr[1]={q:`Oblicz: ${a*b} ÷ ${a}`,ans:b,type:"input"};
+  arr[3]={q:`Uzupełnij: ${a} × ___ = ${a*b}`,ans:b,type:"input"};
+ }
+ if(grade===3){
+  arr[6]={q:`Zagadka: ${c*3}, ${c*6}, ${c*9}, ___`,ans:c*12,type:"input"};
+  arr[7]={q:`🏆 FINAŁ! ${a} paczek po ${b} monet i jeszcze ${c}. Ile monet?`,ans:a*b+c,type:"input",final:true};
+ }
+ return arr;
 }
-
-/* =========================================
-   START POZIOMU
-========================================= */
-
-function startLevel(l){
-
- level=l;
-
- taskIndex=0;
-
- buildTasks();
-
- showScreen("game");
-
- renderTask();
-}
-
-/* =========================================
-   RYSOWANIE ZADANIA
-========================================= */
-
 function renderTask(){
-
- answered=false;
-
- const t=tasks[taskIndex];
-
- document.getElementById("taskRegion").textContent=
-  regions[grade][regionIndex][1]+" • poziom "+level;
-
- document.getElementById("taskNumber").textContent=
-  "Zadanie "+(taskIndex+1)+"/8";
-
- document.getElementById("taskBar").style.width=
-  (taskIndex/8*100)+"%";
-
- const content=document.getElementById("taskContent");
-
- content.innerHTML=
-  `<h2 class="tasktitle">${t.q}</h2>`+
-  (t.story?`<div class="story">${t.story}</div>`:"");
-
- document.getElementById("feedback").className="feedback";
-
- document.getElementById("nextButton").classList.add("hidden");
-
- if(t.type==="input"){
-
-  content.innerHTML+=`
-   <div class="inputrow">
-    <input id="userAnswer" type="number" inputmode="numeric" placeholder="Odpowiedź">
-    <button class="primary" onclick="checkInput()">Sprawdź</button>
-   </div>
-  `;
-
-  document.getElementById("userAnswer").addEventListener("keydown",e=>{
-   if(e.key==="Enter")checkInput();
-  });
- }
-
+ answered=false;let t=tasks[index];
+ $("taskNumber").textContent=`Zadanie ${index+1}/8`;$("taskBar").style.width=index/8*100+"%";$("gameXP").textContent=save.xp;
+ $("question").textContent=t.q;$("feedback").className="hidden";$("nextBtn").classList.add("hidden");$("options").innerHTML="";$("inputArea").classList.add("hidden");
  if(t.type==="choice"){
-
-  const answers=shuffle([
-   t.correct,
-   t.correct+1,
-   Math.max(0,t.correct-1),
-   t.correct+2
-  ]);
-
-  content.innerHTML+=`
-   <div class="answers">
-    ${answers.map(v=>
-     `<button class="answer" onclick="checkChoice(this,${v})">${v}</button>`
-    ).join("")}
-   </div>
-  `;
- }
-
- if(t.type==="compare"){
-
-  content.innerHTML+=`
-   <div class="answers">
-    ${["<",">","="].map(v=>
-     `<button class="answer" onclick="checkChoice(this,'${v}')">${v}</button>`
-    ).join("")}
-   </div>
-  `;
- }
-
- if(t.type==="drag"){
-
-  dragOrder=[];
-
-  content.innerHTML+=`
-   <div class="dragitems" id="dragitems">
-    ${shuffle(t.correct).map(v=>
-     `<div class="dragitem" draggable="true">${v}</div>`
-    ).join("")}
-   </div>
-
-   <div class="dropzone" id="dropzone">
-    Przeciągnij liczby tutaj
-   </div>
-
-   <button class="primary" onclick="checkDrag()">Sprawdź kolejność</button>
-  `;
-
-  setupDrag();
- }
+  [...new Set(t.opts)].sort(()=>Math.random()-.5).forEach(v=>{let b=document.createElement("button");b.className="task-option";b.textContent=v;b.onclick=()=>checkAnswer(v);$("options").appendChild(b);});
+ }else{$("inputArea").classList.remove("hidden");$("answerInput").value="";}
 }
-
-/* =========================================
-   SPRAWDZANIE ODPOWIEDZI
-========================================= */
-
-function showFeedback(ok,msg){
-
- const f=document.getElementById("feedback");
-
- f.className="feedback "+(ok?"good":"bad");
-
- f.textContent=msg;
-
- if(ok){
-
-  answered=true;
-
-  document.getElementById("nextButton").classList.remove("hidden");
- }
+function checkInput(){if($("answerInput").value!=="")checkAnswer(Number($("answerInput").value));}
+function checkAnswer(v){
+ if(answered)return;answered=true;let t=tasks[index],good=Number(v)===Number(t.ans),f=$("feedback");
+ f.className="feedback "+(good?"good":"bad");f.classList.remove("hidden");
+ if(good){f.textContent="🎉 Brawo! Miki jest dumny!";save.xp+=t.final?30:10;$("xp").textContent=save.xp;}
+ else f.textContent="💡 Prawidłowy wynik: "+t.ans+". Miki podpowiada: spróbuj zapamiętać tę metodę!";
+ document.querySelectorAll(".task-option").forEach(b=>b.disabled=true);$("nextBtn").classList.remove("hidden");
 }
-
-function checkChoice(btn,value){
-
- if(answered)return;
-
- if(value===tasks[taskIndex].correct){
-
-  btn.classList.add("good");
-
-  showFeedback(true,"🎉 Brawo! Miki jest zachwycony!");
-
- }else{
-
-  btn.classList.add("bad");
-
-  showFeedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj ponownie.");
- }
+function nextTask(){if(++index>=tasks.length)finishLevel();else renderTask();}
+function finishLevel(){
+ save.done[key()]=true;
+ if(!save.badges.includes("Pierwszy poziom"))save.badges.push("Pierwszy poziom");
+ if(Object.keys(save.done).length>=10&&!save.badges.includes("Detektyw"))save.badges.push("Detektyw");
+ persist();hide();$("finishScreen").classList.remove("hidden");$("finishText").textContent=`Poziom ukończony! Masz ${save.xp} XP. Zdobywasz matematyczny skarb!`;
 }
-
-function checkInput(){
-
- if(answered)return;
-
- const input=document.getElementById("userAnswer");
-
- if(input.value.trim()==="")return;
-
- const value=Number(input.value);
-
- if(value===tasks[taskIndex].correct){
-
-  showFeedback(true,"⭐ Doskonale! Odpowiedź prawidłowa!");
-
- }else{
-
-  showFeedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj ponownie.");
- }
+function badges(){
+ $("badges").innerHTML=save.badges.length?save.badges.map(b=>`<div class="badge">🏅 ${b}</div>`).join(""):"Rozwiąż pierwszy poziom, aby zdobyć odznakę!";
 }
-
-/* =========================================
-   PRZECIĄGANIE
-========================================= */
-
-function setupDrag(){
-
- const items=document.querySelectorAll(".dragitem");
- const zone=document.getElementById("dropzone");
-
- items.forEach(item=>{
-
-  item.addEventListener("dragstart",e=>{
-   e.dataTransfer.setData("text/plain",item.textContent);
-  });
-
-  item.addEventListener("pointerdown",()=>{
-   item.classList.add("selected");
-  });
-
-  item.addEventListener("click",()=>{
-   if(answered)return;
-
-   const value=item.textContent;
-
-   dragOrder.push(value);
-
-   const box=document.createElement("div");
-   box.className="dragitem";
-   box.textContent=value;
-
-   zone.appendChild(box);
-
-   item.remove();
-
-   if(document.querySelectorAll("#dragitems .dragitem").length===0){
-    zone.dataset.filled="true";
-   }
-  });
- });
-
- zone.addEventListener("dragover",e=>{
-  e.preventDefault();
-  zone.classList.add("over");
- });
-
- zone.addEventListener("dragleave",()=>{
-  zone.classList.remove("over");
- });
-
- zone.addEventListener("drop",e=>{
-  e.preventDefault();
-  zone.classList.remove("over");
-
-  const value=e.dataTransfer.getData("text/plain");
-
-  if(value){
-   dragOrder.push(value);
-
-   const box=document.createElement("div");
-   box.className="dragitem";
-   box.textContent=value;
-
-   zone.appendChild(box);
-
-   [...document.querySelectorAll("#dragitems .dragitem")]
-    .find(item=>item.textContent===value)?.remove();
-  }
- });
+function homeStats(){
+ $("xp").textContent=save.xp;$("homeProgress").textContent=`Ukończone poziomy: ${Object.keys(save.done).length} • Zdobyte XP: ${save.xp}`;
+ $("homeBar").style.width=Math.min(100,Object.keys(save.done).length/30*100)+"%";
 }
-
-function checkDrag(){
-
- if(answered)return;
-
- const expected=tasks[taskIndex].correct.map(String);
-
- const actual=dragOrder.map(String);
-
- if(expected.length===actual.length&&
-    expected.every((v,i)=>v===actual[i])){
-
-  showFeedback(true,"🎉 Doskonale! Liczby są w dobrej kolejności!");
-
- }else{
-
-  showFeedback(false,"💡 Spróbuj ułożyć liczby od najmniejszej do największej.");
- }
-}
-
-/* =========================================
-   NASTĘPNE ZADANIE
-========================================= */
-
-function nextTask(){
-
- if(!answered)return;
-
- taskIndex++;
-
- if(taskIndex<8){
-
-  renderTask();
-
-  return;
- }
-
- const key=taskKey(grade,regionIndex,level);
-
- if(!save.done[key]){
-
-  save.done[key]=true;
-
-  save.xp+=100;
-
-  const badge="🏅 Detektyw poziomu "+level;
-
-  if(!save.badges.includes(badge)){
-   save.badges.push(badge);
-  }
- }
-
- persist();
-
- document.getElementById("finishText").textContent=
-  "Zdobywasz 100 XP! Ukończono poziom "+level+".";
-
- showScreen("finish");
-}
-
-/* =========================================
-   ODZNAKI
-========================================= */
-
-function renderBadges(){
-
- const el=document.getElementById("badges");
-
- if(!el)return;
-
- if(save.badges.length===0){
-
-  el.innerHTML="<p>Rozwiąż pierwszy poziom, aby zdobyć odznakę!</p>";
-
-  return;
- }
-
- el.innerHTML=save.badges.map(b=>
-  `<span class="badge">${b}</span>`
- ).join("");
-}
-
-/* =========================================
-   POSTĘPY
-========================================= */
-
-function renderHomeProgress(){
-
- const el=document.getElementById("homeProgress");
-
- const total=Object.keys(save.done).length;
-
- el.textContent=
-  "Ukończone poziomy: "+total+" • Zdobyte XP: "+save.xp;
-}
-
-/* =========================================
-   URUCHOMIENIE
-========================================= */
-
-persist();
-
-renderBadges();
-
-renderHomeProgress();
-
-showScreen("home");
-
+$("answerInput").addEventListener("keydown",e=>{if(e.key==="Enter")checkInput();});
+showHome();
 </script>
-
 </body>
 </html>
