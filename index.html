@@ -407,14 +407,10 @@ function openLesson(l) {
 
   hideAll();
   document.getElementById("lesson").classList.remove("hidden");
-}
-hideAll();
-$("lesson").classList.remove("hidden");
+
 
 let type=regionData[grade][region][1];
 let topic=names[type];
-
-$("lessonTitle").textContent="📖 "+topic+" • poziom "+(l+1);
 
 let intro=`Cześć, detektywie! Dzisiaj poznajemy temat: ${topic.toLowerCase()}. Najpierw pokażę Ci sposób, potem wspólnie przećwiczymy, a na końcu rozwiążesz pięć zagadek. Pomyłka to kolejny trop!`;
 let explanation="",example="",summary="";
