@@ -2,361 +2,795 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matematyczni Detektywi</title>
+
 <style>
-:root{
- --bg:#10162e;--panel:#20294c;--panel2:#29365e;
- --gold:#ffd166;--blue:#69c6ff;--green:#6be7a8;
- --red:#ff7b91;--text:#f5f7ff;--muted:#aebbe0;
+:root {
+  --navy:#18234a;
+  --blue:#4779ff;
+  --purple:#8457e8;
+  --pink:#ff75ad;
+  --yellow:#ffd65a;
+  --green:#44d6a0;
+  --white:#ffffff;
 }
-*{box-sizing:border-box}
-body{
- margin:0;background:radial-gradient(circle at top,#293a70,#10162e 70%);
- color:var(--text);font-family:system-ui,Arial,sans-serif;
- min-height:100vh;
+
+* {
+  box-sizing:border-box;
 }
-button{font:inherit;cursor:pointer}
-header{
- padding:16px;display:flex;align-items:center;justify-content:space-between;
- gap:12px;flex-wrap:wrap;max-width:1100px;margin:auto
+
+body {
+  margin:0;
+  font-family:"Trebuchet MS",Arial,sans-serif;
+  background:#f1f4ff;
+  color:var(--navy);
 }
-.logo{font-size:23px;font-weight:900;color:var(--gold)}
-.stats{display:flex;gap:8px;flex-wrap:wrap}
-.stat{background:var(--panel);padding:9px 13px;border-radius:14px;font-weight:700}
-main{max-width:1100px;margin:auto;padding:12px}
-.panel{
- background:rgba(32,41,76,.96);border:1px solid #46588c;
- border-radius:22px;padding:20px;margin-bottom:16px;
- box-shadow:0 12px 35px #0002
+
+button,input {
+  font:inherit;
 }
-h1,h2,h3{margin-top:0}
-h1{font-size:clamp(25px,5vw,40px)}
-.subtitle{color:var(--muted)}
-button{
- border:0;border-radius:13px;padding:12px 17px;font-weight:800;
- background:var(--gold);color:#20213a;transition:.15s
+
+button {
+  cursor:pointer;
+  border:0;
 }
-button:hover{transform:translateY(-2px)}
-button.secondary{background:#3b4b7c;color:white}
-button:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.hidden{display:none!important}
-.classes,.map,.levels,.answers{display:grid;gap:12px}
-.classes{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-.map{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
-.levels{grid-template-columns:repeat(5,minmax(48px,1fr))}
-.card{
- background:var(--panel2);padding:16px;border-radius:17px;
- border:1px solid #52669e;text-align:left
+
+.topbar {
+  background:white;
+  padding:14px 5%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  box-shadow:0 4px 20px #18234a10;
+  position:sticky;
+  top:0;
+  z-index:10;
 }
-.card h3{margin-bottom:8px}
-.card p{color:var(--muted);font-size:14px}
-.lock{filter:grayscale(.6);opacity:.55}
-.level{
- min-height:55px;background:#33436f;color:white;
- border:2px solid #52669e;padding:8px
+
+.logo {
+  font-size:21px;
+  font-weight:900;
+  color:#5844cf;
 }
-.level.done{background:#176b58;border-color:var(--green)}
-.level.current{border-color:var(--gold);box-shadow:0 0 0 3px #ffd16633}
-.level.locked{opacity:.35}
-.progress{
- height:10px;background:#10162e;border-radius:99px;overflow:hidden;margin:12px 0
+
+.xpbox {
+  background:#fff3c5;
+  border-radius:30px;
+  padding:10px 18px;
+  font-weight:bold;
 }
-.progress>div{height:100%;background:var(--green);width:0;transition:.3s}
-.task-head{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.tag{background:#394b7d;padding:7px 11px;border-radius:99px;font-size:13px}
-.story{background:#172143;padding:14px;border-radius:15px;margin:12px 0}
-.question{font-size:clamp(20px,4vw,28px);font-weight:800;line-height:1.4;margin:22px 0}
-.answers{grid-template-columns:repeat(auto-fit,minmax(120px,1fr))}
-.answer{
- background:#33436f;color:white;border:2px solid #52669e;
- min-height:65px;font-size:20px
+
+.container {
+  max-width:1100px;
+  margin:auto;
+  padding:25px 18px 60px;
 }
-.answer.correct{background:#176b58;border-color:var(--green)}
-.answer.wrong{background:#7b2943;border-color:var(--red)}
-.feedback{min-height:35px;font-weight:800;margin:12px 0}
-.feedback.good{color:var(--green)}
-.feedback.bad{color:var(--red)}
-.drag-area{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0}
-.drag-item{
- background:#ffd166;color:#24213b;padding:14px 18px;border-radius:14px;
- font-weight:900;touch-action:none;user-select:none;cursor:grab
+
+.hero {
+  background:linear-gradient(135deg,#6855e8,#9276ff);
+  border-radius:30px;
+  padding:35px;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:20px;
+  overflow:hidden;
+  position:relative;
 }
-.drop{
- min-width:85px;min-height:65px;border:2px dashed #8ca2e4;
- border-radius:14px;display:grid;place-items:center;padding:8px
+
+.hero h1 {
+  font-size:clamp(30px,5vw,54px);
+  margin:0 0 15px;
+  line-height:1.05;
 }
-.drop.active{background:#324b7c}
-.drop.filled{border-style:solid;border-color:var(--green)}
-.finale-screen{
- background:linear-gradient(135deg,#473276,#203d72);
- border:1px solid #8b78c9;border-radius:20px;padding:20px
+
+.hero p {
+  font-size:18px;
+  max-width:500px;
+  line-height:1.5;
 }
-.miki{font-size:44px}
-footer{text-align:center;color:var(--muted);padding:25px}
-@media(max-width:600px){
- main{padding:8px}.panel{padding:15px}
- .levels{grid-template-columns:repeat(5,1fr)}
- header{padding:12px}
+
+.miki {
+  font-size:115px;
+  animation:bounce 2s infinite ease-in-out;
+  filter:drop-shadow(0 12px 8px #0002);
+}
+
+@keyframes bounce {
+  0%,100% {transform:translateY(0) rotate(-5deg)}
+  50% {transform:translateY(-12px) rotate(5deg)}
+}
+
+.primary {
+  background:var(--yellow);
+  color:#453200;
+  font-weight:900;
+  border-radius:16px;
+  padding:15px 23px;
+  box-shadow:0 5px 0 #d7a92b;
+}
+
+.primary:active {
+  transform:translateY(3px);
+  box-shadow:0 2px 0 #d7a92b;
+}
+
+.section-title {
+  margin:35px 0 18px;
+  font-size:27px;
+}
+
+.classes {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.class-card {
+  border-radius:24px;
+  padding:25px 18px;
+  text-align:center;
+  background:white;
+  box-shadow:0 7px 20px #18234a0b;
+  border:3px solid transparent;
+  transition:.2s;
+}
+
+.class-card:hover {
+  transform:translateY(-5px);
+  border-color:#b8adff;
+}
+
+.class-icon {
+  font-size:55px;
+}
+
+.class-card h3 {
+  font-size:22px;
+  margin:10px 0;
+}
+
+.class-card p {
+  color:#7b82a3;
+}
+
+.map {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.region {
+  background:white;
+  border-radius:22px;
+  padding:18px;
+  box-shadow:0 6px 20px #18234a0b;
+  position:relative;
+  border:2px solid #e8eaff;
+  text-align:left;
+  transition:.2s;
+}
+
+.region:not(.locked):hover {
+  transform:translateY(-4px);
+  border-color:#9e8aff;
+}
+
+.region.locked {
+  opacity:.65;
+  filter:grayscale(.6);
+}
+
+.region-icon {
+  font-size:42px;
+}
+
+.region h3 {
+  margin:8px 0;
+}
+
+.region small {
+  color:#7d83a3;
+}
+
+.progressbar {
+  height:9px;
+  background:#e8eaff;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:13px;
+}
+
+.progressbar div {
+  height:100%;
+  background:linear-gradient(90deg,#54d6a6,#49bfff);
+  width:0;
+  transition:.3s;
+}
+
+.levels {
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.level {
+  aspect-ratio:1;
+  border-radius:20px;
+  background:white;
+  border:3px solid #e6eaff;
+  font-size:25px;
+  font-weight:900;
+  color:#66709a;
+  box-shadow:0 4px 0 #dce2ff;
+}
+
+.level.done {
+  background:#d8fff0;
+  border-color:#4bd6a5;
+  color:#16835f;
+}
+
+.level.current {
+  background:#fff1b9;
+  border-color:#ffc83e;
+  color:#9b6900;
+}
+
+.level.locked {
+  opacity:.45;
+}
+
+.panel {
+  background:white;
+  border-radius:28px;
+  padding:25px;
+  box-shadow:0 8px 30px #18234a0b;
+}
+
+.back {
+  background:#e9edff;
+  color:#4b55a0;
+  padding:11px 17px;
+  border-radius:13px;
+  font-weight:bold;
+  margin-bottom:18px;
+}
+
+.tasktop {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  color:#7c83a3;
+  font-weight:bold;
+}
+
+.taskprogress {
+  height:12px;
+  background:#e9edff;
+  border-radius:20px;
+  margin:18px 0 30px;
+  overflow:hidden;
+}
+
+.taskprogress div {
+  height:100%;
+  background:linear-gradient(90deg,#4bd6a5,#51baff);
+  transition:.3s;
+}
+
+.task-title {
+  font-size:clamp(23px,4vw,35px);
+  line-height:1.3;
+  margin:15px 0;
+}
+
+.story {
+  font-size:19px;
+  line-height:1.6;
+  color:#555f89;
+  background:#f5f6ff;
+  padding:18px;
+  border-radius:18px;
+  margin:18px 0;
+}
+
+.answers {
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.answer {
+  background:#f1f3ff;
+  border:3px solid #e1e6ff;
+  padding:18px;
+  border-radius:17px;
+  font-size:23px;
+  font-weight:bold;
+  color:#4d5790;
+}
+
+.answer:hover {
+  background:#e7eaff;
+}
+
+.answer.correct {
+  background:#d8fff0;
+  border-color:#42d3a1;
+}
+
+.answer.wrong {
+  background:#ffe0e8;
+  border-color:#ff7b9d;
+}
+
+.inputrow {
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+
+.inputrow input {
+  min-width:0;
+  flex:1;
+  padding:16px;
+  border:3px solid #e1e6ff;
+  border-radius:15px;
+  font-size:22px;
+}
+
+.feedback {
+  margin-top:20px;
+  padding:17px;
+  border-radius:17px;
+  font-weight:bold;
+  display:none;
+  line-height:1.5;
+}
+
+.feedback.good {
+  display:block;
+  background:#d8fff0;
+  color:#147a59;
+}
+
+.feedback.bad {
+  display:block;
+  background:#fff0c5;
+  color:#8b6200;
+}
+
+.dragarea {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+  justify-content:center;
+  margin:25px 0;
+}
+
+.dragitem {
+  background:#e9eaff;
+  padding:15px 22px;
+  border-radius:16px;
+  border:3px solid #cbd4ff;
+  font-size:23px;
+  font-weight:bold;
+  cursor:grab;
+  touch-action:none;
+  user-select:none;
+}
+
+.dropzone {
+  min-height:90px;
+  border:3px dashed #a9b5ff;
+  background:#f6f7ff;
+  border-radius:20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:24px;
+  padding:15px;
+  text-align:center;
+}
+
+.dropzone.over {
+  background:#e4fff4;
+  border-color:#42d3a1;
+}
+
+.dropzone.filled {
+  border-style:solid;
+}
+
+.reward {
+  text-align:center;
+  padding:30px;
+}
+
+.reward .big {
+  font-size:100px;
+}
+
+.reward h2 {
+  font-size:34px;
+}
+
+.hidden {
+  display:none!important;
+}
+
+.badges {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.badge {
+  background:#fff1b9;
+  padding:12px 17px;
+  border-radius:15px;
+  font-weight:bold;
+}
+
+@media(max-width:700px) {
+  .classes,.map {
+    grid-template-columns:1fr;
+  }
+
+  .hero {
+    padding:25px;
+  }
+
+  .miki {
+    font-size:75px;
+  }
+
+  .levels {
+    grid-template-columns:repeat(4,1fr);
+  }
+
+  .answers {
+    grid-template-columns:1fr;
+  }
+
+  .panel {
+    padding:18px;
+  }
 }
 </style>
 </head>
+
 <body>
-<header>
- <div class="logo">🕵️ Matematyczni Detektywi</div>
- <div class="stats">
-  <div class="stat">⭐ XP: <span id="xp">0</span></div>
-  <div class="stat">🏅 <span id="badges">0</span></div>
- </div>
+
+<header class="topbar">
+  <div class="logo">🕵️ Matematyczni Detektywi</div>
+  <div class="xpbox">⭐ <span id="xp">0</span> XP</div>
 </header>
 
-<main>
-<section id="home" class="panel">
- <h1>Witaj w Matematycznej Akademii!</h1>
- <p class="subtitle">Wybierz klasę i rozpocznij swoje matematyczne śledztwo.</p>
- <div class="classes">
-  <button onclick="chooseGrade(1)">📘 Klasa 1</button>
-  <button onclick="chooseGrade(2)">📗 Klasa 2</button>
-  <button onclick="chooseGrade(3)">📕 Klasa 3</button>
- </div>
+<main class="container">
+
+<section id="home">
+  <div class="hero">
+    <div>
+      <h1>Witaj w świecie<br>Matematycznych Detektywów!</h1>
+      <p>Pomóż Mikiemu rozwiązać zagadki, odkryć tajemnicze krainy i zdobyć skarby matematyki!</p>
+      <button class="primary" onclick="chooseClass()">🚀 Rozpocznij przygodę</button>
+    </div>
+    <div class="miki">🦊</div>
+  </div>
+
+  <h2 class="section-title">🎒 Wybierz swoją klasę</h2>
+  <div class="classes">
+    <button class="class-card" onclick="selectClass(1)">
+      <div class="class-icon">🌱</div>
+      <h3>Klasa 1</h3>
+      <p>Mały odkrywca</p>
+    </button>
+    <button class="class-card" onclick="selectClass(2)">
+      <div class="class-icon">🧭</div>
+      <h3>Klasa 2</h3>
+      <p>Sprytny detektyw</p>
+    </button>
+    <button class="class-card" onclick="selectClass(3)">
+      <div class="class-icon">🏆</div>
+      <h3>Klasa 3</h3>
+      <p>Mistrz zagadek</p>
+    </button>
+  </div>
+
+  <h2 class="section-title">🏅 Twoje odznaki</h2>
+  <div id="homeBadges" class="badges"></div>
 </section>
 
-<section id="world" class="panel hidden">
- <button class="secondary" onclick="goHome()">← Klasy</button>
- <h1 id="worldTitle"></h1>
- <p class="subtitle">Krainy odblokowują się po ukończeniu poprzedniej.</p>
- <div id="map" class="map"></div>
+<section id="world" class="hidden">
+  <button class="back" onclick="home()">← Strona główna</button>
+  <h1 id="worldTitle"></h1>
+  <p>Odkrywaj krainy po kolei. Każda kryje 10 poziomów!</p>
+  <div id="map" class="map"></div>
 </section>
 
-<section id="levelsScreen" class="panel hidden">
- <button class="secondary" onclick="showWorld()">← Mapa krain</button>
- <h1 id="regionTitle"></h1>
- <p class="subtitle">10 poziomów • 7 zadań + finał</p>
- <div id="levels" class="levels"></div>
+<section id="levelsScreen" class="hidden">
+  <button class="back" onclick="world()">← Mapa krain</button>
+  <h1 id="regionTitle"></h1>
+  <p id="regionDescription"></p>
+  <div id="levels" class="levels"></div>
 </section>
 
-<section id="game" class="panel hidden">
- <div class="task-head">
-  <button class="secondary" onclick="showLevels()">← Poziomy</button>
-  <span class="tag" id="taskCounter"></span>
-  <span class="tag" id="taskType"></span>
- </div>
- <div class="progress"><div id="bar"></div></div>
- <div id="gameContent"></div>
- <div id="feedback" class="feedback"></div>
- <button id="nextBtn" class="hidden" onclick="nextTask()">Dalej →</button>
+<section id="game" class="hidden">
+  <button class="back" onclick="levelsScreen()">← Poziomy</button>
+  <div class="panel">
+    <div class="tasktop">
+      <span id="taskRegion"></span>
+      <span id="taskNumber"></span>
+    </div>
+    <div class="taskprogress"><div id="taskBar"></div></div>
+    <div id="taskContent"></div>
+    <div id="feedback" class="feedback"></div>
+    <button id="nextButton" class="primary hidden" onclick="nextTask()">➡ Dalej</button>
+  </div>
 </section>
+
+<section id="finish" class="hidden">
+  <div class="panel reward">
+    <div class="big">🏆</div>
+    <h2>Poziom ukończony!</h2>
+    <p id="finishText"></p>
+    <div class="badge">⭐ +100 XP</div>
+    <br><br>
+    <button class="primary" onclick="levelsScreen()">Następny poziom</button>
+  </div>
+</section>
+
 </main>
-<footer>🧠 Myśl • Odkrywaj • Rozwiązuj</footer>
 
 <script>
-const regions={
+const regions = {
 1:[
-"Liczby i porządek","Obliczenia","Brakujące liczby","Geometria",
-"Wielkości i długość","Czas","Pieniądze","Zadania tekstowe","Logiczne śledztwa"
+["👑","Królestwo Liczb","Liczby i porównywanie"],
+["🌲","Leśne Liczenie","Dodawanie i odejmowanie"],
+["🌉","Most Brakujących Liczb","Odkrywanie niewiadomych"],
+["🔷","Geometryczna Polana","Figury i kształty"],
+["📏","Wieża Miar","Długość i mierzenie"],
+["🕰️","Zegarowy Zamek","Czas i kalendarz"],
+["💰","Skarbiec Monet","Pieniądze"],
+["🏘️","Wioska Zadań","Zadania tekstowe"],
+["🦉","Sowa Logiczna","Logiczne zagadki"]
 ],
 2:[
-"Liczby do 100","Obliczenia do 100","Mnożenie","Dzielenie",
-"Brakujące liczby","Geometria","Miary","Czas i kalendarz",
-"Pieniądze","Zadania tekstowe"
+["🏙️","Miasto do 100","Liczby do 100"],
+["🛠️","Warsztat Obliczeń","Dodawanie i odejmowanie"],
+["⚙️","Fabryka Mnożenia","Tabliczka mnożenia"],
+["🌉","Most Dzielenia","Dzielenie"],
+["🔐","Szyfr Niewiadomych","Nieznane liczby"],
+["⛰️","Góra Figur","Geometria"],
+["🧪","Laboratorium Miar","Jednostki"],
+["📅","Wieża Kalendarza","Czas"],
+["🏦","Bank Detektywów","Pieniądze"],
+["🎓","Akademia Zagadek","Logiczne zadania"]
 ],
 3:[
-"Liczby do 1000","Dodawanie i odejmowanie","Mnożenie","Dzielenie",
-"Niewiadome","Geometria","Jednostki miary","Czas i kalendarz",
-"Finanse","Wielkie śledztwa"
+["🌍","Kraina Tysiąca","Liczby do 1000"],
+["⛏️","Kopalnia Obliczeń","Działania pisemne"],
+["🏰","Mnożnikowa Twierdza","Mnożenie"],
+["🐉","Dzielenie Smoków","Dzielenie"],
+["🔎","Komnata Niewiadomych","Nieznane liczby"],
+["🏝️","Archipelag Geometrii","Figury"],
+["🔬","Pracownia Jednostek","Miary"],
+["⌛","Pałac Czasu","Zegar i kalendarz"],
+["🛒","Targ Finansowy","Pieniądze"],
+["🐲","Smocze Śledztwa","Zagadki"]
 ]
 };
 
-const stories=[
-"🦊 Lisek zgubił mapę. Pomóż mu odnaleźć drogę!",
-"🐉 Smok pilnuje skarbu. Rozwiąż zagadkę, aby przejść dalej.",
-"🧙 Czarodziej potrzebuje matematycznej pomocy.",
-"🏰 Zamek zamknął bramę. Odkryj tajemniczy kod!",
-"🔍 Miki znalazł ślady. Sprawdź, dokąd prowadzą."
-];
+let grade=1,regionIndex=0,level=1,taskIndex=0;
+let tasks=[],answered=false;
+let dragged=null;
 
-let grade=1,region=0,level=1,task=0;
-let currentTask=null,answered=false;
-let data=JSON.parse(localStorage.getItem("md-save")||"{}");
-data.xp=data.xp||0;data.done=data.done||{};data.badges=data.badges||{};
-const key=(g,r,l)=>`${g}-${r}-${l}`;
-function save(){
- localStorage.setItem("md-save",JSON.stringify(data));
- document.getElementById("xp").textContent=data.xp;
- document.getElementById("badges").textContent=Object.keys(data.badges).length;
-}
-save();
+let save=JSON.parse(localStorage.getItem("md-save")||'{"xp":0,"done":{},"badges":[]}');
 
-function chooseGrade(g){
- grade=g;document.getElementById("home").classList.add("hidden");
- showWorld();
+function persist(){
+ localStorage.setItem("md-save",JSON.stringify(save));
+ document.getElementById("xp").textContent=save.xp;
+ renderBadges();
 }
-function goHome(){
- document.getElementById("world").classList.add("hidden");
- document.getElementById("home").classList.remove("hidden");
+
+function show(id){
+ ["home","world","levelsScreen","game","finish"].forEach(x=>document.getElementById(x).classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
 }
-function showWorld(){
- hideAll();document.getElementById("world").classList.remove("hidden");
- document.getElementById("worldTitle").textContent="Klasa "+grade+" • Mapa przygód";
- const map=document.getElementById("map");map.innerHTML="";
- regions[grade].forEach((name,i)=>{
-  const unlocked=i===0||regionDone(i-1);
-  const completed=regionDone(i);
-  const card=document.createElement("button");
-  card.className="card "+(!unlocked?"lock":"");
-  card.disabled=!unlocked;
-  card.innerHTML=`<h3>${completed?"🏆":"🗺️"} ${name}</h3>
-  <p>${unlocked?"10 poziomów do odkrycia":"🔒 Ukończ poprzednią krainę"}</p>`;
-  card.onclick=()=>{region=i;showLevels()};
-  map.appendChild(card);
+
+function home(){
+ show("home");
+ persist();
+}
+
+function chooseClass(){
+ document.getElementById("home").scrollIntoView({behavior:"smooth"});
+}
+
+function selectClass(g){
+ grade=g;
+ document.getElementById("worldTitle").textContent="🌎 Świat klasy "+g;
+ world();
+}
+
+function world(){
+ show("world");
+ let map=document.getElementById("map");
+ map.innerHTML="";
+ regions[grade].forEach((r,i)=>{
+  let unlocked=i===0||regionDone(i-1);
+  let done=regionDone(i);
+  let count=done?10:Math.max(0,Object.keys(save.done).filter(k=>k.startsWith(grade+"-"+i+"-")).length);
+  let b=document.createElement("button");
+  b.className="region "+(!unlocked?"locked":"");
+  b.disabled=!unlocked;
+  b.innerHTML=`<div class="region-icon">${r[0]}</div><h3>${r[1]}</h3><small>${r[2]}</small><div class="progressbar"><div style="width:${count*10}%"></div></div><small>${count}/10 poziomów ${done?"🏆":unlocked?"":"🔒"}</small>`;
+  b.onclick=()=>{regionIndex=i;levelsScreen()};
+  map.appendChild(b);
  });
 }
-function regionDone(r){
- return Array.from({length:10},(_,i)=>data.done[key(grade,r,i+1)]).every(Boolean);
+
+function regionDone(i){
+ return Array.from({length:10},(_,n)=>save.done[grade+"-"+i+"-"+(n+1)]).every(Boolean);
 }
-function hideAll(){
- ["home","world","levelsScreen","game"].forEach(id=>document.getElementById(id).classList.add("hidden"));
-}
-function showLevels(){
- hideAll();document.getElementById("levelsScreen").classList.remove("hidden");
- document.getElementById("regionTitle").textContent=regions[grade][region];
- const box=document.getElementById("levels");box.innerHTML="";
- for(let l=1;l<=10;l++){
-  const unlocked=l===1||data.done[key(grade,region,l-1)];
-  const done=data.done[key(grade,region,l)];
-  const b=document.createElement("button");
-  b.className="level "+(done?"done ":"")+(unlocked?"":"locked");
-  b.textContent=done?"✓ "+l:l;
-  b.disabled=!unlocked;
-  b.onclick=()=>startLevel(l);
-  box.appendChild(b);
+
+function levelsScreen(){
+ show("levelsScreen");
+ let r=regions[grade][regionIndex];
+ document.getElementById("regionTitle").textContent=r[0]+" "+r[1];
+ document.getElementById("regionDescription").textContent=r[2]+" • 10 poziomów";
+ let el=document.getElementById("levels");
+ el.innerHTML="";
+ for(let n=1;n<=10;n++){
+  let unlocked=n===1||save.done[grade+"-"+regionIndex+"-"+(n-1)];
+  let b=document.createElement("button");
+  b.className="level "+(save.done[grade+"-"+regionIndex+"-"+n]?"done":unlocked?"current":"locked");
+  b.textContent=save.done[grade+"-"+regionIndex+"-"+n]?"✓":unlocked?n:"🔒";
+  b.disabled=!unlocked;
+  b.onclick=()=>startLevel(n);
+  el.appendChild(b);
  }
 }
-function startLevel(l){
- level=l;task=0;hideAll();
- document.getElementById("game").classList.remove("hidden");
- nextTask();
-}
+
 function rand(n){return Math.floor(Math.random()*n)}
-function pick(a){return a[rand(a.length)]}
-function numRange(){
- const max=grade===1?20:grade===2?100:1000;
- return Math.floor(Math.random()*max)+1;
-}
-function makeTask(){
- const topic=regions[grade][region];
- const type=task%7;
- let a,b,q,answer,options,kind="choice",story="";
- const max=grade===1?20:grade===2?100:1000;
- a=rand(grade===1?10:grade===2?50:500)+1;
- b=rand(grade===1?10:grade===2?30:300)+1;
- switch(type){
- case 0:
-  q=`Ile wynosi ${a} + ${b}?`;answer=a+b;break;
- case 1:
-  if(a<b)[a,b]=[b,a];
-  q=`Oblicz: ${a} − ${b}`;answer=a-b;break;
- case 2:
-  a=rand(10)+1;b=rand(10)+1;
-  q=`Ile wynosi ${a} × ${b}?`;answer=a*b;break;
- case 3:
-  a=rand(10)+1;b=rand(10)+1;
-  q=`Podziel ${a*b} na ${a}.`;answer=b;break;
- case 4:
-  a=rand(15)+1;b=rand(15)+1;
-  q=`Uzupełnij: ${a} + □ = ${a+b}`;answer=b;break;
- case 5:
-  a=rand(10)+1;b=rand(10)+1;
-  q=`${pick(["Miki","Elf","Smok"])} ma ${a} kryształów. Dostaje ${b}. Ile ma razem?`;
-  answer=a+b;story=pick(stories);break;
- default:
-  a=rand(10)+1;b=rand(10)+1;
-  q=`Zagadka: liczba jest większa od ${a}, mniejsza od ${a+3}. Wybierz ${a+1} lub ${a+2}.`;
-  answer=a+1;options=[a+1,a+2];break;
- }
- if(!options){
-  options=[answer,answer+rand(5)+1,Math.max(0,answer-rand(5)-1),answer+rand(10)+2];
- }
- options=[...new Set(options)];
- while(options.length<4)options.push(answer+options.length+rand(4)+1);
- options=options.sort(()=>Math.random()-.5);
- return {q,answer,options,story,kind};
+function shuffle(a){return a.sort(()=>Math.random()-.5)}
+function makeTask(type,q,correct,story="",hint=""){
+ let wrong=[correct+1,Math.max(0,correct-1),correct+2];
+ return {type,q,correct,answers:shuffle([correct,...wrong]),story,hint};
 }
 
-function makeFinale(){
- return {
- q:"🏆 FINAŁ: Otwórz tajemniczy skarbiec!",
- story:"Miki zebrał wszystkie wskazówki. Teraz musi odkryć kod. Rozwiąż zagadkę:",
- answer:grade===1?7:grade===2?24:125,
- options:grade===1?[6,7,8,9]:grade===2?[20,24,26,28]:[120,125,130,135],
- finale:true
- };
+function buildTasks(){
+ let base=grade===1?20:grade===2?100:1000;
+ let a=rand(base),b=rand(base);
+ let add=a+b,sub=Math.abs(a-b);
+ let mult=(grade===1?2:grade===2?10:20);
+ let x=rand(mult)+1,y=rand(mult)+1;
+ let t=[
+ makeTask("choice","Ile to "+a+" + "+b+"?",add,"","Dodaj obie liczby."),
+ makeTask("choice","Ile to "+Math.max(a,b)+" − "+Math.min(a,b)+"?",sub,"","Odejmij mniejszą liczbę."),
+ makeTask("input","Wpisz brakującą liczbę: "+a+" + □ = "+add,add,"","Jaką liczbę trzeba dodać?"),
+ makeTask("choice","Która liczba jest większa?",Math.max(a,b),"Wybierz większą: "+a+" czy "+b+"?",""),
+ makeTask("choice","Oblicz: "+x+" × "+y,x*y,"","Pomyśl o "+x+" grupach po "+y+"."),
+ makeTask("choice","Oblicz: "+(x*y)+" ÷ "+x,y,"","Podziel na równe grupy."),
+ makeTask("drag","Ułóż liczby od najmniejszej do największej",[a,b,add].sort((x,y)=>x-y).join(","),"","Przeciągnij liczby w dobrej kolejności.")
+ ];
+ let finale=makeTask("input","🗝️ FINAŁ! Oblicz: "+(x*y)+" + "+add,x*y+add,"Miki znalazł tajemniczy skarb. Otwórz go!","Najpierw mnożenie, potem dodawanie.");
+ tasks=[...t,finale];
 }
 
-function nextTask(){
- answered=false;
- document.getElementById("nextBtn").classList.add("hidden");
- document.getElementById("feedback").textContent="";
- document.getElementById("feedback").className="feedback";
- document.getElementById("bar").style.width=(task/8*100)+"%";
- document.getElementById("taskCounter").textContent=`Poziom ${level} • ${task+1}/8`;
- document.getElementById("taskType").textContent=task===7?"🏆 Finał":"🔎 Śledztwo";
- currentTask=task===7?makeFinale():makeTask();
- renderTask();
+function startLevel(n){
+ level=n;taskIndex=0;buildTasks();show("game");renderTask();
 }
+
 function renderTask(){
- const c=document.getElementById("gameContent");c.innerHTML="";
- if(currentTask.story){
-  const s=document.createElement("div");s.className="story";
-  s.textContent=currentTask.story;c.appendChild(s);
- }
- const q=document.createElement("div");q.className="question";
- q.textContent=currentTask.q;c.appendChild(q);
- const answers=document.createElement("div");answers.className="answers";
- currentTask.options.forEach(v=>{
-  const b=document.createElement("button");b.className="answer";b.textContent=v;
-  b.onclick=()=>check(v,b);answers.appendChild(b);
- });
- c.appendChild(answers);
-}
-function check(v,btn){
- if(answered)return;
- answered=true;
- const f=document.getElementById("feedback");
- if(v===currentTask.answer){
-  f.textContent=task===7?"🏆 Finał ukończony! Kraina uratowana!":"✨ Doskonale! Dobra robota!";
-  f.className="feedback good";
-  data.xp+=task===7?100:10;
-  document.querySelectorAll(".answer").forEach(b=>{
-   if(Number(b.textContent)===currentTask.answer)b.classList.add("correct");
-  });
+ answered=false;
+ let t=tasks[taskIndex];
+ document.getElementById("taskRegion").textContent=regions[grade][regionIndex][1]+" • poziom "+level;
+ document.getElementById("taskNumber").textContent="Zadanie "+(taskIndex+1)+"/8";
+ document.getElementById("taskBar").style.width=(taskIndex/8*100)+"%";
+ document.getElementById("taskContent").innerHTML=`<h2 class="task-title">${t.q}</h2>${t.story?`<div class="story">${t.story}</div>`:""}`;
+ document.getElementById("feedback").className="feedback";
+ document.getElementById("nextButton").classList.add("hidden");
+ if(t.type==="input"){
+  document.getElementById("taskContent").innerHTML+=`<div class="inputrow"><input id="userAnswer" type="number" inputmode="numeric" placeholder="Twoja odpowiedź"><button class="primary" onclick="checkInput()">Sprawdź</button></div>`;
+ }else if(t.type==="drag"){
+  let arr=t.correct.split(",");
+  document.getElementById("taskContent").innerHTML+=`<div class="dragarea" id="dragitems">${shuffle([...arr]).map(v=>`<div class="dragitem" draggable="true" data-v="${v}">${v}</div>`).join("")}</div><div class="dropzone" id="dropzone">Przeciągnij liczby tutaj w kolejności</div><button class="primary" onclick="checkDrag()">Sprawdź kolejność</button>`;
+  setupDrag();
  }else{
-  f.textContent=`🔎 Spróbuj jeszcze raz! Poprawna odpowiedź: ${currentTask.answer}`;
-  f.className="feedback bad";
-  btn.classList.add("wrong");
-  answered=false;
-  return;
+  document.getElementById("taskContent").innerHTML+=`<div class="answers">${t.answers.map(v=>`<button class="answer" onclick="checkChoice(this,${v})">${v}</button>`).join("")}</div>`;
  }
- save();document.getElementById("nextBtn").classList.remove("hidden");
 }
+
+function feedback(ok,msg){
+ let f=document.getElementById("feedback");
+ f.className="feedback "+(ok?"good":"bad");
+ f.textContent=msg;
+ if(ok){
+  answered=true;
+  document.getElementById("nextButton").classList.remove("hidden");
+ }
+}
+
+function checkChoice(btn,v){
+ if(answered)return;
+ let t=tasks[taskIndex];
+ if(v===t.correct){
+  btn.classList.add("correct");
+  feedback(true,"🎉 Brawo! Miki jest zachwycony!");
+ }else{
+  btn.classList.add("wrong");
+  feedback(false,"🧩 Spróbuj jeszcze raz! "+(t.hint||"Przyjrzyj się zadaniu."));
+ }
+}
+
+function checkInput(){
+ if(answered)return;
+ let v=Number(document.getElementById("userAnswer").value);
+ if(v===tasks[taskIndex].correct)feedback(true,"⭐ Doskonale! Odpowiedź prawidłowa!");
+ else feedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj ponownie.");
+}
+
+function setupDrag(){
+ let items=document.querySelectorAll(".dragitem");
+ let zone=document.getElementById("dropzone");
+ items.forEach(item=>{
+  item.addEventListener("pointerdown",e=>{
+   dragged=item;
+   item.setPointerCapture(e.pointerId);
+  });
+  item.addEventListener("pointerup",()=>{
+   if(dragged){
+    zone.textContent=dragged.dataset.v;
+    zone.classList.add("filled");
+    zone.dataset.v=dragged.dataset.v;
+    dragged.remove();
+    dragged=null;
+   }
+  });
+ });
+ zone.addEventListener("pointerdown",()=>zone.classList.add("over"));
+}
+
+function checkDrag(){
+ let zone=document.getElementById("dropzone");
+ let expected=tasks[taskIndex].correct.split(",");
+ if(zone.dataset.v===expected[0])feedback(true,"Dobra kolejność! ⭐");
+ else feedback(false,"Spróbuj ułożyć liczby od najmniejszej.");
+}
+
 function nextTask(){
- if(task===7){
-  data.done[key(grade,region,level)]=true;
-  data.badges[key(grade,region,level)]=true;
-  save();
-  document.getElementById("gameContent").innerHTML=
-   `<div class="finale-screen"><div class="miki">🕵️‍♂️</div>
-   <h2>Kraina uratowana!</h2>
-   <p>Zdobywasz 100 XP i odznakę!</p>
-   <button onclick="showLevels()">Wróć do poziomów</button>
-   <button onclick="showWorld()">Mapa krain</button></div>`;
-  document.getElementById("feedback").textContent="";
-  document.getElementById("nextBtn").classList.add("hidden");
-  document.getElementById("bar").style.width="100%";
-  return;
+ if(!answered)return;
+ taskIndex++;
+ if(taskIndex<8){renderTask();return;}
+ let key=grade+"-"+regionIndex+"-"+level;
+ if(!save.done[key]){
+  save.done[key]=true;
+  save.xp+=100;
+  let badge="🏅 Detektyw poziomu "+level;
+  if(!save.badges.includes(badge))save.badges.push(badge);
  }
- task++;nextTask();
+ persist();
+ document.getElementById("finishText").textContent="Zdobywasz 100 XP! Ukończono poziom "+level+".";
+ show("finish");
 }
+
+function renderBadges(){
+ let b=document.getElementById("homeBadges");
+ if(!b)return;
+ b.innerHTML=save.badges.length?save.badges.map(x=>`<span class="badge">${x}</span>`).join(""):"<p>Rozwiąż pierwszy poziom, aby zdobyć odznakę!</p>";
+}
+
+persist();
+home();
 </script>
 </body>
 </html>
