@@ -314,7 +314,101 @@ $("levelGrid").appendChild(d);
 }
 
 function openLesson(l){
-level=l;
+function openLesson(l) {
+  level = l;
+
+  const lessons = {
+    numbers: {
+      title: "Kraina Liczb",
+      intro: "Detektywie! Poznamy liczby i nauczymy się je porównywać.",
+      explanation: "Liczby możemy ustawiać od najmniejszej do największej. Znak < oznacza mniej, a znak > oznacza więcej.",
+      example: "3 < 5, ponieważ trzy jest mniejsze od pięciu. 8 > 4, ponieważ osiem jest większe od czterech.",
+      summary: "Pamiętaj: liczby możemy porównywać i porządkować."
+    },
+    addition: {
+      title: "Dodawanie",
+      intro: "Miki znalazł skarb! Pomóż mu policzyć wszystkie monety.",
+      explanation: "Dodawanie oznacza łączenie ilości. Możemy policzyć pierwszą grupę, a potem doliczyć kolejne elementy.",
+      example: "3 + 2 = 5. Mamy trzy monety, dokładamy dwie i otrzymujemy pięć monet.",
+      summary: "Dodawanie pomaga nam połączyć dwie lub więcej ilości."
+    },
+    subtraction: {
+      title: "Odejmowanie",
+      intro: "Część skarbu zniknęła! Miki musi ustalić, ile zostało.",
+      explanation: "Odejmowanie oznacza zabieranie lub sprawdzanie, ile zostało. Możemy liczyć wstecz albo znaleźć różnicę.",
+      example: "7 − 3 = 4. Mamy siedem monet, zabieramy trzy i zostają cztery.",
+      summary: "Odejmowanie pomaga ustalić, ile zostało."
+    },
+    multiplication: {
+      title: "Mnożenie",
+      intro: "W fabryce Mikiego powstają równe grupy!",
+      explanation: "Mnożenie to szybkie dodawanie takich samych liczb.",
+      example: "3 × 4 oznacza trzy grupy po cztery. 4 + 4 + 4 = 12.",
+      summary: "Mnożenie pomaga szybko policzyć równe grupy."
+    },
+    division: {
+      title: "Dzielenie",
+      intro: "Miki musi sprawiedliwie podzielić skarb!",
+      explanation: "Dzielenie polega na rozdzielaniu na równe części.",
+      example: "12 : 3 = 4. Dwanaście monet rozdzielamy między trzy osoby. Każda otrzymuje cztery.",
+      summary: "Dzielenie pomaga rozdzielać rzeczy na równe części."
+    },
+    logic: {
+      title: "Wyspa Logiki",
+      intro: "Na wyspie ukryto tajemniczy kod!",
+      explanation: "W zagadkach logicznych szukamy reguły, która powtarza się w kolejnych elementach.",
+      example: "2, 4, 6, 8... Każda kolejna liczba jest większa o 2.",
+      summary: "Szukaj reguły i sprawdzaj, czy pasuje do wszystkich elementów."
+    },
+    geometry: {
+      title: "Geometria",
+      intro: "Miki odkrył tajemnicze figury!",
+      explanation: "Figury mają różne kształty. Trójkąt ma trzy boki, a kwadrat cztery równe boki i cztery kąty proste.",
+      example: "Kwadrat ma cztery równe boki. Prostokąt ma przeciwległe boki równej długości.",
+      summary: "Rozpoznawaj figury po ich bokach i kształcie."
+    },
+    measures: {
+      title: "Kraina Miar",
+      intro: "Musimy zmierzyć tajemniczy skarb!",
+      explanation: "Długość możemy mierzyć w centymetrach i metrach. Masę w gramach i kilogramach. Pojemność w litrach.",
+      example: "1 metr = 100 centymetrów. 1 kilogram = 1000 gramów.",
+      summary: "Wybieraj odpowiednią jednostkę do mierzonej rzeczy."
+    },
+    time: {
+      title: "Kraina Czasu",
+      intro: "Miki musi dotrzeć na miejsce przed upływem czasu!",
+      explanation: "Zegar pomaga nam odczytać godzinę. Wskazówka godzinowa jest krótsza, a minutowa dłuższa.",
+      example: "Gdy wskazówka minutowa jest na 12, mamy pełną godzinę.",
+      summary: "Odczytuj godziny i planuj czas."
+    },
+    money: {
+      title: "Miasteczko Skarbów",
+      intro: "Miki otworzył sklep z detektywistycznymi gadżetami!",
+      explanation: "Pieniądze pozwalają nam płacić za zakupy. W Polsce używamy złotych i groszy.",
+      example: "1 zł = 100 gr. Dwie monety po 2 zł dają razem 4 zł.",
+      summary: "Przy zakupach obliczaj cenę i sprawdzaj resztę."
+    },
+    mixed: {
+      title: "Wielkie Śledztwa",
+      intro: "Czeka Cię wielka matematyczna zagadka!",
+      explanation: "W zadaniach tekstowych najpierw czytamy treść, potem szukamy informacji i wybieramy działanie.",
+      example: "Miki miał 5 monet i znalazł 3 kolejne. Ile ma teraz? 5 + 3 = 8.",
+      summary: "Czytaj uważnie i zastanów się, jakie działanie pomoże rozwiązać zagadkę."
+    }
+  };
+
+  const type = regionData[grade][region][1];
+  const lesson = lessons[type] || lessons.mixed;
+
+  document.getElementById("lessonTitle").textContent = lesson.title;
+  document.getElementById("lessonIntro").textContent = lesson.intro;
+  document.getElementById("lessonExplanation").textContent = lesson.explanation;
+  document.getElementById("lessonExample").textContent = lesson.example;
+  document.getElementById("lessonSummary").textContent = lesson.summary;
+
+  hideAll();
+  document.getElementById("lesson").classList.remove("hidden");
+}
 hideAll();
 $("lesson").classList.remove("hidden");
 
