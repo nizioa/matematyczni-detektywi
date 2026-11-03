@@ -450,52 +450,42 @@ button.card {
 }
 
 /* =========================
-   PRZECIĄGANIE
+   ZADANIA DETEKTYWA
 ========================= */
 
-.dragitems {
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  gap:12px;
-  margin:25px 0;
+.task-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 24px 0;
 }
 
-.dragitem {
-  background:#e7eaff;
-  border:3px solid #cbd5ff;
-  border-radius:17px;
-  padding:16px 22px;
-  font-size:23px;
-  font-weight:bold;
-  touch-action:none;
-  user-select:none;
-  cursor:grab;
+.task-option {
+  background: linear-gradient(135deg, #a58aff, #7457e8);
+  color: white;
+  border: 0;
+  border-radius: 18px;
+  padding: 18px;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform .2s, box-shadow .2s;
 }
 
-.dropzone {
-  min-height:100px;
-  background:#f7f8ff;
-  border:3px dashed #a9b5ff;
-  border-radius:20px;
-  padding:18px;
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  font-size:22px;
+.task-option:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px #7457e844;
 }
 
-.dropzone.over {
-  background:#e1fff3;
-  border-color:#43d5a0;
+.task-option:active {
+  transform: scale(.97);
 }
 
-.dropzone .dragitem {
-  cursor:grab;
+@media (max-width: 500px) {
+  .task-options {
+    grid-template-columns: 1fr;
+  }
 }
-
 /* =========================
    INFORMACJE ZWROTNE
 ========================= */
