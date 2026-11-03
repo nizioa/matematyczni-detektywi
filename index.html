@@ -2,289 +2,168 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Matematyczni Detektywi</title>
 
 <style>
-:root{
- --bg:#071426;
- --panel:#10243b;
- --panel2:#17314d;
- --cyan:#36e0e8;
- --gold:#ffd166;
- --purple:#a78bfa;
- --green:#54e39a;
- --red:#ff758f;
- --text:#f4f8ff;
- --muted:#a9bfd7;
-}
-
 *{box-sizing:border-box}
 
 body{
- margin:0;
- color:var(--text);
- font-family:system-ui,Arial,sans-serif;
- background:
- radial-gradient(ellipse at top,#183c60 0%,transparent 45%),
- var(--bg);
- min-height:100vh;
-}
-
-button,select,input{font:inherit}
-
-button{
- cursor:pointer;
- border:0;
- border-radius:14px;
- padding:13px 18px;
- font-weight:800;
- transition:.15s;
-}
-
-button:hover{transform:translateY(-2px)}
-button:disabled{opacity:.4;cursor:not-allowed;transform:none}
-
-.primary{
- background:linear-gradient(135deg,#36e0e8,#6bbcff);
- color:#071426;
-}
-
-.gold{
- background:linear-gradient(135deg,#ffd166,#ffae42);
- color:#302000;
-}
-
-.secondary{
- background:#243f5d;
- color:white;
- border:1px solid #41617f;
+margin:0;
+font-family:Arial,sans-serif;
+background:linear-gradient(135deg,#e8f5ff,#f4edff);
+color:#24304a;
 }
 
 header{
- display:flex;
- justify-content:space-between;
- align-items:center;
- gap:15px;
- flex-wrap:wrap;
- padding:18px 5%;
- border-bottom:1px solid #29415b;
- background:#071426cc;
+background:linear-gradient(135deg,#4c6fff,#7958d6);
+color:white;
+padding:25px 15px;
+text-align:center;
 }
 
-.logo{
- font-size:22px;
- font-weight:900;
+header h1{
+margin:0;
+font-size:clamp(25px,5vw,40px);
 }
+
+header p{margin:10px 0 0}
+
+.container{
+max-width:950px;
+margin:auto;
+padding:18px;
+}
+
+.card{
+background:white;
+border-radius:20px;
+padding:20px;
+margin-bottom:18px;
+box-shadow:0 5px 18px #24304a15;
+}
+
+h2{margin-top:0}
+
+select,input{
+width:100%;
+padding:13px;
+border-radius:12px;
+border:2px solid #dce4f5;
+font-size:17px;
+margin:8px 0;
+background:white;
+}
+
+button{
+border:0;
+border-radius:12px;
+padding:13px 18px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin:5px;
+background:#4c6fff;
+color:white;
+}
+
+button:hover{filter:brightness(.95)}
+button:disabled{opacity:.4;cursor:not-allowed}
+
+.secondary{background:#edf1ff;color:#4054a0}
+.green{background:#20a875}
+.orange{background:#ffab35;color:#513300}
 
 .stats{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
+display:flex;
+gap:10px;
+flex-wrap:wrap;
 }
 
 .stat{
- background:#10243b;
- border:1px solid #29415b;
- padding:9px 14px;
- border-radius:12px;
- font-weight:800;
-}
-
-main{
- width:min(1100px,94%);
- margin:30px auto;
-}
-
-.screen{display:none}
-.screen.active{display:block}
-
-.card{
- background:linear-gradient(145deg,#10243b,#0c1c30);
- border:1px solid #29415b;
- border-radius:22px;
- padding:25px;
- margin-bottom:20px;
- box-shadow:0 15px 35px #0003;
-}
-
-.hero{
- text-align:center;
- padding:45px 25px;
-}
-
-.hero h1{
- font-size:clamp(30px,5vw,55px);
- margin:10px 0;
-}
-
-.hero p{
- color:var(--muted);
- font-size:18px;
-}
-
-.robot{
- display:flex;
- align-items:center;
- gap:15px;
- background:#10243b;
- border:1px solid #29415b;
- padding:18px;
- border-radius:18px;
- margin:20px 0;
-}
-
-.robot-icon{
- font-size:45px;
- flex-shrink:0;
-}
-
-.robot h3{margin:0 0 7px;color:var(--cyan)}
-.robot p{margin:0;line-height:1.6}
-
-select{
- background:#17314d;
- color:white;
- border:1px solid #41617f;
- border-radius:12px;
- padding:12px;
-}
-
-.section-title{
- display:flex;
- justify-content:space-between;
- align-items:center;
- flex-wrap:wrap;
- gap:10px;
+flex:1;
+min-width:100px;
+background:#f1f4ff;
+padding:13px;
+border-radius:12px;
+text-align:center;
+font-weight:bold;
 }
 
 .grid{
- display:grid;
- grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
- gap:15px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+gap:10px;
 }
 
 .region{
- background:linear-gradient(145deg,#17314d,#10243b);
- border:1px solid #35516f;
- border-radius:18px;
- padding:20px;
- text-align:left;
- color:white;
+background:#f1f4ff;
+color:#354b9d;
+padding:15px 10px;
+min-height:90px;
 }
 
-.region.locked{opacity:.45}
-.region-icon{font-size:35px}
-.region h3{margin:10px 0}
-.region p{color:var(--muted);font-size:14px}
-.progress{
- height:8px;
- background:#071426;
- border-radius:10px;
- overflow:hidden;
- margin:12px 0;
-}
-.progress div{
- height:100%;
- background:linear-gradient(90deg,#36e0e8,#54e39a);
+.region.locked{
+background:#eee;
+color:#999;
 }
 
-.task-box{
- text-align:center;
- padding:25px 10px;
+.level{
+background:#e8f5ff;
+color:#235a9b;
 }
 
-.task-number{
- color:var(--muted);
- font-weight:800;
+.taskbox{
+background:#f8f9ff;
+border-radius:18px;
+padding:20px;
+margin:15px 0;
 }
 
-.question{
- font-size:clamp(26px,5vw,44px);
- font-weight:900;
- margin:25px 0;
-}
-
-.answer-input{
- width:min(350px,100%);
- padding:16px;
- border-radius:14px;
- border:2px solid #41617f;
- background:#071426;
- color:white;
- text-align:center;
- font-size:25px;
-}
-
-.options{
- display:flex;
- justify-content:center;
- gap:12px;
- flex-wrap:wrap;
- margin:20px 0;
-}
-
-.option{
- background:#17314d;
- color:white;
- border:2px solid #41617f;
- min-width:90px;
- font-size:23px;
+.task{
+font-size:clamp(20px,4vw,29px);
+font-weight:bold;
+text-align:center;
+line-height:1.5;
+margin:20px 0;
 }
 
 .feedback{
- padding:15px;
- border-radius:14px;
- margin:15px 0;
- font-weight:800;
- display:none;
+min-height:35px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+margin:12px 0;
 }
 
-.feedback.good{
- display:block;
- background:#123e32;
- color:#75f2b6;
- border:1px solid #287e5d;
+.progress{
+height:14px;
+background:#e5e9f5;
+border-radius:20px;
+overflow:hidden;
+margin:12px 0;
 }
 
-.feedback.bad{
- display:block;
- background:#482333;
- color:#ff9bb0;
- border:1px solid #923d5c;
+.progress div{
+height:100%;
+width:0%;
+background:linear-gradient(90deg,#25c58a,#63dfb0);
+transition:.3s;
 }
 
-.feedback.info{
- display:block;
- background:#17314d;
- color:#8de9ff;
- border:1px solid #41617f;
+.hidden{display:none!important}
+
+.miki{
+background:#fff5d8;
+padding:14px;
+border-radius:14px;
+margin:12px 0;
 }
 
 footer{
- text-align:center;
- color:var(--muted);
- padding:30px;
-}
-
-.badges{
- display:flex;
- gap:10px;
- flex-wrap:wrap;
-}
-
-.badge{
- background:#17314d;
- border:1px solid #41617f;
- padding:12px;
- border-radius:12px;
-}
-
-@media(max-width:600px){
- header{padding:15px}
- main{margin:18px auto}
- .card{padding:18px}
- .hero{padding:30px 15px}
+text-align:center;
+padding:20px;
+color:#68718a;
 }
 </style>
 </head>
@@ -292,538 +171,408 @@ footer{
 <body>
 
 <header>
- <div class="logo">🔎 Matematyczni Detektywi</div>
- <div class="stats">
-  <div class="stat">⭐ XP: <span id="xp">0</span></div>
-  <div class="stat">🏅 Odznaki: <span id="badgeCount">0</span></div>
- </div>
+<h1>🕵️ Matematyczni Detektywi</h1>
+<p>Odkrywaj matematyczne tajemnice z Mikim!</p>
 </header>
 
-<main>
+<div class="container">
 
-<!-- START -->
+<div class="card">
+<h2>📊 Twoje osiągnięcia</h2>
+<div class="stats">
+<div class="stat">⭐ XP<br><span id="xp">0</span></div>
+<div class="stat">🏅 Odznaki<br><span id="badges">0</span></div>
+<div class="stat">🔎 Poziomy<br><span id="done">0</span></div>
+</div>
+</div>
 
-<section id="home" class="screen active">
+<div class="card">
+<h2>🎒 Wybierz klasę</h2>
+<select id="grade" onchange="changeGrade()">
+<option value="1">Klasa 1</option>
+<option value="2">Klasa 2</option>
+<option value="3">Klasa 3</option>
+</select>
+</div>
 
- <div class="card hero">
-  <div style="font-size:65px">🔎🤖</div>
-  <h1>Matematyczni Detektywi</h1>
-  <p>Odzyskaj Kryształ Wiedzy i rozwiąż matematyczne zagadki!</p>
+<div class="card" id="regionsScreen">
+<h2>🗺️ Matematyczne krainy</h2>
+<p>Wybierz dział, który chcesz odkrywać.</p>
+<div class="grid" id="regions"></div>
+</div>
 
-  <div style="margin:25px">
-   <label for="grade">Wybierz klasę: </label>
-   <select id="grade" onchange="changeGrade()">
-    <option value="1">Klasa 1</option>
-    <option value="2">Klasa 2</option>
-    <option value="3">Klasa 3</option>
-   </select>
-  </div>
+<div class="card hidden" id="levelsScreen">
+<button class="secondary" onclick="backRegions()">⬅ Krainy</button>
+<h2 id="regionTitle"></h2>
+<p>Wybierz poziom trudności.</p>
+<div class="grid" id="levels"></div>
+</div>
 
-  <button class="primary" onclick="showMap()">🚀 Rozpocznij przygodę</button>
- </div>
+<div class="card hidden" id="gameScreen">
+<button class="secondary" onclick="backLevels()">⬅ Poziomy</button>
+<h2 id="gameTitle"></h2>
 
- <div class="robot">
-  <div class="robot-icon">🤖</div>
-  <div>
-   <h3>Miki mówi:</h3>
-   <p id="homeMiki">Każda zagadka przybliża nas do odzyskania Kryształu Wiedzy. Gotowy na śledztwo?</p>
-  </div>
- </div>
+<div class="progress"><div id="progressBar"></div></div>
 
-</section>
+<p id="taskNumber"></p>
 
-<!-- MAPA -->
+<div class="taskbox">
+<div class="task" id="task"></div>
+<div id="extra"></div>
+<input id="answer" placeholder="Wpisz odpowiedź" autocomplete="off">
+<button class="green" onclick="checkAnswer()">Sprawdź odpowiedź</button>
+<button class="orange" onclick="hint()">💡 Podpowiedź Miki</button>
+<div class="feedback" id="feedback"></div>
+<div class="miki" id="miki">Miki: Czekam na Twoje śledcze działania!</div>
+<button id="next" class="hidden" onclick="nextTask()">➡ Następne zadanie</button>
+</div>
+</div>
 
-<section id="map" class="screen">
+<div class="card hidden" id="finishScreen">
+<h2>🎉 Poziom ukończony!</h2>
+<p id="finishText"></p>
+<button onclick="backLevels()">Wybierz kolejny poziom</button>
+<button class="secondary" onclick="backRegions()">Wybierz inną krainę</button>
+</div>
 
- <div class="card">
-  <div class="section-title">
-   <h2>🗺️ Mapa śledztwa</h2>
-   <button class="secondary" onclick="showScreen('home')">← Menu</button>
-  </div>
+</div>
 
-  <div class="robot">
-   <div class="robot-icon">🤖</div>
-   <div>
-    <h3>Miki mówi:</h3>
-    <p id="mapMiki">Wybierz krainę i rozpocznij śledztwo!</p>
-   </div>
-  </div>
-
-  <div id="regions" class="grid"></div>
- </div>
-
-</section>
-
-<!-- GRA -->
-
-<section id="game" class="screen">
-
- <div class="card">
-
-  <div class="section-title">
-   <button class="secondary" onclick="showMap()">← Mapa</button>
-   <div id="levelLabel">Poziom 1</div>
-  </div>
-
-  <div class="progress"><div id="levelProgress" style="width:0%"></div></div>
-
-  <div class="robot">
-   <div class="robot-icon">🤖</div>
-   <div>
-    <h3>Miki mówi:</h3>
-    <p id="miki">Uważnie przeczytaj zagadkę!</p>
-   </div>
-  </div>
-
-  <div class="task-box">
-   <div class="task-number" id="taskNumber">ZAGADKA 1</div>
-   <div class="question" id="question">2 + 3 = ?</div>
-
-   <div id="answerArea"></div>
-
-   <div class="feedback" id="feedback"></div>
-
-   <div class="options">
-    <button class="secondary" onclick="hint()">💡 Podpowiedź</button>
-    <button class="gold" onclick="checkAnswer()">🔍 Sprawdź</button>
-    <button class="primary" id="nextBtn" onclick="nextTask()" style="display:none">➡️ Następna</button>
-   </div>
-
-  </div>
- </div>
-
-</section>
-
-<!-- ODZN AKI -->
-
-<section id="awards" class="screen">
- <div class="card">
-  <div class="section-title">
-   <h2>🏅 Twoje odznaki</h2>
-   <button class="secondary" onclick="showMap()">← Mapa</button>
-  </div>
-  <div id="badgeList" class="badges"></div>
- </div>
-</section>
-
-</main>
-
-<footer>Matematyczni Detektywi • Uczymy się przez przygodę 🔎</footer>
+<footer>Matematyczni Detektywi • Każde zadanie to nowa zagadka!</footer>
 
 <script>
-const regions=[
- {
- name:"Kraina Liczb",
- icon:"🔢",
- desc:"Liczby, porównywanie i liczenie.",
- types:["numbers","compare"]
- },
- {
- name:"Dolina Dodawania",
- icon:"➕",
- desc:"Dodawanie krok po kroku.",
- types:["add"]
- },
- {
- name:"Jaskinia Odejmowania",
- icon:"➖",
- desc:"Odejmowanie i tajemnicze brakujące liczby.",
- types:["sub"]
- },
- {
- name:"Wyspa Logiki",
- icon:"🧩",
- desc:"Ciągi, wzory i logiczne zagadki.",
- types:["logic"]
- },
- {
- name:"Geometryczne Miasteczko",
- icon:"📐",
- desc:"Figury i ich właściwości.",
- types:["geometry"]
- },
- {
- name:"Las Miar",
- icon:"📏",
- desc:"Długości i jednostki.",
- types:["measure"]
- },
- {
- name:"Kraina Czasu",
- icon:"⏰",
- desc:"Godziny i kalendarz.",
- types:["time"]
- },
- {
- name:"Miasteczko Skarbów",
- icon:"💰",
- desc:"Pieniądze i zakupy.",
- types:["money"]
- },
- {
- name:"Wielkie Śledztwa",
- icon:"🕵️",
- desc:"Zadania tekstowe i mieszane.",
- types:["story"]
- }
-];
-
-const praise=[
- "Świetna robota, detektywie!",
- "Trop był właściwy! Brawo!",
- "Zagadka rozwiązana!",
- "Miki jest pod wrażeniem!",
- "Tak właśnie myśli matematyczny detektyw!",
- "Kolejny krok do Kryształu Wiedzy!"
-];
-
-const encouragement=[
- "Nie poddawaj się. Każdy detektyw czasem potrzebuje chwili.",
- "Sprawdź jeszcze raz liczby i poszukaj wskazówki.",
- "Jesteś blisko! Spróbuj inną metodą.",
- "Pomyśl spokojnie. Miki wierzy w Twoje możliwości.",
- "Błąd to wskazówka, która pomaga się uczyć."
-];
+const topics={
+1:[
+["Kraina Liczb","numbers"],
+["Świat Dodawania i Odejmowania","operations"],
+["Tajemnice Geometrii","geometry"],
+["Mierniczy Detektywi","measures"],
+["Zegarowe Zagadki","time"],
+["Skarbiec Pieniędzy","money"],
+["Zadania Detektywistyczne","text"],
+["Logiczne Labirynty","logic"],
+["Wielka Przygoda Matematyczna","mixed"]
+],
+2:[
+["Liczby do 100","numbers"],
+["Matematyczne Obliczenia","operations"],
+["Mnożenie","multiply"],
+["Dzielenie","divide"],
+["Geometryczne Śledztwa","geometry"],
+["Miary i Jednostki","measures"],
+["Zegar i Kalendarz","time"],
+["Bank i Sklep","money"],
+["Zagadki Tekstowe","text"],
+["Logiczne Wyzwania","logic"]
+],
+3:[
+["Liczby do 1000","numbers"],
+["Dodawanie i Odejmowanie","operations"],
+["Mnożenie","multiply"],
+["Dzielenie","divide"],
+["Geometria","geometry"],
+["Jednostki Miary","measures"],
+["Czas i Kalendarz","time"],
+["Matematyczny Skarbiec","money"],
+["Zadania Wieloetapowe","text"],
+["Wielkie Śledztwa Logiczne","logic"]
+]
+};
 
 let grade=1;
-let regionIndex=0;
+let region=0;
 let level=1;
-let taskCount=0;
-let correct=0;
-let current={};
-let hintUsed=false;
-let data=JSON.parse(localStorage.getItem("md_save")||'{"xp":0,"done":{},"badges":[]}');
+let taskIndex=0;
+let currentTasks=[];
+let xp=Number(localStorage.getItem("md_xp")||0);
+let badges=JSON.parse(localStorage.getItem("md_badges")||"[]");
+let completed=JSON.parse(localStorage.getItem("md_completed")||"[]");
+let answered=false;
+
+const $=id=>document.getElementById(id);
 
 function save(){
- localStorage.setItem("md_save",JSON.stringify(data));
- updateStats();
+localStorage.setItem("md_xp",xp);
+localStorage.setItem("md_badges",JSON.stringify(badges));
+localStorage.setItem("md_completed",JSON.stringify(completed));
+updateStats();
 }
 
 function updateStats(){
- document.getElementById("xp").textContent=data.xp;
- document.getElementById("badgeCount").textContent=data.badges.length;
-}
-
-function showScreen(id){
- document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
- document.getElementById(id).classList.add("active");
+$("xp").textContent=xp;
+$("badges").textContent=badges.length;
+$("done").textContent=completed.length;
 }
 
 function changeGrade(){
- grade=Number(document.getElementById("grade").value);
- showMap();
+grade=Number($("grade").value);
+showRegions();
 }
 
-function showMap(){
- grade=Number(document.getElementById("grade").value);
- document.getElementById("mapMiki").textContent=
- "Klasa "+grade+". Wybierz krainę i rozpocznij śledztwo!";
- const box=document.getElementById("regions");
- box.innerHTML="";
+function showRegions(){
+$("regionsScreen").classList.remove("hidden");
+$("levelsScreen").classList.add("hidden");
+$("gameScreen").classList.add("hidden");
+$("finishScreen").classList.add("hidden");
 
- regions.forEach((r,i)=>{
-  const key=grade+"_"+i;
-  const done=data.done[key]||0;
-  const unlocked=i===0||(data.done[grade+"_"+(i-1)]||0)>=10;
+$("regions").innerHTML="";
 
-  const button=document.createElement("button");
-  button.className="region"+(!unlocked?" locked":"");
-  button.disabled=!unlocked;
-
-  button.innerHTML=`
-   <div class="region-icon">${r.icon}</div>
-   <h3>${r.name}</h3>
-   <p>${r.desc}</p>
-   <div class="progress"><div style="width:${done*10}%"></div></div>
-   <p>Poziomy: ${done}/10</p>
-   ${unlocked?"🚀 Rozpocznij":"🔒 Kraina zamknięta"}
-  `;
-
-  button.onclick=()=>startRegion(i);
-  box.appendChild(button);
- });
-
- showScreen("map");
+topics[grade].forEach((t,i)=>{
+let b=document.createElement("button");
+b.className="region";
+b.innerHTML="🗺️<br>"+t[0];
+b.onclick=()=>openRegion(i);
+$("regions").appendChild(b);
+});
 }
 
-function startRegion(i){
- regionIndex=i;
- const key=grade+"_"+i;
- level=(data.done[key]||0)+1;
- if(level>10)level=10;
- taskCount=0;
- correct=0;
- newTask();
- showScreen("game");
+function openRegion(i){
+region=i;
+$("regionsScreen").classList.add("hidden");
+$("levelsScreen").classList.remove("hidden");
+$("regionTitle").textContent=topics[grade][region][0];
+$("levels").innerHTML="";
+
+for(let l=1;l<=10;l++){
+let b=document.createElement("button");
+b.className="level";
+let key=grade+"-"+region+"-"+l;
+b.innerHTML="⭐ Poziom "+l+(completed.includes(key)?" 🏅":"");
+b.onclick=()=>startLevel(l);
+$("levels").appendChild(b);
+}
 }
 
-function rand(min,max){
- return Math.floor(Math.random()*(max-min+1))+min;
+function backRegions(){showRegions()}
+function backLevels(){openRegion(region)}
+
+function rand(a,b){return Math.floor(Math.random()*(b-a+1))+a}
+
+function makeTask(type,l){
+let max;
+if(grade===1)max=Math.min(20,5+l*2);
+if(grade===2)max=Math.min(100,10+l*10);
+if(grade===3)max=Math.min(1000,100+l*100);
+
+let a,b,ans,question,options=null;
+
+switch(type){
+
+case "numbers":
+a=rand(0,max);
+b=rand(0,max);
+question="Która liczba jest większa? "+a+" czy "+b+"? Wpisz <, > lub =.";
+ans=a>b?">":a<b?"<":"=";
+break;
+
+case "operations":
+a=rand(1,max);
+b=rand(1,max);
+if(rand(0,1)){
+question=a+" + "+b+" = ?";
+ans=a+b;
+}else{
+if(b>a)[a,b]=[b,a];
+question=a+" − "+b+" = ?";
+ans=a-b;
+}
+break;
+
+case "multiply":
+a=rand(2,Math.min(10,2+l));
+b=rand(2,Math.min(10,2+l));
+question=a+" × "+b+" = ?";
+ans=a*b;
+break;
+
+case "divide":
+b=rand(2,Math.min(10,2+l));
+a=b*rand(2,Math.min(10,2+l));
+question=a+" : "+b+" = ?";
+ans=a/b;
+break;
+
+case "geometry":
+a=rand(3,Math.min(12,3+l));
+question="Figura ma "+a+" boków. Ile ma wierzchołków?";
+ans=a;
+break;
+
+case "measures":
+a=rand(1,Math.min(10,l+2));
+question="Ile centymetrów ma "+a+" metrów?";
+ans=a*100;
+break;
+
+case "time":
+a=rand(1,12);
+b=rand(1,Math.min(5,l));
+question="Jest godzina "+a+":00. Za "+b+" godzin"+(b===1?"ę":"y")+" będzie:";
+ans=(a+b-1)%12+1;
+question+=" "+(ans<10?"0":"")+ans+":00";
+break;
+
+case "money":
+a=rand(2,Math.min(20,l+5));
+b=rand(1,a);
+question="Masz "+a+" zł. Kupujesz coś za "+b+" zł. Ile pieniędzy zostanie?";
+ans=a-b;
+break;
+
+case "text":
+a=rand(2,max);
+b=rand(1,max);
+question="Miki znalazł "+a+" śladów. Potem odkrył jeszcze "+b+". Ile śladów ma razem?";
+ans=a+b;
+break;
+
+case "logic":
+a=rand(1,10);
+b=rand(1,5);
+question="Odkryj regułę: "+a+", "+(a+b)+", "+(a+2*b)+", ?, "+(a+4*b);
+ans=a+3*b;
+break;
+
+default:
+a=rand(1,max);
+b=rand(1,max);
+question=a+" + "+b+" = ?";
+ans=a+b;
 }
 
-function generateTask(){
- const types=regions[regionIndex].types;
- const type=types[rand(0,types.length-1)];
-
- let a,b,ans,text,hint,options;
-
- const max=grade===1?20:grade===2?100:1000;
- const scale=Math.max(1,level);
-
- if(type==="add"){
-  a=rand(1,Math.min(max,10*scale));
-  b=rand(1,Math.min(max,10*scale));
-  ans=a+b;
-  text=a+" + "+b+" = ?";
-  hint="Dodawanie oznacza łączenie dwóch ilości.";
- }
-
- else if(type==="sub"){
-  a=rand(2,Math.min(max,20*scale));
-  b=rand(1,a);
-  ans=a-b;
-  text=a+" − "+b+" = ?";
-  hint="Odejmowanie możesz sprawdzić dodawaniem.";
- }
-
- else if(type==="compare"){
-  a=rand(0,max);
-  b=rand(0,max);
-  ans=a<b?"<":a>b?">":"=";
-  text=a+"  ?  "+b;
-  options=["<",">","="];
-  hint="Sprawdź, która liczba jest większa.";
- }
-
- else if(type==="numbers"){
-  a=rand(0,max);
-  ans=a+1;
-  text="Jaka liczba jest o 1 większa od "+a+"?";
-  hint="Dodaj jeden.";
- }
-
- else if(type==="logic"){
-  a=rand(1,10*scale);
-  b=a+rand(1,5);
-  ans=b+(b-a);
-  text=a+", "+b+", "+ans+"... Jaka liczba będzie następna?";
-  ans=ans+(b-a);
-  hint="Odstęp między kolejnymi liczbami jest taki sam.";
- }
-
- else if(type==="geometry"){
-  const shapes=[
-   ["Ile boków ma trójkąt?",3],
-   ["Ile boków ma kwadrat?",4],
-   ["Ile boków ma prostokąt?",4],
-   ["Ile wierzchołków ma trójkąt?",3]
-  ];
-  const s=shapes[rand(0,shapes.length-1)];
-  text=s[0];
-  ans=s[1];
-  hint="Policz boki lub narożniki figury.";
- }
-
- else if(type==="measure"){
-  a=rand(1,10);
-  ans=a*10;
-  text=a+" cm = ? mm";
-  hint="Jeden centymetr to dziesięć milimetrów.";
- }
-
- else if(type==="time"){
-  a=rand(1,11);
-  ans=a+1;
-  if(ans===13)ans=1;
-  text="Jest godzina "+a+". Która będzie za godzinę?";
-  hint="Przesuń wskazówkę o jedną godzinę.";
- }
-
- else if(type==="money"){
-  a=rand(2,10);
-  b=rand(1,a-1);
-  ans=a-b;
-  text="Masz "+a+" zł. Kupujesz coś za "+b+" zł. Ile zostaje?";
-  hint="Od posiadanych pieniędzy odejmij cenę.";
- }
-
- else{
-  a=rand(2,10);
-  b=rand(1,10);
-  ans=a+b;
-  text="Detektyw znalazł "+a+" wskazówek i "+b+" kolejnych. Ile ma razem?";
-  hint="Połącz obie liczby.";
- }
-
- if(!options){
-  options=[
-   ans,
-   ans+rand(1,4),
-   Math.max(0,ans-rand(1,4))
-  ];
-  options=[...new Set(options)];
-  while(options.length<3)options.push(ans+options.length+2);
-  options.sort(()=>Math.random()-.5);
- }
-
- return {text,ans,hint,options};
+return {question,ans};
 }
 
-function newTask(){
- current=generateTask();
- hintUsed=false;
+function startLevel(l){
+level=l;
+taskIndex=0;
+answered=false;
+currentTasks=[];
 
- document.getElementById("levelLabel").textContent=
- "Poziom "+level+" • "+regions[regionIndex].name;
+let type=topics[grade][region][1];
 
- document.getElementById("taskNumber").textContent=
- "ZAGADKA "+(taskCount+1)+" / 5";
+for(let i=0;i<5;i++){
+currentTasks.push(makeTask(type,l));
+}
 
- document.getElementById("question").textContent=current.text;
+$("levelsScreen").classList.add("hidden");
+$("gameScreen").classList.remove("hidden");
+$("finishScreen").classList.add("hidden");
 
- const area=document.getElementById("answerArea");
- area.innerHTML="";
+$("gameTitle").textContent=topics[grade][region][0]+" • Poziom "+level;
+showTask();
+}
 
- if(Array.isArray(current.options)){
-  const opts=document.createElement("div");
-  opts.className="options";
+function showTask(){
+answered=false;
+let t=currentTasks[taskIndex];
 
-  current.options.forEach(o=>{
-   const btn=document.createElement("button");
-   btn.className="option";
-   btn.textContent=o;
-   btn.onclick=()=>{
-    document.getElementById("answer").value=o;
-    document.querySelectorAll(".option").forEach(x=>x.style.borderColor="#41617f");
-    btn.style.borderColor="#36e0e8";
-   };
-   opts.appendChild(btn);
-  });
+$("task").textContent=t.question;
+$("taskNumber").textContent="Zadanie "+(taskIndex+1)+" z 5";
+$("answer").value="";
+$("answer").disabled=false;
+$("feedback").textContent="";
+$("next").classList.add("hidden");
+$("answer").focus();
 
-  area.appendChild(opts);
- }
-
- const input=document.createElement("input");
- input.id="answer";
- input.className="answer-input";
- input.type="text";
- input.autocomplete="off";
- input.placeholder="Twoja odpowiedź";
- area.appendChild(input);
-
- document.getElementById("feedback").className="feedback";
- document.getElementById("feedback").textContent="";
- document.getElementById("nextBtn").style.display="none";
- document.getElementById("miki").textContent="Przeczytaj zagadkę i znajdź rozwiązanie!";
- document.getElementById("levelProgress").style.width=(taskCount/5*100)+"%";
+$("progressBar").style.width=(taskIndex/5*100)+"%";
 }
 
 function checkAnswer(){
- const input=document.getElementById("answer");
- let answer=input.value.trim();
+if(answered)return;
 
- if(answer===""){
-  feedback("Wpisz odpowiedź, detektywie!","info");
-  return;
- }
+let t=currentTasks[taskIndex];
+let value=$("answer").value.trim();
 
- const correctAnswer=String(current.ans);
- const isCorrect=answer.toLowerCase()===correctAnswer.toLowerCase();
-
- if(isCorrect){
-  taskCount++;
-  correct++;
-  data.xp+=10;
-  save();
-
-  feedback(praise[rand(0,praise.length-1)],"good");
-  document.getElementById("miki").textContent=
-  "Brawo! Zdobywasz 10 XP. "+praise[rand(0,praise.length-1)];
-
-  input.disabled=true;
-  document.querySelectorAll(".option").forEach(b=>b.disabled=true);
-  document.getElementById("nextBtn").style.display="inline-block";
-
-  if(taskCount>=5){
-   document.getElementById("nextBtn").textContent="🏆 Zakończ poziom";
-  }
- }else{
-  feedback(encouragement[rand(0,encouragement.length-1)],"bad");
-  document.getElementById("miki").textContent=
-  "Jeszcze nie ten trop. Spróbuj ponownie!";
- }
+if(value===""){
+$("feedback").textContent="Wpisz odpowiedź!";
+return;
 }
 
-function feedback(text,type){
- const f=document.getElementById("feedback");
- f.textContent=text;
- f.className="feedback "+type;
+let correct=String(t.ans).toLowerCase();
+let input=value.toLowerCase().replace(",",".").replace(/\s/g,"");
+
+if(input===correct){
+answered=true;
+xp+=10;
+save();
+
+$("feedback").textContent="✅ Brawo! Dobra odpowiedź!";
+$("miki").textContent=[
+"Miki: Świetna robota, detektywie!",
+"Miki: Zagadkę rozwiązano!",
+"Miki: Twój matematyczny trop był dobry!",
+"Miki: Tak jest! Kolejny sukces!"
+][rand(0,3)];
+
+$("answer").disabled=true;
+$("next").classList.remove("hidden");
+}else{
+$("feedback").textContent="❌ To jeszcze nie to. Spróbuj ponownie!";
+$("miki").textContent="Miki: Sprawdź dokładnie liczby i poszukaj wskazówki.";
+}
 }
 
 function hint(){
- if(hintUsed){
-  feedback("Wskazówka już została wykorzystana. Spróbuj ją zastosować!","info");
-  return;
- }
- hintUsed=true;
- feedback("💡 "+current.hint,"info");
- document.getElementById("miki").textContent=
- "Podpowiedź nie zdradza odpowiedzi. Pomyśl!";
+let t=currentTasks[taskIndex];
+$("miki").textContent="💡 Miki: "+hintText(t.question,t.ans);
+}
+
+function hintText(q,a){
+if(q.includes("+"))return "Dodawanie oznacza połączenie dwóch ilości.";
+if(q.includes("−"))return "Odejmowanie oznacza, że coś zabieramy.";
+if(q.includes("×"))return "Pomyśl o dodawaniu tej samej liczby kilka razy.";
+if(q.includes(":"))return "Podziel liczbę na równe grupy.";
+if(q.includes("<")||q.includes(">"))return "Porównaj obie liczby.";
+if(q.includes("metrów"))return "1 metr to 100 centymetrów.";
+if(q.includes("godzina"))return "Przesuwaj wskazówki godzinowe do przodu.";
+if(q.includes("śladów"))return "Połącz wszystkie znalezione ślady.";
+return "Przyjrzyj się różnicy między kolejnymi liczbami.";
 }
 
 function nextTask(){
- if(taskCount>=5){
-  finishLevel();
-  return;
- }
- newTask();
+if(!answered)return;
+
+taskIndex++;
+
+if(taskIndex>=5){
+finishLevel();
+}else{
+showTask();
+}
 }
 
 function finishLevel(){
- const key=grade+"_"+regionIndex;
- data.done[key]=Math.max(data.done[key]||0,level);
+$("gameScreen").classList.add("hidden");
+$("finishScreen").classList.remove("hidden");
+$("progressBar").style.width="100%";
 
- if(correct===5){
-  const badge="Mistrz krainy "+regions[regionIndex].name;
-  if(!data.badges.includes(badge)){
-   data.badges.push(badge);
-  }
- }
+let key=grade+"-"+region+"-"+level;
 
- save();
-
- if(level>=10){
-  document.getElementById("miki").textContent=
-  "Niesamowite! Ukończyłeś wszystkie poziomy tej krainy!";
- }else{
-  document.getElementById("miki").textContent=
-  "Poziom ukończony! Kolejny poziom czeka na Ciebie.";
- }
-
- feedback("🏆 Poziom ukończony! Zdobyte XP: "+(correct*10),"good");
-
- document.getElementById("nextBtn").textContent="🗺️ Wróć na mapę";
- document.getElementById("nextBtn").onclick=showMap;
- document.getElementById("nextBtn").style.display="inline-block";
+if(!completed.includes(key)){
+completed.push(key);
+xp+=25;
 }
 
-function showAwards(){
- const box=document.getElementById("badgeList");
- box.innerHTML="";
- if(data.badges.length===0){
-  box.textContent="Jeszcze nie masz odznak. Rozwiąż wszystkie zagadki w poziomie!";
- }
- data.badges.forEach(b=>{
-  const el=document.createElement("div");
-  el.className="badge";
-  el.textContent="🏅 "+b;
-  box.appendChild(el);
- });
- showScreen("awards");
+if(!badges.includes(key)){
+badges.push(key);
 }
+
+save();
+
+$("finishText").textContent=
+"Ukończyłeś poziom "+level+" w krainie „"+
+topics[grade][region][0]+"”. Zdobywasz 25 XP i odznakę!";
+}
+
+$("answer").addEventListener("keydown",e=>{
+if(e.key==="Enter"){
+if(answered)nextTask();
+else checkAnswer();
+}
+});
 
 updateStats();
+showRegions();
 </script>
 
 </body>
