@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matematyczni Detektywi</title>
 
 <style>
@@ -10,173 +10,229 @@
 body{
 margin:0;
 font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#10152f,#24104b);
 color:white;
-text-align:center;
+background:
+radial-gradient(circle at top,#263d82,#10152f 65%);
+min-height:100vh;
 }
 header{
-padding:25px 15px;
-background:#151b3d;
+padding:20px;
+text-align:center;
+background:#111936;
 border-bottom:3px solid #00eaff;
 }
-h1{color:#ffd43b;font-size:clamp(26px,5vw,42px)}
-h2{color:#00eaff}
-.container{max-width:850px;margin:auto;padding:20px}
+.logo{
+font-size:clamp(25px,5vw,44px);
+font-weight:900;
+color:#ffd43b;
+text-shadow:0 0 18px #ffb700;
+}
+.subtitle{color:#b8c7ff}
+.container{max-width:950px;margin:auto;padding:20px}
 .card{
-background:#202653;
-border:2px solid #704cff;
-border-radius:22px;
+background:linear-gradient(145deg,#202b59,#171e42);
+border:2px solid #536bff;
+border-radius:24px;
 padding:25px;
 margin:20px 0;
-box-shadow:0 0 20px #4d2aff55;
+box-shadow:0 10px 30px #0005;
 }
+h2{color:#00eaff}
 button{
+background:linear-gradient(135deg,#00eaff,#62f5bd);
 border:0;
-border-radius:14px;
+border-radius:15px;
 padding:15px 22px;
-margin:8px;
-font-size:18px;
+font-size:17px;
 font-weight:bold;
-cursor:pointer;
-background:#00d9ff;
 color:#10152f;
+cursor:pointer;
+margin:7px;
+transition:.2s;
 }
-button:hover{transform:scale(1.03)}
+button:hover{transform:translateY(-3px);box-shadow:0 5px 18px #00eaff55}
+button:disabled{opacity:.4;cursor:not-allowed}
+.hero{font-size:75px;animation:float 3s infinite ease-in-out}
+@keyframes float{50%{transform:translateY(-12px)}}
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:12px;
+margin-top:20px;
+}
+.level{
+background:#111936;
+border:2px solid #4658a8;
+border-radius:16px;
+padding:18px;
+}
+.level.done{border-color:#48e6a5;color:#48e6a5}
+.level.locked{opacity:.5}
 input{
-padding:14px;
-font-size:22px;
-width:160px;
+padding:15px;
 border-radius:12px;
+border:2px solid #00eaff;
+font-size:22px;
+width:170px;
 text-align:center;
 }
 .hidden{display:none}
-.badge{color:#ffd43b;font-size:22px}
-#feedback{font-size:20px;min-height:60px;margin:20px}
+.stats{
+display:flex;
+justify-content:center;
+gap:15px;
+flex-wrap:wrap;
+font-weight:bold;
+color:#ffd43b;
+}
+.feedback{font-size:20px;min-height:60px;margin:20px}
+.small{color:#aab8e8;font-size:14px}
 </style>
 </head>
 
 <body>
 
 <header>
-<h1>🕵️ MATEMATYCZNI DETEKTYWI</h1>
-<p>Rozwiąż zagadkę. Zdobądź XP. Zostań mistrzem!</p>
+<div class="logo">🕵️ MATEMATYCZNI DETEKTYWI</div>
+<div class="subtitle">Rozwiąż zagadkę. Zdobądź XP. Zostań mistrzem!</div>
 </header>
 
 <div class="container">
 
 <div class="card" id="start">
-<h2>🤖 Witaj w Akademii Detektywów!</h2>
-<p>Wybierz swoją klasę:</p>
-<button onclick="startGame(1)">Klasa 1</button>
-<button onclick="startGame(2)">Klasa 2</button>
-<button onclick="startGame(3)">Klasa 3</button>
+<div class="hero">🤖</div>
+<h2>Witaj w Akademii Detektywów!</h2>
+<p>Hej, detektywie! Miki czeka na Twoją pomoc.</p>
+<p>Wybierz swoją akademię:</p>
+<button onclick="chooseClass(1)">🎒 KLASA 1</button>
+<button onclick="chooseClass(2)">🚀 KLASA 2</button>
+<button onclick="chooseClass(3)">🏆 KLASA 3</button>
+</div>
+
+<div class="card hidden" id="map">
+<h2 id="mapTitle">🗺️ Mapa misji</h2>
+<div class="stats">
+<span>⭐ XP: <span id="xp">0</span></span>
+<span>🏅 Odznaki: <span id="badges">0</span></span>
+</div>
+<p>Wybierz misję, detektywie!</p>
+<div class="grid" id="levels"></div>
+<button onclick="back()">⬅ Zmień klasę</button>
 </div>
 
 <div class="card hidden" id="game">
-<h2 id="mission">🔎 Misja 1</h2>
-<p id="level">Poziom 1</p>
-<p class="badge">⭐ XP: <span id="xp">0</span></p>
-<p id="question" style="font-size:35px"></p>
-<input id="answer" type="number" placeholder="Odpowiedź">
+<div class="hero">🤖</div>
+<h2 id="missionTitle">MISJA</h2>
+<p id="question"></p>
+<input type="number" id="answer" placeholder="Wynik">
 <br>
-<button onclick="checkAnswer()">Sprawdź!</button>
-<div id="feedback"></div>
+<button onclick="check()">🔎 Sprawdź</button>
+<div class="feedback" id="feedback"></div>
 <p id="progress"></p>
 </div>
 
-<div class="card hidden" id="finish">
-<h2>🏆 MISJA UKOŃCZONA!</h2>
-<p>Gratulacje, detektywie!</p>
-<p class="badge">Zdobywasz odznakę: Detektyw Liczb!</p>
-<button onclick="location.reload()">Zagraj ponownie</button>
+<div class="card hidden" id="success">
+<div class="hero">🏆</div>
+<h2>ŚWIETNA ROBOTA!</h2>
+<p>Misja ukończona!</p>
+<p>Zdobywasz odznakę detektywa!</p>
+<button onclick="showMap()">🗺️ Wróć na mapę</button>
 </div>
 
 </div>
 
 <script>
-let klasa=1;
-let poziom=1;
-let zadanie=0;
-let poprawne=0;
-let bledy=0;
-let xp=0;
-let questions=[];
+let cls=1,level=1,xp=0,task=0,correct=0,errors=0;
+let questions=[],completed={};
 
-function startGame(k){
-klasa=k;
+function chooseClass(c){
+cls=c;
 document.getElementById("start").classList.add("hidden");
-document.getElementById("game").classList.remove("hidden");
-document.getElementById("mission").innerText="🔎 Misja: Zaginiony kod";
-loadLevel();
+showMap();
 }
 
-function loadLevel(){
-zadanie=0;
-poprawne=0;
-bledy=0;
+function showMap(){
+document.getElementById("map").classList.remove("hidden");
+document.getElementById("game").classList.add("hidden");
+document.getElementById("success").classList.add("hidden");
+document.getElementById("mapTitle").innerText="🗺️ Akademia – Klasa "+cls;
+document.getElementById("xp").innerText=xp;
+document.getElementById("badges").innerText=Object.keys(completed).length;
 
-let max=klasa===1?20:klasa===2?100:1000;
+let box=document.getElementById("levels");
+box.innerHTML="";
+for(let i=1;i<=5;i++){
+let unlocked=i===1||completed[i-1];
+let done=completed[i];
+box.innerHTML+=`
+<div class="level ${done?'done':''} ${unlocked?'':'locked'}">
+<h3>${done?'🏅':unlocked?'🔓':'🔒'} Misja ${i}</h3>
+<p>${['Zaginiony kod','Tajemnica liczb','Skarb dodawania','Szyfr odejmowania','Boss matematyczny'][i-1]}</p>
+<button ${unlocked?'':'disabled'} onclick="startLevel(${i})">${done?'Powtórz':'Start'}</button>
+</div>`;
+}
+}
+
+function startLevel(l){
+level=l;task=0;correct=0;errors=0;
 questions=[];
-
+let max=cls===1?20:cls===2?100:1000;
 for(let i=0;i<10;i++){
 let a=Math.floor(Math.random()*(max/2));
 let b=Math.floor(Math.random()*(max/2));
-questions.push({a:a,b:b,result:a+b});
+questions.push({a,b,result:a+b});
 }
-
+document.getElementById("map").classList.add("hidden");
+document.getElementById("game").classList.remove("hidden");
+document.getElementById("missionTitle").innerText="🔎 MISJA "+level;
 showQuestion();
 }
 
 function showQuestion(){
-document.getElementById("level").innerText="Poziom "+poziom+" • Zadanie "+(zadanie+1)+"/10";
-document.getElementById("question").innerText=questions[zadanie].a+" + "+questions[zadanie].b+" = ?";
+let q=questions[task];
+document.getElementById("question").innerText=q.a+" + "+q.b+" = ?";
 document.getElementById("answer").value="";
 document.getElementById("feedback").innerText="";
-document.getElementById("progress").innerText="Poprawne: "+poprawne+" • Błędy: "+bledy;
+document.getElementById("progress").innerText="Zadanie "+(task+1)+"/10 • Poprawne "+correct+"/10";
 }
 
-function checkAnswer(){
-let val=Number(document.getElementById("answer").value);
-let q=questions[zadanie];
-
-if(document.getElementById("answer").value===""){
+function check(){
+let field=document.getElementById("answer");
+if(field.value===""){
 document.getElementById("feedback").innerText="Wpisz odpowiedź, detektywie!";
 return;
 }
-
-if(val===q.result){
-poprawne++;
-xp+=10;
-document.getElementById("xp").innerText=xp;
+let q=questions[task];
+if(Number(field.value)===q.result){
+correct++;xp+=10;
 document.getElementById("feedback").innerText="🎉 BRAWO! +10 XP";
 }else{
-bledy++;
-document.getElementById("feedback").innerText="🔍 Sprawdź jeszcze raz! "+q.a+" + "+q.b;
+errors++;
+document.getElementById("feedback").innerText="🔍 "+q.a+" + "+q.b+" = ? Spróbuj policzyć jeszcze raz!";
 }
-
-if(bledy>=3){
-document.getElementById("feedback").innerText="🕵️ 3 błędy! Trening detektywa przed kolejną próbą.";
-document.getElementById("answer").disabled=true;
-document.querySelector("#game button").disabled=true;
+if(errors>=3){
+document.getElementById("feedback").innerText="🤖 Miki: Trzy błędy! Wróć do treningu i spróbuj ponownie.";
+setTimeout(showMap,2500);
 return;
 }
-
-if(poprawne>=8){
-poziom++;
-document.getElementById("feedback").innerText="🏆 Poziom zaliczony! Odblokowujesz kolejny!";
-setTimeout(loadLevel,1800);
+if(correct>=8){
+completed[level]=true;
+document.getElementById("game").classList.add("hidden");
+document.getElementById("success").classList.remove("hidden");
 return;
 }
-
-zadanie++;
-if(zadanie>=10){
+task++;
+if(task>=10){
 document.getElementById("feedback").innerText="Koniec zadań. Spróbuj ponownie!";
 return;
 }
+setTimeout(showQuestion,1000);
+}
 
-setTimeout(showQuestion,1200);
+function back(){
+document.getElementById("map").classList.add("hidden");
+document.getElementById("start").classList.remove("hidden");
 }
 </script>
-
 </body>
 </html>
