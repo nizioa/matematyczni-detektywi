@@ -2,357 +2,411 @@
 <html lang="pl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Matematyczni Detektywi</title>
 
 <style>
 :root {
-  --navy:#18234a;
-  --blue:#4779ff;
-  --purple:#8457e8;
-  --pink:#ff75ad;
-  --yellow:#ffd65a;
-  --green:#44d6a0;
-  --white:#ffffff;
+  --ink:#26345e;
+  --purple:#7457e8;
+  --purple2:#9b82ff;
+  --blue:#58baff;
+  --green:#43d5a0;
+  --yellow:#ffda68;
+  --pink:#ff8db9;
+  --bg:#f2f4ff;
+  --card:#ffffff;
+  --muted:#7d86a8;
 }
 
-* {
-  box-sizing:border-box;
-}
+* { box-sizing:border-box; }
 
 body {
   margin:0;
   font-family:"Trebuchet MS",Arial,sans-serif;
-  background:#f1f4ff;
-  color:var(--navy);
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 10%,#e5e1ff,transparent 30%),
+    radial-gradient(circle at 90% 30%,#d9f5ff,transparent 25%),
+    var(--bg);
 }
 
-button,input {
-  font:inherit;
+button,input { font:inherit; }
+button { cursor:pointer; }
+
+button:disabled {
+  cursor:not-allowed;
 }
 
-button {
-  cursor:pointer;
-  border:0;
-}
-
-.topbar {
-  background:white;
-  padding:14px 5%;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  box-shadow:0 4px 20px #18234a10;
+header {
   position:sticky;
   top:0;
-  z-index:10;
-}
-
-.logo {
-  font-size:21px;
-  font-weight:900;
-  color:#5844cf;
-}
-
-.xpbox {
-  background:#fff3c5;
-  border-radius:30px;
-  padding:10px 18px;
-  font-weight:bold;
-}
-
-.container {
-  max-width:1100px;
-  margin:auto;
-  padding:25px 18px 60px;
-}
-
-.hero {
-  background:linear-gradient(135deg,#6855e8,#9276ff);
-  border-radius:30px;
-  padding:35px;
-  color:white;
+  z-index:20;
+  background:#ffffffed;
+  backdrop-filter:blur(12px);
   display:flex;
   align-items:center;
   justify-content:space-between;
+  padding:13px 5%;
+  box-shadow:0 4px 20px #28345e10;
+}
+
+.brand {
+  font-size:clamp(16px,3vw,23px);
+  font-weight:900;
+  color:var(--purple);
+}
+
+.xp {
+  background:#fff1b9;
+  padding:10px 17px;
+  border-radius:30px;
+  font-weight:900;
+}
+
+main {
+  max-width:1150px;
+  margin:auto;
+  padding:25px 17px 60px;
+}
+
+.screen { display:none; }
+.screen.active { display:block; }
+
+.hero {
+  background:linear-gradient(135deg,#654be1,#a17cff);
+  color:white;
+  border-radius:32px;
+  padding:35px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
   gap:20px;
   overflow:hidden;
   position:relative;
+  box-shadow:0 15px 35px #795be833;
+}
+
+.hero:before {
+  content:"✦  ✧  ✦";
+  position:absolute;
+  right:20%;
+  top:15%;
+  font-size:45px;
+  opacity:.3;
 }
 
 .hero h1 {
-  font-size:clamp(30px,5vw,54px);
-  margin:0 0 15px;
+  font-size:clamp(32px,6vw,58px);
   line-height:1.05;
+  margin:0 0 15px;
 }
 
 .hero p {
+  max-width:550px;
   font-size:18px;
-  max-width:500px;
-  line-height:1.5;
+  line-height:1.6;
 }
 
 .miki {
-  font-size:115px;
-  animation:bounce 2s infinite ease-in-out;
+  font-size:clamp(80px,15vw,145px);
+  animation:bounce 2s infinite;
   filter:drop-shadow(0 12px 8px #0002);
 }
 
 @keyframes bounce {
-  0%,100% {transform:translateY(0) rotate(-5deg)}
-  50% {transform:translateY(-12px) rotate(5deg)}
+  0%,100% { transform:translateY(0) rotate(-5deg); }
+  50% { transform:translateY(-13px) rotate(5deg); }
 }
 
 .primary {
   background:var(--yellow);
-  color:#453200;
-  font-weight:900;
-  border-radius:16px;
+  color:#5e4200;
   padding:15px 23px;
-  box-shadow:0 5px 0 #d7a92b;
+  border-radius:16px;
+  border:0;
+  font-weight:900;
+  box-shadow:0 5px 0 #d6aa32;
 }
 
 .primary:active {
   transform:translateY(3px);
-  box-shadow:0 2px 0 #d7a92b;
+  box-shadow:0 2px 0 #d6aa32;
 }
 
 .section-title {
-  margin:35px 0 18px;
   font-size:27px;
+  margin:35px 0 18px;
 }
 
-.classes {
+.grid3 {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
+  gap:16px;
 }
 
-.class-card {
-  border-radius:24px;
-  padding:25px 18px;
-  text-align:center;
+.card {
   background:white;
-  box-shadow:0 7px 20px #18234a0b;
-  border:3px solid transparent;
+  border:3px solid #e8eaff;
+  border-radius:24px;
+  padding:22px;
+  box-shadow:0 8px 25px #26345e0b;
   transition:.2s;
 }
 
-.class-card:hover {
-  transform:translateY(-5px);
-  border-color:#b8adff;
+button.card {
+  color:inherit;
+  text-align:center;
+  width:100%;
 }
 
-.class-icon {
-  font-size:55px;
+.card:hover:not(:disabled) {
+  transform:translateY(-4px);
+  border-color:#b8aaff;
 }
 
-.class-card h3 {
-  font-size:22px;
+.card-icon {
+  font-size:53px;
+}
+
+.card h3 {
+  font-size:21px;
   margin:10px 0;
 }
 
-.class-card p {
-  color:#7b82a3;
+.card p {
+  color:var(--muted);
+  line-height:1.5;
+}
+
+.back {
+  background:#e4e8ff;
+  color:#535d9d;
+  border:0;
+  border-radius:13px;
+  padding:11px 17px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
 .map {
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:15px;
+  gap:17px;
 }
 
 .region {
-  background:white;
-  border-radius:22px;
-  padding:18px;
-  box-shadow:0 6px 20px #18234a0b;
-  position:relative;
-  border:2px solid #e8eaff;
   text-align:left;
-  transition:.2s;
-}
-
-.region:not(.locked):hover {
-  transform:translateY(-4px);
-  border-color:#9e8aff;
+  width:100%;
+  background:white;
+  border:3px solid #e6eaff;
+  border-radius:24px;
+  padding:20px;
+  color:var(--ink);
+  box-shadow:0 8px 22px #26345e0b;
 }
 
 .region.locked {
-  opacity:.65;
+  opacity:.55;
   filter:grayscale(.6);
 }
 
 .region-icon {
-  font-size:42px;
+  font-size:45px;
 }
 
 .region h3 {
   margin:8px 0;
+  font-size:20px;
 }
 
 .region small {
-  color:#7d83a3;
+  color:var(--muted);
 }
 
-.progressbar {
+.bar {
   height:9px;
   background:#e8eaff;
   border-radius:20px;
   overflow:hidden;
-  margin-top:13px;
+  margin:13px 0 7px;
 }
 
-.progressbar div {
+.bar div {
   height:100%;
-  background:linear-gradient(90deg,#54d6a6,#49bfff);
-  width:0;
-  transition:.3s;
+  background:linear-gradient(90deg,#43d5a0,#58baff);
 }
 
 .levels {
   display:grid;
   grid-template-columns:repeat(5,1fr);
-  gap:12px;
-  margin-top:20px;
+  gap:13px;
+  margin-top:25px;
 }
 
 .level {
   aspect-ratio:1;
   border-radius:20px;
   background:white;
-  border:3px solid #e6eaff;
+  border:3px solid #e2e7ff;
+  box-shadow:0 4px 0 #dce2ff;
   font-size:25px;
   font-weight:900;
-  color:#66709a;
-  box-shadow:0 4px 0 #dce2ff;
+  color:#68729b;
+}
+
+.level.open {
+  background:#fff2bc;
+  border-color:#ffd24e;
+  color:#946700;
 }
 
 .level.done {
   background:#d8fff0;
-  border-color:#4bd6a5;
+  border-color:#43d5a0;
   color:#16835f;
 }
 
-.level.current {
-  background:#fff1b9;
-  border-color:#ffc83e;
-  color:#9b6900;
-}
-
 .level.locked {
-  opacity:.45;
+  opacity:.4;
 }
 
 .panel {
   background:white;
   border-radius:28px;
   padding:25px;
-  box-shadow:0 8px 30px #18234a0b;
+  box-shadow:0 10px 35px #26345e0d;
 }
 
-.back {
-  background:#e9edff;
-  color:#4b55a0;
-  padding:11px 17px;
-  border-radius:13px;
-  font-weight:bold;
-  margin-bottom:18px;
-}
-
-.tasktop {
+.taskhead {
   display:flex;
   justify-content:space-between;
-  gap:12px;
   flex-wrap:wrap;
-  color:#7c83a3;
+  gap:10px;
+  color:var(--muted);
   font-weight:bold;
 }
 
-.taskprogress {
+.taskbar {
   height:12px;
-  background:#e9edff;
+  background:#e8eaff;
   border-radius:20px;
-  margin:18px 0 30px;
+  margin:18px 0 28px;
   overflow:hidden;
 }
 
-.taskprogress div {
+.taskbar div {
   height:100%;
-  background:linear-gradient(90deg,#4bd6a5,#51baff);
+  background:linear-gradient(90deg,#43d5a0,#58baff);
   transition:.3s;
 }
 
-.task-title {
+.tasktitle {
   font-size:clamp(23px,4vw,35px);
-  line-height:1.3;
-  margin:15px 0;
+  line-height:1.35;
 }
 
 .story {
-  font-size:19px;
-  line-height:1.6;
-  color:#555f89;
-  background:#f5f6ff;
+  background:#f3f5ff;
   padding:18px;
   border-radius:18px;
-  margin:18px 0;
+  line-height:1.7;
+  font-size:18px;
+  margin:20px 0;
 }
 
 .answers {
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:12px;
-  margin-top:20px;
+  gap:13px;
+  margin:25px 0;
 }
 
 .answer {
-  background:#f1f3ff;
-  border:3px solid #e1e6ff;
-  padding:18px;
+  background:#eff2ff;
+  border:3px solid #dfe5ff;
   border-radius:17px;
+  padding:18px;
   font-size:23px;
   font-weight:bold;
-  color:#4d5790;
+  color:#505b91;
 }
 
 .answer:hover {
-  background:#e7eaff;
+  background:#e5eaff;
 }
 
-.answer.correct {
+.answer.good {
   background:#d8fff0;
-  border-color:#42d3a1;
+  border-color:#43d5a0;
 }
 
-.answer.wrong {
-  background:#ffe0e8;
-  border-color:#ff7b9d;
+.answer.bad {
+  background:#ffe2eb;
+  border-color:#ff8db9;
 }
 
 .inputrow {
   display:flex;
   gap:10px;
-  margin-top:20px;
+  margin:25px 0;
 }
 
 .inputrow input {
-  min-width:0;
   flex:1;
-  padding:16px;
-  border:3px solid #e1e6ff;
+  min-width:0;
+  padding:15px;
+  border:3px solid #dfe5ff;
   border-radius:15px;
+  font-size:23px;
+}
+
+.dragitems {
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin:25px 0;
+}
+
+.dragitem {
+  background:#e7eaff;
+  border:3px solid #cbd5ff;
+  border-radius:16px;
+  padding:15px 22px;
+  font-size:23px;
+  font-weight:bold;
+  touch-action:none;
+  user-select:none;
+  cursor:grab;
+}
+
+.dropzone {
+  min-height:95px;
+  border:3px dashed #a9b5ff;
+  border-radius:20px;
+  background:#f7f8ff;
+  padding:15px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
   font-size:22px;
 }
 
+.dropzone.over {
+  background:#e1fff3;
+  border-color:#43d5a0;
+}
+
 .feedback {
-  margin-top:20px;
+  display:none;
   padding:17px;
   border-radius:17px;
+  line-height:1.6;
   font-weight:bold;
-  display:none;
-  line-height:1.5;
+  margin:20px 0;
 }
 
 .feedback.good {
@@ -363,55 +417,15 @@ button {
 
 .feedback.bad {
   display:block;
-  background:#fff0c5;
-  color:#8b6200;
+  background:#fff2c9;
+  color:#805c00;
 }
 
-.dragarea {
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  justify-content:center;
-  margin:25px 0;
-}
-
-.dragitem {
-  background:#e9eaff;
-  padding:15px 22px;
-  border-radius:16px;
-  border:3px solid #cbd4ff;
-  font-size:23px;
-  font-weight:bold;
-  cursor:grab;
-  touch-action:none;
-  user-select:none;
-}
-
-.dropzone {
-  min-height:90px;
-  border:3px dashed #a9b5ff;
-  background:#f6f7ff;
-  border-radius:20px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  font-size:24px;
-  padding:15px;
-  text-align:center;
-}
-
-.dropzone.over {
-  background:#e4fff4;
-  border-color:#42d3a1;
-}
-
-.dropzone.filled {
-  border-style:solid;
-}
+.hidden { display:none!important; }
 
 .reward {
   text-align:center;
-  padding:30px;
+  padding:35px;
 }
 
 .reward .big {
@@ -419,11 +433,7 @@ button {
 }
 
 .reward h2 {
-  font-size:34px;
-}
-
-.hidden {
-  display:none!important;
+  font-size:35px;
 }
 
 .badges {
@@ -440,124 +450,133 @@ button {
 }
 
 @media(max-width:700px) {
-  .classes,.map {
-    grid-template-columns:1fr;
-  }
-
-  .hero {
-    padding:25px;
-  }
-
-  .miki {
-    font-size:75px;
-  }
-
-  .levels {
-    grid-template-columns:repeat(4,1fr);
-  }
-
-  .answers {
-    grid-template-columns:1fr;
-  }
-
-  .panel {
-    padding:18px;
-  }
+  .grid3,.map { grid-template-columns:1fr; }
+  .hero { padding:25px; }
+  .levels { grid-template-columns:repeat(4,1fr); }
+  .answers { grid-template-columns:1fr; }
+  .panel { padding:18px; }
 }
 </style>
 </head>
 
 <body>
 
-<header class="topbar">
-  <div class="logo">🕵️ Matematyczni Detektywi</div>
-  <div class="xpbox">⭐ <span id="xp">0</span> XP</div>
+<header>
+  <div class="brand">🕵️ Matematyczni Detektywi</div>
+  <div class="xp">⭐ <span id="xp">0</span> XP</div>
 </header>
 
-<main class="container">
+<main>
 
-<section id="home">
+<!-- STRONA GŁÓWNA -->
+<section id="home" class="screen active">
   <div class="hero">
     <div>
-      <h1>Witaj w świecie<br>Matematycznych Detektywów!</h1>
-      <p>Pomóż Mikiemu rozwiązać zagadki, odkryć tajemnicze krainy i zdobyć skarby matematyki!</p>
-      <button class="primary" onclick="chooseClass()">🚀 Rozpocznij przygodę</button>
+      <h1>Matematyczna<br>przygoda czeka!</h1>
+      <p>
+        Pomóż Mikiemu odkrywać magiczne krainy,
+        rozwiązywać zagadki i zdobywać skarby.
+      </p>
+      <button class="primary" onclick="showScreen('classes')">
+        🚀 Rozpocznij przygodę
+      </button>
     </div>
     <div class="miki">🦊</div>
   </div>
 
-  <h2 class="section-title">🎒 Wybierz swoją klasę</h2>
-  <div class="classes">
-    <button class="class-card" onclick="selectClass(1)">
-      <div class="class-icon">🌱</div>
+  <h2 class="section-title">🏅 Twoje odznaki</h2>
+  <div id="badges" class="badges"></div>
+
+  <h2 class="section-title">🗺️ Twoja przygoda</h2>
+  <div class="card">
+    <div id="homeProgress">Wybierz klasę i rozpocznij odkrywanie!</div>
+  </div>
+</section>
+
+<!-- KLASY -->
+<section id="classes" class="screen">
+  <button class="back" onclick="showScreen('home')">← Powrót</button>
+  <h1>🎒 Wybierz klasę</h1>
+  <div class="grid3">
+    <button class="card" onclick="selectGrade(1)">
+      <div class="card-icon">🌱</div>
       <h3>Klasa 1</h3>
       <p>Mały odkrywca</p>
     </button>
-    <button class="class-card" onclick="selectClass(2)">
-      <div class="class-icon">🧭</div>
+    <button class="card" onclick="selectGrade(2)">
+      <div class="card-icon">🧭</div>
       <h3>Klasa 2</h3>
       <p>Sprytny detektyw</p>
     </button>
-    <button class="class-card" onclick="selectClass(3)">
-      <div class="class-icon">🏆</div>
+    <button class="card" onclick="selectGrade(3)">
+      <div class="card-icon">🏆</div>
       <h3>Klasa 3</h3>
       <p>Mistrz zagadek</p>
     </button>
   </div>
-
-  <h2 class="section-title">🏅 Twoje odznaki</h2>
-  <div id="homeBadges" class="badges"></div>
 </section>
 
-<section id="world" class="hidden">
-  <button class="back" onclick="home()">← Strona główna</button>
-  <h1 id="worldTitle"></h1>
-  <p>Odkrywaj krainy po kolei. Każda kryje 10 poziomów!</p>
+<!-- MAPA -->
+<section id="world" class="screen">
+  <button class="back" onclick="showScreen('classes')">← Klasy</button>
+  <h1 id="worldTitle">🌎 Mapa przygody</h1>
+  <p>Każda kraina ma 10 poziomów. Odkrywaj je po kolei!</p>
   <div id="map" class="map"></div>
 </section>
 
-<section id="levelsScreen" class="hidden">
-  <button class="back" onclick="world()">← Mapa krain</button>
+<!-- POZIOMY -->
+<section id="levelScreen" class="screen">
+  <button class="back" onclick="showScreen('world')">← Mapa krain</button>
   <h1 id="regionTitle"></h1>
   <p id="regionDescription"></p>
   <div id="levels" class="levels"></div>
 </section>
 
-<section id="game" class="hidden">
-  <button class="back" onclick="levelsScreen()">← Poziomy</button>
+<!-- ZADANIA -->
+<section id="game" class="screen">
+  <button class="back" onclick="showScreen('levelScreen')">← Poziomy</button>
   <div class="panel">
-    <div class="tasktop">
+    <div class="taskhead">
       <span id="taskRegion"></span>
       <span id="taskNumber"></span>
     </div>
-    <div class="taskprogress"><div id="taskBar"></div></div>
+    <div class="taskbar"><div id="taskBar"></div></div>
     <div id="taskContent"></div>
     <div id="feedback" class="feedback"></div>
     <button id="nextButton" class="primary hidden" onclick="nextTask()">➡ Dalej</button>
   </div>
 </section>
 
-<section id="finish" class="hidden">
+<!-- NAGRODA -->
+<section id="finish" class="screen">
   <div class="panel reward">
     <div class="big">🏆</div>
     <h2>Poziom ukończony!</h2>
     <p id="finishText"></p>
     <div class="badge">⭐ +100 XP</div>
     <br><br>
-    <button class="primary" onclick="levelsScreen()">Następny poziom</button>
+    <button class="primary" onclick="showScreen('levelScreen')">Wróć do poziomów</button>
+    <br><br>
+    <button class="back" onclick="showScreen('world')">Mapa krain</button>
   </div>
 </section>
 
 </main>
 
 <script>
+"use strict";
+
+/* ============================
+   DANE KRAIN
+============================ */
+
 const regions = {
 1:[
-["👑","Królestwo Liczb","Liczby i porównywanie"],
+["👑","Królestwo Liczb","Liczby, porównywanie i kolejność"],
 ["🌲","Leśne Liczenie","Dodawanie i odejmowanie"],
 ["🌉","Most Brakujących Liczb","Odkrywanie niewiadomych"],
 ["🔷","Geometryczna Polana","Figury i kształty"],
-["📏","Wieża Miar","Długość i mierzenie"],
+["📏","Wieża Miar","Mierzenie i długość"],
 ["🕰️","Zegarowy Zamek","Czas i kalendarz"],
 ["💰","Skarbiec Monet","Pieniądze"],
 ["🏘️","Wioska Zadań","Zadania tekstowe"],
@@ -589,129 +608,261 @@ const regions = {
 ]
 };
 
-let grade=1,regionIndex=0,level=1,taskIndex=0;
-let tasks=[],answered=false;
-let dragged=null;
+/* ============================
+   ZAPIS POSTĘPÓW
+============================ */
 
-let save=JSON.parse(localStorage.getItem("md-save")||'{"xp":0,"done":{},"badges":[]}');
+function loadSave(){
+ try {
+  const data=JSON.parse(localStorage.getItem("md-save")||"{}");
+  return {
+   xp:Number(data.xp)||0,
+   done:data.done&&typeof data.done==="object"?data.done:{},
+   badges:Array.isArray(data.badges)?data.badges:[]
+  };
+ } catch(e) {
+  return {xp:0,done:{},badges:[]};
+ }
+}
+
+let save=loadSave();
+let grade=1;
+let regionIndex=0;
+let level=1;
+let taskIndex=0;
+let tasks=[];
+let answered=false;
+let dragValues=[];
+let dragSelected=null;
 
 function persist(){
- localStorage.setItem("md-save",JSON.stringify(save));
+ try {
+  localStorage.setItem("md-save",JSON.stringify(save));
+ } catch(e) {
+  console.warn("Nie udało się zapisać postępów",e);
+ }
  document.getElementById("xp").textContent=save.xp;
  renderBadges();
+ renderHomeProgress();
 }
 
-function show(id){
- ["home","world","levelsScreen","game","finish"].forEach(x=>document.getElementById(x).classList.add("hidden"));
- document.getElementById(id).classList.remove("hidden");
+function keyFor(g,r,l){
+ return g+"-"+r+"-"+l;
 }
 
-function home(){
- show("home");
- persist();
+function isDone(g,r,l){
+ return !!save.done[keyFor(g,r,l)];
 }
 
-function chooseClass(){
- document.getElementById("home").scrollIntoView({behavior:"smooth"});
+function regionDone(g,r){
+ for(let l=1;l<=10;l++){
+  if(!isDone(g,r,l))return false;
+ }
+ return true;
 }
 
-function selectClass(g){
+function unlockedRegion(r){
+ return r===0||regionDone(grade,r-1);
+}
+
+function unlockedLevel(l){
+ return l===1||isDone(grade,regionIndex,l-1);
+}
+
+/* ============================
+   NAWIGACJA
+============================ */
+
+function showScreen(id){
+ document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+ document.getElementById(id).classList.add("active");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function selectGrade(g){
  grade=g;
  document.getElementById("worldTitle").textContent="🌎 Świat klasy "+g;
- world();
+ renderMap();
+ showScreen("world");
 }
 
-function world(){
- show("world");
- let map=document.getElementById("map");
+function renderMap(){
+ const map=document.getElementById("map");
  map.innerHTML="";
  regions[grade].forEach((r,i)=>{
-  let unlocked=i===0||regionDone(i-1);
-  let done=regionDone(i);
-  let count=done?10:Math.max(0,Object.keys(save.done).filter(k=>k.startsWith(grade+"-"+i+"-")).length);
-  let b=document.createElement("button");
-  b.className="region "+(!unlocked?"locked":"");
+  const unlocked=unlockedRegion(i);
+  const count=Array.from({length:10},(_,n)=>isDone(grade,i,n+1)).filter(Boolean).length;
+  const b=document.createElement("button");
+  b.className="region"+(!unlocked?" locked":"");
   b.disabled=!unlocked;
-  b.innerHTML=`<div class="region-icon">${r[0]}</div><h3>${r[1]}</h3><small>${r[2]}</small><div class="progressbar"><div style="width:${count*10}%"></div></div><small>${count}/10 poziomów ${done?"🏆":unlocked?"":"🔒"}</small>`;
-  b.onclick=()=>{regionIndex=i;levelsScreen()};
+  b.innerHTML=`
+   <div class="region-icon">${r[0]}</div>
+   <h3>${r[1]}</h3>
+   <small>${r[2]}</small>
+   <div class="bar"><div style="width:${count*10}%"></div></div>
+   <small>${count}/10 poziomów ${unlocked?"":"🔒"}</small>
+  `;
+  b.onclick=()=>{
+   regionIndex=i;
+   renderLevels();
+   showScreen("levelScreen");
+  };
   map.appendChild(b);
  });
 }
 
-function regionDone(i){
- return Array.from({length:10},(_,n)=>save.done[grade+"-"+i+"-"+(n+1)]).every(Boolean);
-}
-
-function levelsScreen(){
- show("levelsScreen");
- let r=regions[grade][regionIndex];
+function renderLevels(){
+ const r=regions[grade][regionIndex];
  document.getElementById("regionTitle").textContent=r[0]+" "+r[1];
  document.getElementById("regionDescription").textContent=r[2]+" • 10 poziomów";
- let el=document.getElementById("levels");
+ const el=document.getElementById("levels");
  el.innerHTML="";
- for(let n=1;n<=10;n++){
-  let unlocked=n===1||save.done[grade+"-"+regionIndex+"-"+(n-1)];
-  let b=document.createElement("button");
-  b.className="level "+(save.done[grade+"-"+regionIndex+"-"+n]?"done":unlocked?"current":"locked");
-  b.textContent=save.done[grade+"-"+regionIndex+"-"+n]?"✓":unlocked?n:"🔒";
+ for(let l=1;l<=10;l++){
+  const done=isDone(grade,regionIndex,l);
+  const unlocked=unlockedLevel(l);
+  const b=document.createElement("button");
+  b.className="level "+(done?"done":unlocked?"open":"locked");
+  b.textContent=done?"✓":unlocked?l:"🔒";
   b.disabled=!unlocked;
-  b.onclick=()=>startLevel(n);
+  b.onclick=()=>startLevel(l);
   el.appendChild(b);
  }
 }
 
-function rand(n){return Math.floor(Math.random()*n)}
-function shuffle(a){return a.sort(()=>Math.random()-.5)}
-function makeTask(type,q,correct,story="",hint=""){
- let wrong=[correct+1,Math.max(0,correct-1),correct+2];
- return {type,q,correct,answers:shuffle([correct,...wrong]),story,hint};
+/* ============================
+   GENERATOR ZADAŃ
+============================ */
+
+function rnd(n){
+ return Math.floor(Math.random()*n);
+}
+
+function shuffle(arr){
+ const a=[...arr];
+ for(let i=a.length-1;i>0;i--){
+  const j=rnd(i+1);
+  [a[i],a[j]]=[a[j],a[i]];
+ }
+ return a;
+}
+
+function task(type,q,correct,story="",hint=""){
+ return {type,q,correct,story,hint};
+}
+
+function numberLimit(){
+ return grade===1?20:grade===2?100:1000;
 }
 
 function buildTasks(){
- let base=grade===1?20:grade===2?100:1000;
- let a=rand(base),b=rand(base);
- let add=a+b,sub=Math.abs(a-b);
- let mult=(grade===1?2:grade===2?10:20);
- let x=rand(mult)+1,y=rand(mult)+1;
- let t=[
- makeTask("choice","Ile to "+a+" + "+b+"?",add,"","Dodaj obie liczby."),
- makeTask("choice","Ile to "+Math.max(a,b)+" − "+Math.min(a,b)+"?",sub,"","Odejmij mniejszą liczbę."),
- makeTask("input","Wpisz brakującą liczbę: "+a+" + □ = "+add,add,"","Jaką liczbę trzeba dodać?"),
- makeTask("choice","Która liczba jest większa?",Math.max(a,b),"Wybierz większą: "+a+" czy "+b+"?",""),
- makeTask("choice","Oblicz: "+x+" × "+y,x*y,"","Pomyśl o "+x+" grupach po "+y+"."),
- makeTask("choice","Oblicz: "+(x*y)+" ÷ "+x,y,"","Podziel na równe grupy."),
- makeTask("drag","Ułóż liczby od najmniejszej do największej",[a,b,add].sort((x,y)=>x-y).join(","),"","Przeciągnij liczby w dobrej kolejności.")
+ const max=numberLimit();
+ const a=rnd(max)+1;
+ const b=rnd(max)+1;
+ const sum=a+b;
+ const diff=Math.abs(a-b);
+ const small=Math.min(a,b);
+ const big=Math.max(a,b);
+ const x=rnd(grade===1?5:grade===2?10:20)+1;
+ const y=rnd(grade===1?5:grade===2?10:20)+1;
+ const mul=x*y;
+
+ const kinds=[
+  task("choice","Ile to "+a+" + "+b+"?",sum,"","Dodaj obie liczby."),
+  task("input","Oblicz: "+big+" − "+small,diff,"","Odejmij mniejszą liczbę."),
+  task("input","Uzupełnij: "+a+" + □ = "+sum,sum,"","Jakiej liczby brakuje?"),
+  task("compare","Wybierz znak: "+a+" □ "+b,a<b?"<":a>b?">":"=","","Porównaj liczby."),
+  task("choice","Ile to "+x+" × "+y+"?",mul,"","Policz grupy."),
+  task("choice","Ile to "+mul+" ÷ "+x+"?",y,"","Podziel na równe grupy."),
+  task("drag","Ułóż liczby rosnąco",[a,b,sum].sort((u,v)=>u-v),"","Przeciągnij liczby w kolejności.")
  ];
- let finale=makeTask("input","🗝️ FINAŁ! Oblicz: "+(x*y)+" + "+add,x*y+add,"Miki znalazł tajemniczy skarb. Otwórz go!","Najpierw mnożenie, potem dodawanie.");
- tasks=[...t,finale];
+
+ const finale=task(
+  "input",
+  "🐉 FINAŁ: Oblicz "+mul+" + "+sum,
+  mul+sum,
+  "Miki znalazł magiczną skrzynię. Otwórz ją!",
+  "Najpierw mnożenie, potem dodawanie."
+ );
+
+ tasks=[...kinds,finale];
 }
 
-function startLevel(n){
- level=n;taskIndex=0;buildTasks();show("game");renderTask();
+/* ============================
+   URUCHAMIANIE POZIOMU
+============================ */
+
+function startLevel(l){
+ level=l;
+ taskIndex=0;
+ buildTasks();
+ showScreen("game");
+ renderTask();
 }
 
 function renderTask(){
  answered=false;
- let t=tasks[taskIndex];
- document.getElementById("taskRegion").textContent=regions[grade][regionIndex][1]+" • poziom "+level;
- document.getElementById("taskNumber").textContent="Zadanie "+(taskIndex+1)+"/8";
- document.getElementById("taskBar").style.width=(taskIndex/8*100)+"%";
- document.getElementById("taskContent").innerHTML=`<h2 class="task-title">${t.q}</h2>${t.story?`<div class="story">${t.story}</div>`:""}`;
+ dragValues=[];
+ dragSelected=null;
+
+ const t=tasks[taskIndex];
+ document.getElementById("taskRegion").textContent=
+  regions[grade][regionIndex][1]+" • poziom "+level;
+ document.getElementById("taskNumber").textContent=
+  "Zadanie "+(taskIndex+1)+"/8";
+ document.getElementById("taskBar").style.width=
+  (taskIndex/8*100)+"%";
+
+ const content=document.getElementById("taskContent");
+ content.innerHTML=
+  `<h2 class="tasktitle">${t.q}</h2>`+
+  (t.story?`<div class="story">${t.story}</div>`:"");
+
  document.getElementById("feedback").className="feedback";
+ document.getElementById("feedback").textContent="";
  document.getElementById("nextButton").classList.add("hidden");
+
  if(t.type==="input"){
-  document.getElementById("taskContent").innerHTML+=`<div class="inputrow"><input id="userAnswer" type="number" inputmode="numeric" placeholder="Twoja odpowiedź"><button class="primary" onclick="checkInput()">Sprawdź</button></div>`;
- }else if(t.type==="drag"){
-  let arr=t.correct.split(",");
-  document.getElementById("taskContent").innerHTML+=`<div class="dragarea" id="dragitems">${shuffle([...arr]).map(v=>`<div class="dragitem" draggable="true" data-v="${v}">${v}</div>`).join("")}</div><div class="dropzone" id="dropzone">Przeciągnij liczby tutaj w kolejności</div><button class="primary" onclick="checkDrag()">Sprawdź kolejność</button>`;
+  content.innerHTML+=`
+   <div class="inputrow">
+    <input id="userAnswer" type="number" inputmode="numeric" placeholder="Odpowiedź">
+    <button class="primary" onclick="checkInput()">Sprawdź</button>
+   </div>`;
+  document.getElementById("userAnswer").addEventListener("keydown",e=>{
+   if(e.key==="Enter")checkInput();
+  });
+ }
+
+ if(t.type==="choice"){
+  content.innerHTML+=`<div class="answers">${
+   shuffle([t.correct,t.correct+1,Math.max(0,t.correct-1),t.correct+2])
+   .map(v=>`<button class="answer" onclick="checkChoice(this,${v})">${v}</button>`).join("")
+  }</div>`;
+ }
+
+ if(t.type==="compare"){
+  content.innerHTML+=`<div class="answers">${
+   ["<",">","="].map(v=>`<button class="answer" onclick="checkChoice(this,'${v}')">${v}</button>`).join("")
+  }</div>`;
+ }
+
+ if(t.type==="drag"){
+  dragValues=shuffle([...t.correct]);
+  content.innerHTML+=`
+   <div class="dragitems" id="dragitems">
+    ${dragValues.map((v,i)=>`<div class="dragitem" data-index="${i}">${v}</div>`).join("")}
+   </div>
+   <div class="dropzone" id="dropzone">Dotknij liczby, a potem miejsca w kolejności</div>
+   <button class="primary" onclick="checkDrag()">Sprawdź kolejność</button>`;
   setupDrag();
- }else{
-  document.getElementById("taskContent").innerHTML+=`<div class="answers">${t.answers.map(v=>`<button class="answer" onclick="checkChoice(this,${v})">${v}</button>`).join("")}</div>`;
  }
 }
 
-function feedback(ok,msg){
- let f=document.getElementById("feedback");
+/* ============================
+   ODPOWIEDZI
+============================ */
+
+function showFeedback(ok,msg){
+ const f=document.getElementById("feedback");
  f.className="feedback "+(ok?"good":"bad");
  f.textContent=msg;
  if(ok){
@@ -720,77 +871,120 @@ function feedback(ok,msg){
  }
 }
 
-function checkChoice(btn,v){
+function checkChoice(btn,value){
  if(answered)return;
- let t=tasks[taskIndex];
- if(v===t.correct){
-  btn.classList.add("correct");
-  feedback(true,"🎉 Brawo! Miki jest zachwycony!");
+ if(value===tasks[taskIndex].correct){
+  btn.classList.add("good");
+  showFeedback(true,"🎉 Brawo! Miki jest zachwycony!");
  }else{
-  btn.classList.add("wrong");
-  feedback(false,"🧩 Spróbuj jeszcze raz! "+(t.hint||"Przyjrzyj się zadaniu."));
+  btn.classList.add("bad");
+  showFeedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj jeszcze raz.");
  }
 }
 
 function checkInput(){
  if(answered)return;
- let v=Number(document.getElementById("userAnswer").value);
- if(v===tasks[taskIndex].correct)feedback(true,"⭐ Doskonale! Odpowiedź prawidłowa!");
- else feedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj ponownie.");
+ const input=document.getElementById("userAnswer");
+ const value=Number(input.value);
+ if(input.value.trim()==="")return;
+ if(value===tasks[taskIndex].correct){
+  showFeedback(true,"⭐ Doskonale! Odpowiedź prawidłowa!");
+ }else{
+  showFeedback(false,"💡 "+tasks[taskIndex].hint+" Spróbuj ponownie.");
+ }
 }
 
+/* ============================
+   DOTYK I PRZECIĄGANIE
+============================ */
+
 function setupDrag(){
- let items=document.querySelectorAll(".dragitem");
- let zone=document.getElementById("dropzone");
+ const items=document.querySelectorAll(".dragitem");
+ const zone=document.getElementById("dropzone");
+
  items.forEach(item=>{
   item.addEventListener("pointerdown",e=>{
-   dragged=item;
+   dragSelected=item;
    item.setPointerCapture(e.pointerId);
+   item.style.opacity=".5";
   });
+
   item.addEventListener("pointerup",()=>{
-   if(dragged){
-    zone.textContent=dragged.dataset.v;
-    zone.classList.add("filled");
-    zone.dataset.v=dragged.dataset.v;
-    dragged.remove();
-    dragged=null;
-   }
+   if(!dragSelected)return;
+   dragSelected.style.opacity="1";
+   zone.classList.add("over");
+   zone.textContent=dragSelected.textContent;
+   zone.dataset.value=dragSelected.textContent;
+   dragSelected=null;
   });
  });
- zone.addEventListener("pointerdown",()=>zone.classList.add("over"));
 }
 
 function checkDrag(){
- let zone=document.getElementById("dropzone");
- let expected=tasks[taskIndex].correct.split(",");
- if(zone.dataset.v===expected[0])feedback(true,"Dobra kolejność! ⭐");
- else feedback(false,"Spróbuj ułożyć liczby od najmniejszej.");
+ if(answered)return;
+ const zone=document.getElementById("dropzone");
+ const expected=tasks[taskIndex].correct;
+ const actual=zone.dataset.value;
+ if(expected.length===1&&String(expected[0])===String(actual)){
+  showFeedback(true,"🎉 Doskonale!");
+ }else{
+  showFeedback(false,"💡 Ułóż liczby od najmniejszej do największej.");
+ }
 }
+
+/* ============================
+   KONIEC POZIOMU
+============================ */
 
 function nextTask(){
  if(!answered)return;
  taskIndex++;
- if(taskIndex<8){renderTask();return;}
- let key=grade+"-"+regionIndex+"-"+level;
+ if(taskIndex<8){
+  renderTask();
+  return;
+ }
+
+ const key=keyFor(grade,regionIndex,level);
  if(!save.done[key]){
   save.done[key]=true;
   save.xp+=100;
-  let badge="🏅 Detektyw poziomu "+level;
+  const badge="🏅 Detektyw poziomu "+level;
   if(!save.badges.includes(badge))save.badges.push(badge);
  }
  persist();
- document.getElementById("finishText").textContent="Zdobywasz 100 XP! Ukończono poziom "+level+".";
- show("finish");
+
+ document.getElementById("finishText").textContent=
+  "Zdobywasz 100 XP! Ukończono poziom "+level+".";
+ showScreen("finish");
 }
+
+/* ============================
+   ODZNAKI I STRONA GŁÓWNA
+============================ */
 
 function renderBadges(){
- let b=document.getElementById("homeBadges");
- if(!b)return;
- b.innerHTML=save.badges.length?save.badges.map(x=>`<span class="badge">${x}</span>`).join(""):"<p>Rozwiąż pierwszy poziom, aby zdobyć odznakę!</p>";
+ const el=document.getElementById("badges");
+ if(!el)return;
+ el.innerHTML=save.badges.length?
+  save.badges.map(b=>`<span class="badge">${b}</span>`).join("") :
+  "<p>Rozwiąż pierwszy poziom, aby zdobyć odznakę!</p>";
 }
 
+function renderHomeProgress(){
+ const el=document.getElementById("homeProgress");
+ const total=Object.keys(save.done).length;
+ el.textContent="Ukończone poziomy: "+total+" • Zdobyte XP: "+save.xp;
+}
+
+/* ============================
+   START
+============================ */
+
 persist();
-home();
+renderBadges();
+renderHomeProgress();
+showScreen("home");
+
 </script>
 </body>
 </html>
